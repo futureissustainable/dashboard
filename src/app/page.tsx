@@ -4,10 +4,10 @@ import { useState, useEffect } from "react";
 import { useStore } from "@/store/useStore";
 import DndProvider from "@/components/DndProvider";
 import ProjectColumn from "@/components/ProjectColumn";
-import { Plus, X, SquaresFour } from "@phosphor-icons/react";
+import { Plus, X, SquaresFour, SortAscending, FolderSimple } from "@phosphor-icons/react";
 
 export default function Home() {
-  const { projects, addProject } = useStore();
+  const { projects, addProject, sortMode, setSortMode } = useStore();
   const [showAddProject, setShowAddProject] = useState(false);
   const [newProjectName, setNewProjectName] = useState("");
   const [mounted, setMounted] = useState(false);
@@ -68,6 +68,27 @@ export default function Home() {
                   </span>
                 </>
               )}
+              <span className="text-border">|</span>
+              <button
+                onClick={() =>
+                  setSortMode(
+                    sortMode === "grouped" ? "importance" : "grouped"
+                  )
+                }
+                className="flex items-center gap-1.5 text-muted hover:text-foreground transition-colors duration-100 uppercase"
+                title={
+                  sortMode === "grouped"
+                    ? "Showing folders — click for flat priority view"
+                    : "Showing by importance — click for folder view"
+                }
+              >
+                {sortMode === "grouped" ? (
+                  <FolderSimple size={12} weight="bold" />
+                ) : (
+                  <SortAscending size={12} weight="bold" />
+                )}
+                {sortMode === "grouped" ? "Grouped" : "Importance"}
+              </button>
             </div>
           </div>
 
@@ -146,7 +167,7 @@ export default function Home() {
           /* Column layout */
           <div className="flex gap-3 sm:gap-4 p-4 sm:p-6 lg:p-8 h-[calc(100vh-72px)]">
             {sortedProjects.map((project, i) => (
-              <ProjectColumn key={project.id} project={project} index={i} />
+              <ProjectColumn key={project.id} project={project} index={i} sortMode={sortMode} />
             ))}
 
             {/* Quick add column */}

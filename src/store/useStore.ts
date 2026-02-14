@@ -36,8 +36,12 @@ export interface Project {
   tasks: Task[];
 }
 
+export type SortMode = "grouped" | "importance";
+
 interface StoreState {
   projects: Project[];
+  sortMode: SortMode;
+  setSortMode: (mode: SortMode) => void;
   addProject: (name: string) => void;
   deleteProject: (projectId: string) => void;
   updateProjectName: (projectId: string, name: string) => void;
@@ -86,6 +90,8 @@ export const useStore = create<StoreState>()(
   persist(
     (set) => ({
       projects: [],
+      sortMode: "grouped" as SortMode,
+      setSortMode: (mode) => set({ sortMode: mode }),
 
       addProject: (name) =>
         set((state) => ({

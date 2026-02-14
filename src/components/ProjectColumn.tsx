@@ -18,13 +18,15 @@ import TaskItem from "./TaskItem";
 import TaskFolder from "./TaskFolder";
 import IconPicker from "./IconPicker";
 import type { ProjectDropData } from "./DndProvider";
+import type { SortMode } from "@/store/useStore";
 
 interface ProjectColumnProps {
   project: Project;
   index: number;
+  sortMode: SortMode;
 }
 
-export default function ProjectColumn({ project, index }: ProjectColumnProps) {
+export default function ProjectColumn({ project, index, sortMode }: ProjectColumnProps) {
   const {
     deleteProject,
     updateProjectName,
@@ -92,9 +94,13 @@ export default function ProjectColumn({ project, index }: ProjectColumnProps) {
     setIsEditingName(false);
   };
 
+  const allTasksByPriority = [...project.tasks].sort(
+    (a, b) => a.priority - b.priority
+  );
   const looseTasks = project.tasks
     .filter((t) => !t.folderId)
     .sort((a, b) => a.priority - b.priority);
+  const isImportanceMode = sortMode === "importance";
 
   const totalTasks = project.tasks.length;
   const completedTasks = project.tasks.filter((t) => t.completed).length;
@@ -102,8 +108,8 @@ export default function ProjectColumn({ project, index }: ProjectColumnProps) {
 
   return (
     <div
-      className="column-enter flex-shrink-0 w-[calc(100vw-32px)] sm:w-[340px] lg:w-[360px] border border-border bg-surface flex flex-col max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-120px)]"
-      style={{ animationDelay: `${index * 80}ms` }}
+      className="column-enter border border-border bg-surface flex flex-col max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-120px)]"
+      style={{ animationDelay: `${index * 80}ms`, flex: "1 1 0", minWidth: "300px" }}
     >
       {/* ── Header ── */}
       <div className="p-4 sm:p-5">
@@ -241,71 +247,88 @@ export default function ProjectColumn({ project, index }: ProjectColumnProps) {
           isProjectOver ? "bg-hover/60" : ""
         }`}
       >
-        {/* Folders */}
-        {project.folders.map((folder) => {
-          const folderTasks = project.tasks.filter(
-            (t) => t.folderId === folder.id
-          );
-          return (
-            <TaskFolder
-              key={folder.id}
-              projectId={project.id}
-              folder={folder}
-              tasks={folderTasks}
-              color={color}
-            />
-          );
-        })}
+        {isImportanceMode ? (
+          /* ── Importance mode: flat list sorted by priority ── */
+          <>
+            {allTasksByPriority.map((task) => (
+              <TaskItem
+                key={task.id}
+                projectId={project.id}
+                task={task}
+                color={color}
+              />
+            ))}
+          </>
+        ) : (
+          /* ── Grouped mode: folders + uncategorized ── */
+          <>
+            {/* Folders */}
+            {project.folders.map((folder) => {
+              const folderTasks = project.tasks.filter(
+                (t) => t.folderId === folder.id
+              );
+              return (
+                <TaskFolder
+                  key={folder.id}
+                  projectId={project.id}
+                  folder={folder}
+                  tasks={folderTasks}
+                  color={color}
+                />
+              );
+            })}
 
-        {/* Add folder input */}
-        {showAddFolder && (
-          <div className="flex items-center gap-2.5 py-2 px-1 mb-2">
-            <FolderPlus size={14} weight="bold" className="text-muted flex-shrink-0" />
-            <input
-              type="text"
-              value={newFolderName}
-              onChange={(e) => setNewFolderName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleAddFolder();
-                if (e.key === "Escape") {
-                  setShowAddFolder(false);
-                  setNewFolderName("");
-                }
-              }}
-              placeholder="Folder name..."
-              className="flex-1 text-[12px] font-mono uppercase tracking-wider border-b border-border py-1.5 focus:border-muted"
-              autoFocus
-            />
-            <button
-              onClick={() => {
-                setShowAddFolder(false);
-                setNewFolderName("");
-              }}
-              className="text-muted hover:text-foreground p-1"
-            >
-              <X size={12} weight="bold" />
-            </button>
-          </div>
+            {/* Add folder input */}
+            {showAddFolder && (
+              <div className="flex items-center gap-2.5 py-2 px-1 mb-2">
+                <FolderPlus size={14} weight="bold" className="text-muted flex-shrink-0" />
+                <input
+                  type="text"
+                  value={newFolderName}
+                  onChange={(e) => setNewFolderName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleAddFolder();
+                    if (e.key === "Escape") {
+                      setShowAddFolder(false);
+                      setNewFolderName("");
+                    }
+                  }}
+                  placeholder="Folder name..."
+                  className="flex-1 text-[12px] font-mono uppercase tracking-wider border-b border-border py-1.5 focus:border-muted"
+                  autoFocus
+                />
+                <button
+                  onClick={() => {
+                    setShowAddFolder(false);
+                    setNewFolderName("");
+                  }}
+                  className="text-muted hover:text-foreground p-1"
+                >
+                  <X size={12} weight="bold" />
+                </button>
+              </div>
+            )}
+
+            {/* Uncategorized label */}
+            {looseTasks.length > 0 && project.folders.length > 0 && (
+              <div className="mt-3 mb-1 px-1">
+                <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-muted/40">
+                  Uncategorized
+                </span>
+              </div>
+            )}
+
+            {/* Loose tasks */}
+            {looseTasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                projectId={project.id}
+                task={task}
+                color={color}
+              />
+            ))}
+          </>
         )}
-
-        {/* Uncategorized label */}
-        {looseTasks.length > 0 && project.folders.length > 0 && (
-          <div className="mt-3 mb-1 px-1">
-            <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-muted/40">
-              Uncategorized
-            </span>
-          </div>
-        )}
-
-        {/* Loose tasks */}
-        {looseTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            projectId={project.id}
-            task={task}
-            color={color}
-          />
-        ))}
 
         {/* Inline add task input */}
         {showAddTask && (
