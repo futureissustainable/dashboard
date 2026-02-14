@@ -33,7 +33,7 @@ export default function ColorPicker({
       onClick={onClose}
     >
       <div
-        className="modal-content border border-border bg-surface-elevated w-full max-w-[320px]"
+        className="modal-content border border-border bg-surface-elevated w-full max-w-[360px]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 py-4 border-b border-border">

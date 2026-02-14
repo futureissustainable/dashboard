@@ -119,50 +119,52 @@ export default function Home() {
             )}
           </div>
 
-          {/* Add project */}
-          {showAddProject ? (
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <input
-                type="text"
-                value={newProjectName}
-                onChange={(e) => setNewProjectName(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleAddProject();
-                  if (e.key === "Escape") {
+          {/* Add project — fixed height container prevents header resize */}
+          <div className="flex items-center h-8 flex-shrink-0">
+            {showAddProject ? (
+              <div className="flex items-center gap-2 sm:gap-3">
+                <input
+                  type="text"
+                  value={newProjectName}
+                  onChange={(e) => setNewProjectName(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleAddProject();
+                    if (e.key === "Escape") {
+                      setShowAddProject(false);
+                      setNewProjectName("");
+                    }
+                  }}
+                  placeholder="Project name..."
+                  className="text-[12px] border-b border-border py-1 w-[140px] sm:w-[200px] focus:border-foreground"
+                  autoFocus
+                />
+                <button
+                  onClick={handleAddProject}
+                  className="text-[11px] font-mono uppercase tracking-wider text-muted hover:text-foreground border border-border px-3 py-1.5 hover:border-foreground transition-colors duration-100 flex-shrink-0"
+                >
+                  Create
+                </button>
+                <button
+                  onClick={() => {
                     setShowAddProject(false);
                     setNewProjectName("");
-                  }
-                }}
-                placeholder="Project name..."
-                className="text-[13px] sm:text-[14px] border-b border-border py-1 w-[140px] sm:w-[200px] focus:border-foreground"
-                autoFocus
-              />
+                  }}
+                  className="text-muted hover:text-foreground p-1"
+                >
+                  <X size={14} weight="bold" />
+                </button>
+              </div>
+            ) : (
               <button
-                onClick={handleAddProject}
-                className="text-[11px] font-mono uppercase tracking-wider text-muted hover:text-foreground border border-border px-3 py-1.5 hover:border-foreground transition-colors duration-100 flex-shrink-0"
+                onClick={() => setShowAddProject(true)}
+                className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-muted hover:text-foreground border border-border px-3 py-1.5 hover:border-foreground transition-colors duration-100"
               >
-                Create
+                <Plus size={12} weight="bold" />
+                <span className="hidden sm:inline">New Project</span>
+                <span className="sm:hidden">New</span>
               </button>
-              <button
-                onClick={() => {
-                  setShowAddProject(false);
-                  setNewProjectName("");
-                }}
-                className="text-muted hover:text-foreground p-1"
-              >
-                <X size={14} weight="bold" />
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowAddProject(true)}
-              className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-muted hover:text-foreground border border-border px-3 py-1.5 hover:border-foreground transition-colors duration-100 flex-shrink-0"
-            >
-              <Plus size={12} weight="bold" />
-              <span className="hidden sm:inline">New Project</span>
-              <span className="sm:hidden">New</span>
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </header>
 
@@ -196,18 +198,6 @@ export default function Home() {
             {sortedProjects.map((project, i) => (
               <ProjectColumn key={project.id} project={project} index={i} sortMode={sortMode} />
             ))}
-
-            {/* Quick add column */}
-            <button
-              onClick={() => setShowAddProject(true)}
-              className="flex-shrink-0 w-12 sm:w-14 border border-dashed border-border/30 flex items-center justify-center hover:border-border/60 transition-colors duration-200 group"
-            >
-              <Plus
-                size={16}
-                weight="bold"
-                className="text-muted/20 group-hover:text-muted/50 transition-colors duration-200"
-              />
-            </button>
           </div>
         )}
       </main>
