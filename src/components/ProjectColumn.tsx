@@ -182,16 +182,18 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
 
             {showMenu && (
               <div className="dropdown-enter absolute right-0 top-9 z-40 border border-border bg-surface-elevated min-w-[180px] py-1">
-                <button
-                  onClick={() => {
-                    setShowAddFolder(true);
-                    setShowMenu(false);
-                  }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
-                >
-                  <FolderPlus size={14} weight="bold" className="text-muted" />
-                  Add Folder
-                </button>
+                {!isImportanceMode && (
+                  <button
+                    onClick={() => {
+                      setShowAddFolder(true);
+                      setShowMenu(false);
+                    }}
+                    className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
+                  >
+                    <FolderPlus size={14} weight="bold" className="text-muted" />
+                    Add Folder
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     setIsEditingName(true);
@@ -248,16 +250,41 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
         }`}
       >
         {isImportanceMode ? (
-          /* ── Importance mode: flat list sorted by priority ── */
+          /* ── Importance mode: flat list sorted by priority with group headers ── */
           <>
-            {allTasksByPriority.map((task) => (
-              <TaskItem
-                key={task.id}
-                projectId={project.id}
-                task={task}
-                color={color}
-              />
-            ))}
+            {([1, 2, 3] as const).map((p) => {
+              const group = allTasksByPriority.filter((t) => t.priority === p);
+              if (group.length === 0) return null;
+              return (
+                <div key={p}>
+                  <div className="flex items-center gap-2 mt-2 mb-1 px-1">
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: p }).map((_, i) => (
+                        <span
+                          key={i}
+                          className="w-[5px] h-[5px] rounded-full"
+                          style={{ backgroundColor: color + "60" }}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-muted/30">
+                      Priority {p}
+                    </span>
+                    <span className="text-[10px] font-mono text-muted/20 tabular-nums">
+                      {group.length}
+                    </span>
+                  </div>
+                  {group.map((task) => (
+                    <TaskItem
+                      key={task.id}
+                      projectId={project.id}
+                      task={task}
+                      color={color}
+                    />
+                  ))}
+                </div>
+              );
+            })}
           </>
         ) : (
           /* ── Grouped mode: folders + uncategorized ── */
@@ -361,7 +388,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
         )}
 
         {/* Empty column state */}
-        {totalTasks === 0 && project.folders.length === 0 && !showAddTask && !showAddFolder && (
+        {totalTasks === 0 && !showAddTask && !showAddFolder && (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <div
               className="w-10 h-10 flex items-center justify-center mb-4"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { useStore, type Task, type Priority } from "@/store/useStore";
 import {
@@ -26,6 +26,15 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
   const [newSubTask, setNewSubTask] = useState("");
   const [showSubInput, setShowSubInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useCallback(
+    (node: HTMLTextAreaElement | null) => {
+      if (node && task.description) {
+        node.style.height = "auto";
+        node.style.height = node.scrollHeight + "px";
+      }
+    },
+    [task.description]
+  );
 
   // ── Draggable ──
   const dragData: TaskDragData = {
@@ -177,6 +186,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
           <div className="pl-[42px] pr-2 pb-3 space-y-0.5">
             {/* Notes */}
             <textarea
+              ref={textareaRef}
               value={task.description}
               onChange={(e) =>
                 updateTask(projectId, task.id, {

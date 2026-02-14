@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <DndProvider>
-    <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen bg-background flex flex-col">
       {/* ── Header ── */}
       <header className="border-b border-border flex-shrink-0">
         <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex items-center justify-between gap-4">
@@ -68,28 +68,55 @@ export default function Home() {
                   </span>
                 </>
               )}
-              <span className="text-border">|</span>
+              {projects.length > 0 && (
+                <>
+                  <span className="text-border">|</span>
+                  <button
+                    onClick={() =>
+                      setSortMode(
+                        sortMode === "grouped" ? "importance" : "grouped"
+                      )
+                    }
+                    className="flex items-center gap-1.5 text-muted hover:text-foreground transition-colors duration-100 uppercase"
+                    title={
+                      sortMode === "grouped"
+                        ? "Showing folders — click for flat priority view"
+                        : "Showing by importance — click for folder view"
+                    }
+                  >
+                    {sortMode === "grouped" ? (
+                      <FolderSimple size={12} weight="bold" />
+                    ) : (
+                      <SortAscending size={12} weight="bold" />
+                    )}
+                    {sortMode === "grouped" ? "Grouped" : "Importance"}
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Mobile sort toggle */}
+            {projects.length > 0 && (
               <button
                 onClick={() =>
                   setSortMode(
                     sortMode === "grouped" ? "importance" : "grouped"
                   )
                 }
-                className="flex items-center gap-1.5 text-muted hover:text-foreground transition-colors duration-100 uppercase"
+                className="sm:hidden flex-shrink-0 text-muted hover:text-foreground p-1.5 transition-colors duration-100"
                 title={
                   sortMode === "grouped"
-                    ? "Showing folders — click for flat priority view"
-                    : "Showing by importance — click for folder view"
+                    ? "Switch to importance view"
+                    : "Switch to grouped view"
                 }
               >
                 {sortMode === "grouped" ? (
-                  <FolderSimple size={12} weight="bold" />
+                  <FolderSimple size={16} weight="bold" />
                 ) : (
-                  <SortAscending size={12} weight="bold" />
+                  <SortAscending size={16} weight="bold" />
                 )}
-                {sortMode === "grouped" ? "Grouped" : "Importance"}
               </button>
-            </div>
+            )}
           </div>
 
           {/* Add project */}
@@ -184,7 +211,7 @@ export default function Home() {
           </div>
         )}
       </main>
-    </div>
+      </div>
     </DndProvider>
   );
 }
