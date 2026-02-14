@@ -43,7 +43,7 @@ export default function Home() {
       <header className="border-b border-border px-6 py-5 flex items-center justify-between flex-shrink-0">
         <div className="flex items-baseline gap-4">
           <h1 className="font-mono text-[20px] font-bold tracking-[-0.02em]">
-            TASKS
+            taskido
           </h1>
           <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted">
             {projects.length} Project{projects.length !== 1 ? "s" : ""}

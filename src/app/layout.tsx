@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TASKS",
-  description: "Brutalist task management system",
+  title: "taskido",
+  description: "taskido.com — brutalist task management",
 };
 
 export default function RootLayout({
