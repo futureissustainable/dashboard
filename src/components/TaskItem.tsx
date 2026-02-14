@@ -85,10 +85,10 @@ export default function TaskItem({ projectId, task, color, depth = 0 }: TaskItem
   const completedCount = task.subtasks.filter((s) => s.completed).length;
   const totalSubs = task.subtasks.length;
 
-  // Opacity: priority (1=100%, 2=75%, 3=50%) * depth (0=100%, 1=90%, 2+=80%), floor 30%
-  const priorityFactor = task.priority === 1 ? 1 : task.priority === 2 ? 0.75 : 0.5;
-  const depthFactor = depth === 0 ? 1 : depth === 1 ? 0.9 : 0.8;
-  const titleOpacity = Math.max(0.3, priorityFactor * depthFactor);
+  // Opacity: additive reduction — priority (1=0%, 2=25%, 3=50%) + depth (0=0%, 1=10%, 2+=20%), floor 30%
+  const priorityReduction = task.priority === 1 ? 0 : task.priority === 2 ? 0.25 : 0.5;
+  const depthReduction = depth === 0 ? 0 : depth === 1 ? 0.1 : 0.2;
+  const titleOpacity = Math.max(0.3, 1 - priorityReduction - depthReduction);
 
   return (
     <div
