@@ -1,15 +1,18 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { useStore, type Task, type Priority } from "@/store/useStore";
 import {
   CaretRight,
   Plus,
   Trash,
   Check,
+  DotsSixVertical,
 } from "@phosphor-icons/react";
 import PriorityDots from "./PriorityDots";
 import SubTaskItem from "./SubTaskItem";
+import type { TaskDragData, TaskDropData } from "./DndProvider";
 
 interface TaskItemProps {
   projectId: string;
@@ -23,6 +26,45 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
   const [newSubTask, setNewSubTask] = useState("");
   const [showSubInput, setShowSubInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useCallback(
+    (node: HTMLTextAreaElement | null) => {
+      if (node && task.description) {
+        node.style.height = "auto";
+        node.style.height = node.scrollHeight + "px";
+      }
+    },
+    [task.description]
+  );
+
+  // ── Draggable ──
+  const dragData: TaskDragData = {
+    type: "task",
+    task,
+    sourceProjectId: projectId,
+    color,
+  };
+
+  const {
+    attributes: dragAttributes,
+    listeners: dragListeners,
+    setNodeRef: setDragRef,
+    isDragging,
+  } = useDraggable({
+    id: `task-drag-${task.id}`,
+    data: dragData,
+  });
+
+  // ── Droppable (drop ON this task = convert to subtask) ──
+  const dropData: TaskDropData = {
+    type: "task",
+    projectId,
+    taskId: task.id,
+  };
+
+  const { setNodeRef: setDropRef, isOver } = useDroppable({
+    id: `task-drop-${task.id}`,
+    data: dropData,
+  });
 
   const handleAddSubTask = () => {
     if (!newSubTask.trim()) return;
@@ -35,37 +77,54 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
   const totalSubs = task.subtasks.length;
 
   return (
-    <div className="border-b border-border/40 last:border-b-0">
+    <div
+      ref={(node) => {
+        setDragRef(node);
+        setDropRef(node);
+      }}
+      className={`group/task transition-all duration-150 ${
+        isDragging ? "opacity-30" : ""
+      } ${isOver ? "drop-target-task" : ""}`}
+    >
       {/* Header row */}
       <div
-        className="flex items-center gap-3 py-3 px-1 cursor-pointer group hover:bg-hover/50 transition-colors duration-100"
+        className="flex items-center gap-1.5 py-2.5 px-1 -mx-1 cursor-pointer rounded-sm hover:bg-hover transition-colors duration-100"
         onClick={() => setExpanded(!expanded)}
       >
+        {/* Drag handle */}
+        <div
+          className="flex-shrink-0 text-muted/0 group-hover/task:text-muted/30 hover:!text-muted/60 cursor-grab active:cursor-grabbing transition-colors duration-100 p-0.5 touch-none"
+          {...dragListeners}
+          {...dragAttributes}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <DotsSixVertical size={12} weight="bold" />
+        </div>
+
         <CaretRight
-          size={12}
+          size={11}
           weight="bold"
-          className={`text-muted flex-shrink-0 transition-transform duration-200 ${
+          className={`text-muted/60 flex-shrink-0 transition-transform duration-200 ${
             expanded ? "rotate-90" : ""
           }`}
         />
 
-        {/* Completion checkbox */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             updateTask(projectId, task.id, { completed: !task.completed });
           }}
-          className="flex-shrink-0 w-4 h-4 border flex items-center justify-center transition-colors duration-100"
+          className="flex-shrink-0 w-[15px] h-[15px] border flex items-center justify-center transition-all duration-150"
           style={{
-            borderColor: task.completed ? color : "#444",
+            borderColor: task.completed ? color : "#333",
             backgroundColor: task.completed ? color : "transparent",
           }}
         >
-          {task.completed && <Check size={10} weight="bold" color="#000" />}
+          {task.completed && <Check size={9} weight="bold" color="#000" />}
         </button>
 
         <span
-          className={`text-[14px] flex-1 ${
+          className={`text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 truncate transition-colors duration-150 ${
             task.completed
               ? "line-through text-muted"
               : "text-foreground"
@@ -74,21 +133,24 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
           {task.title}
         </span>
 
-        {/* Sub-task count badge */}
+        {/* Sub-task count */}
         {totalSubs > 0 && (
           <span
-            className="text-[10px] font-mono px-1.5 py-0.5"
+            className="flex-shrink-0 text-[10px] font-mono tabular-nums px-1.5 py-0.5 rounded-sm"
             style={{
-              color: color,
-              border: `1px solid ${color}44`,
+              color,
+              backgroundColor: color + "12",
             }}
           >
             {completedCount}/{totalSubs}
           </span>
         )}
 
-        {/* Priority dots */}
-        <div onClick={(e) => e.stopPropagation()}>
+        {/* Priority */}
+        <div
+          className="flex-shrink-0"
+          onClick={(e) => e.stopPropagation()}
+        >
           <PriorityDots
             priority={task.priority}
             color={color}
@@ -104,81 +166,107 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
             e.stopPropagation();
             deleteTask(projectId, task.id);
           }}
-          className="opacity-0 group-hover:opacity-100 text-muted hover:text-foreground transition-opacity duration-100"
+          className="flex-shrink-0 opacity-0 group-hover/task:opacity-100 text-muted hover:text-foreground transition-opacity duration-100 p-1"
         >
-          <Trash size={13} weight="bold" />
+          <Trash size={12} weight="bold" />
         </button>
       </div>
 
-      {/* Accordion body */}
-      <div
-        className={`accordion-content ${expanded ? "expanded" : "collapsed"}`}
-      >
-        <div className="pl-10 pr-2 pb-3 space-y-1">
-          {/* Description */}
-          <textarea
-            value={task.description}
-            onChange={(e) =>
-              updateTask(projectId, task.id, { description: e.target.value })
-            }
-            placeholder="Add notes..."
-            className="w-full text-[12px] text-muted resize-none bg-transparent border-none focus:text-foreground/70 leading-relaxed min-h-[24px]"
-            rows={1}
-            onInput={(e) => {
-              const target = e.target as HTMLTextAreaElement;
-              target.style.height = "auto";
-              target.style.height = target.scrollHeight + "px";
-            }}
-          />
+      {/* Drop indicator line */}
+      {isOver && (
+        <div
+          className="h-[2px] mx-1 -mt-0.5 mb-0.5 rounded-full"
+          style={{ backgroundColor: color }}
+        />
+      )}
 
-          {/* Subtasks list */}
-          {task.subtasks.map((sub) => (
-            <SubTaskItem
-              key={sub.id}
-              projectId={projectId}
-              taskId={task.id}
-              subtask={sub}
-              color={color}
+      {/* Accordion body — CSS grid trick */}
+      <div className={`accordion-wrapper ${expanded ? "open" : ""}`}>
+        <div className="accordion-inner">
+          <div className="pl-[42px] pr-2 pb-3 space-y-0.5">
+            {/* Notes */}
+            <textarea
+              ref={textareaRef}
+              value={task.description}
+              onChange={(e) =>
+                updateTask(projectId, task.id, {
+                  description: e.target.value,
+                })
+              }
+              placeholder="Add notes..."
+              className="w-full text-[12px] text-muted/80 resize-none bg-transparent leading-relaxed min-h-[28px] py-1 focus:text-foreground-secondary placeholder:text-muted/40"
+              rows={1}
+              onClick={(e) => e.stopPropagation()}
+              onInput={(e) => {
+                const target = e.target as HTMLTextAreaElement;
+                target.style.height = "auto";
+                target.style.height = target.scrollHeight + "px";
+              }}
             />
-          ))}
 
-          {/* Add subtask */}
-          {showSubInput ? (
-            <div className="flex items-center gap-2 pt-1">
-              <input
-                ref={inputRef}
-                type="text"
-                value={newSubTask}
-                onChange={(e) => setNewSubTask(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") handleAddSubTask();
-                  if (e.key === "Escape") {
+            {/* Subtasks */}
+            {task.subtasks.length > 0 && (
+              <div className="pt-1 space-y-0">
+                {task.subtasks.map((sub) => (
+                  <SubTaskItem
+                    key={sub.id}
+                    projectId={projectId}
+                    taskId={task.id}
+                    subtask={sub}
+                    color={color}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Add subtask */}
+            {showSubInput ? (
+              <div className="flex items-center gap-2 pt-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={newSubTask}
+                  onChange={(e) => setNewSubTask(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleAddSubTask();
+                    if (e.key === "Escape") {
+                      setShowSubInput(false);
+                      setNewSubTask("");
+                    }
+                  }}
+                  placeholder="Sub-task title..."
+                  className="flex-1 text-[12px] border-b border-border py-1.5 focus:border-muted"
+                  autoFocus
+                />
+                <button
+                  onClick={() => {
                     setShowSubInput(false);
                     setNewSubTask("");
-                  }
-                }}
-                placeholder="Sub-task..."
-                className="flex-1 text-[12px] border-b border-border/50 py-1 focus:border-foreground/30"
-                autoFocus
-              />
+                  }}
+                  className="text-muted hover:text-foreground p-1"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-wider">
+                    Esc
+                  </span>
+                </button>
+              </div>
+            ) : (
               <button
-                onClick={handleAddSubTask}
-                className="text-[10px] font-mono uppercase tracking-wider text-muted hover:text-foreground"
+                onClick={() => setShowSubInput(true)}
+                className="flex items-center gap-1.5 text-[11px] text-muted/50 hover:text-muted pt-2 transition-colors duration-100"
               >
-                Add
+                <Plus size={10} weight="bold" />
+                <span className="font-mono uppercase tracking-wider">
+                  Sub-task
+                </span>
               </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowSubInput(true)}
-              className="flex items-center gap-1.5 text-[11px] text-muted hover:text-foreground pt-1 font-mono uppercase tracking-wider"
-            >
-              <Plus size={10} weight="bold" />
-              Sub-task
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Divider */}
+      <div className="h-px bg-border-light mx-1" />
     </div>
   );
 }

@@ -4,11 +4,13 @@
 :root {
   --background: #000000;
   --foreground: #FFFFFF;
-  --border: #333333;
-  --muted: #888888;
-  --surface: #0A0A0A;
-  --surface-elevated: #111111;
-  --hover: #1A1A1A;
+  --foreground-secondary: #BBBBBB;
+  --border: #222222;
+  --border-light: #181818;
+  --muted: #666666;
+  --surface: #080808;
+  --surface-elevated: #0E0E0E;
+  --hover: #141414;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
@@ -22,7 +24,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
   --color-border: var(--border);
+  --color-border-light: var(--border-light);
   --color-muted: var(--muted);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
@@ -35,94 +39,141 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Albert Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-/* Scrollbar - brutalist thin */
+/* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #222;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #444;
 }
 
-/* Selection */
 ::selection {
   background: #FFFFFF;
   color: #000000;
 }
 
-/* Focus ring - brutalist */
 *:focus-visible {
   outline: 1px solid #FFFFFF;
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
-/* Accordion animation */
-.accordion-content {
+/* ─── Accordion (CSS grid trick — smooth, no max-height hack) ─── */
+.accordion-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-normal) var(--ease-standard);
+}
+.accordion-wrapper.open {
+  grid-template-rows: 1fr;
+}
+.accordion-inner {
   overflow: hidden;
-  transition: max-height var(--duration-normal) var(--ease-standard),
-              opacity var(--duration-fast) var(--ease-standard);
 }
 
-.accordion-content.collapsed {
-  max-height: 0;
-  opacity: 0;
-}
-
-.accordion-content.expanded {
-  max-height: 2000px;
-  opacity: 1;
-}
-
-/* Column fade-in */
-@keyframes columnEnter {
+/* ─── Column stagger entrance ─── */
+@keyframes columnSlideUp {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .column-enter {
-  animation: columnEnter var(--duration-normal) var(--ease-out) forwards;
+  animation: columnSlideUp var(--duration-slow) var(--ease-out) both;
 }
 
-/* Input reset */
+/* ─── Modal animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.modal-backdrop {
+  animation: fadeIn var(--duration-fast) var(--ease-out) both;
+}
+.modal-content {
+  animation: scaleIn var(--duration-normal) var(--ease-out) both;
+}
+
+/* ─── Dropdown entrance ─── */
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.dropdown-enter {
+  animation: dropdownIn var(--duration-fast) var(--ease-out) both;
+}
+
+/* ─── Progress bar ─── */
+.progress-track {
+  height: 2px;
+  background: var(--border-light);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+/* ─── Drag and drop ─── */
+.drop-target-task {
+  background: var(--hover);
+  border-radius: 2px;
+}
+
+/* ─── Resets ─── */
 input, textarea {
   background: transparent;
   border: none;
   color: inherit;
   font-family: inherit;
+  font-size: inherit;
 }
-
 input::placeholder, textarea::placeholder {
   color: var(--muted);
 }
-
 input:focus, textarea:focus {
   outline: none;
 }
 
-/* Button reset */
 button {
   background: none;
   border: none;

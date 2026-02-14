@@ -15,8 +15,10 @@ export default function PriorityDots({
   onChangePriority,
   size = "sm",
 }: PriorityDotsProps) {
-  const dotSize = size === "sm" ? "w-[5px] h-[5px]" : "w-[7px] h-[7px]";
-  const gap = size === "sm" ? "gap-[3px]" : "gap-[4px]";
+  const dotSize = size === "sm" ? 5 : 7;
+  const gap = size === "sm" ? 3 : 4;
+  const padX = size === "sm" ? 6 : 8;
+  const padY = size === "sm" ? 4 : 5;
 
   const cyclePriority = () => {
     if (!onChangePriority) return;
@@ -27,15 +29,28 @@ export default function PriorityDots({
   return (
     <button
       onClick={cyclePriority}
-      className={`flex items-center ${gap} ${onChangePriority ? "cursor-pointer hover:opacity-70" : "cursor-default"}`}
+      className={`inline-flex items-center rounded-full transition-opacity duration-100 ${
+        onChangePriority
+          ? "cursor-pointer hover:opacity-70 active:opacity-50"
+          : "cursor-default"
+      }`}
+      style={{
+        gap: `${gap}px`,
+        padding: `${padY}px ${padX}px`,
+        backgroundColor: color + "12",
+      }}
       title={`Priority ${priority} — click to cycle`}
       type="button"
     >
       {Array.from({ length: priority }).map((_, i) => (
         <span
           key={i}
-          className={`${dotSize} rounded-full`}
-          style={{ backgroundColor: color }}
+          className="rounded-full"
+          style={{
+            width: dotSize,
+            height: dotSize,
+            backgroundColor: color,
+          }}
         />
       ))}
     </button>

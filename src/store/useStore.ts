@@ -36,8 +36,12 @@ export interface Project {
   tasks: Task[];
 }
 
+export type SortMode = "grouped" | "importance";
+
 interface StoreState {
   projects: Project[];
+  sortMode: SortMode;
+  setSortMode: (mode: SortMode) => void;
   addProject: (name: string) => void;
   deleteProject: (projectId: string) => void;
   updateProjectName: (projectId: string, name: string) => void;
@@ -68,12 +72,26 @@ interface StoreState {
     taskId: string,
     subTaskId: string
   ) => void;
+  moveTask: (
+    sourceProjectId: string,
+    taskId: string,
+    targetProjectId: string,
+    targetFolderId: string | null
+  ) => void;
+  convertToSubTask: (
+    sourceProjectId: string,
+    taskId: string,
+    targetProjectId: string,
+    targetTaskId: string
+  ) => void;
 }
 
 export const useStore = create<StoreState>()(
   persist(
     (set) => ({
       projects: [],
+      sortMode: "grouped" as SortMode,
+      setSortMode: (mode) => set({ sortMode: mode }),
 
       addProject: (name) =>
         set((state) => ({
@@ -266,6 +284,95 @@ export const useStore = create<StoreState>()(
               : p
           ),
         })),
+
+      moveTask: (sourceProjectId, taskId, targetProjectId, targetFolderId) =>
+        set((state) => {
+          const sourceProject = state.projects.find(
+            (p) => p.id === sourceProjectId
+          );
+          if (!sourceProject) return state;
+          const task = sourceProject.tasks.find((t) => t.id === taskId);
+          if (!task) return state;
+
+          // Same project, same folder — no-op
+          if (
+            sourceProjectId === targetProjectId &&
+            task.folderId === targetFolderId
+          )
+            return state;
+
+          const movedTask = { ...task, folderId: targetFolderId };
+
+          return {
+            projects: state.projects.map((p) => {
+              if (p.id === sourceProjectId && p.id === targetProjectId) {
+                // Same project, different folder
+                return {
+                  ...p,
+                  tasks: p.tasks.map((t) =>
+                    t.id === taskId ? movedTask : t
+                  ),
+                };
+              }
+              if (p.id === sourceProjectId) {
+                // Remove from source
+                return {
+                  ...p,
+                  tasks: p.tasks.filter((t) => t.id !== taskId),
+                };
+              }
+              if (p.id === targetProjectId) {
+                // Add to target
+                return { ...p, tasks: [...p.tasks, movedTask] };
+              }
+              return p;
+            }),
+          };
+        }),
+
+      convertToSubTask: (sourceProjectId, taskId, targetProjectId, targetTaskId) =>
+        set((state) => {
+          // Don't nest a task into itself
+          if (taskId === targetTaskId) return state;
+
+          const sourceProject = state.projects.find(
+            (p) => p.id === sourceProjectId
+          );
+          if (!sourceProject) return state;
+          const task = sourceProject.tasks.find((t) => t.id === taskId);
+          if (!task) return state;
+
+          const newSubTask: SubTask = {
+            id: task.id,
+            title: task.title,
+            completed: task.completed,
+          };
+
+          return {
+            projects: state.projects.map((p) => {
+              let tasks = p.tasks;
+
+              // Remove the task from source project
+              if (p.id === sourceProjectId) {
+                tasks = tasks.filter((t) => t.id !== taskId);
+              }
+
+              // Add as subtask to target task
+              if (p.id === targetProjectId) {
+                tasks = tasks.map((t) =>
+                  t.id === targetTaskId
+                    ? { ...t, subtasks: [...t.subtasks, newSubTask] }
+                    : t
+                );
+              }
+
+              if (p.id === sourceProjectId || p.id === targetProjectId) {
+                return { ...p, tasks };
+              }
+              return p;
+            }),
+          };
+        }),
     }),
     {
       name: "task-management-store",

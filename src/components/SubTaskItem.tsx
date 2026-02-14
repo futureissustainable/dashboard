@@ -19,31 +19,33 @@ export default function SubTaskItem({
   const { toggleSubTask, deleteSubTask } = useStore();
 
   return (
-    <div className="group flex items-center gap-3 py-1.5">
+    <div className="group flex items-center gap-3 py-2 px-1 -mx-1 rounded-sm hover:bg-hover transition-colors duration-100">
       <button
         onClick={() => toggleSubTask(projectId, taskId, subtask.id)}
-        className="flex-shrink-0 w-3.5 h-3.5 border flex items-center justify-center transition-colors duration-100"
+        className="flex-shrink-0 w-4 h-4 border flex items-center justify-center transition-all duration-150"
         style={{
-          borderColor: subtask.completed ? color : "#555",
+          borderColor: subtask.completed ? color : "#333",
           backgroundColor: subtask.completed ? color : "transparent",
         }}
       >
         {subtask.completed && (
-          <Check size={9} weight="bold" color="#000" />
+          <Check size={10} weight="bold" color="#000" />
         )}
       </button>
       <span
-        className={`text-[13px] flex-1 ${
-          subtask.completed ? "line-through text-muted" : "text-foreground/80"
+        className={`text-[13px] leading-snug flex-1 transition-colors duration-150 ${
+          subtask.completed
+            ? "line-through text-muted"
+            : "text-foreground-secondary"
         }`}
       >
         {subtask.title}
       </span>
       <button
         onClick={() => deleteSubTask(projectId, taskId, subtask.id)}
-        className="opacity-0 group-hover:opacity-100 text-muted hover:text-foreground transition-opacity duration-100"
+        className="opacity-0 group-hover:opacity-100 text-muted hover:text-foreground transition-opacity duration-100 p-1"
       >
-        <X size={12} weight="bold" />
+        <X size={11} weight="bold" />
       </button>
     </div>
   );
