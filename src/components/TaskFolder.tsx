@@ -149,6 +149,7 @@ export default function TaskFolder({
                 projectId={projectId}
                 task={task}
                 color={color}
+                depth={1}
               />
             ))}
 
