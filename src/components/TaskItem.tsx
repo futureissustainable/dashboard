@@ -17,9 +17,10 @@ interface TaskItemProps {
   projectId: string;
   task: Task;
   color: string;
+  depth?: number;
 }
 
-export default function TaskItem({ projectId, task, color }: TaskItemProps) {
+export default function TaskItem({ projectId, task, color, depth = 0 }: TaskItemProps) {
   const { updateTask, deleteTask, addSubTask } = useStore();
   const [expanded, setExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -84,6 +85,11 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
   const completedCount = task.subtasks.filter((s) => s.completed).length;
   const totalSubs = task.subtasks.length;
 
+  // Opacity: priority (1=100%, 2=75%, 3=50%) * depth (0=100%, 1=90%, 2+=80%), floor 30%
+  const priorityFactor = task.priority === 1 ? 1 : task.priority === 2 ? 0.75 : 0.5;
+  const depthFactor = depth === 0 ? 1 : depth === 1 ? 0.9 : 0.8;
+  const titleOpacity = Math.max(0.3, priorityFactor * depthFactor);
+
   return (
     <div
       ref={(node) => {
@@ -143,11 +149,12 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
           />
         ) : (
           <span
-            className={`text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 truncate transition-colors duration-150 ${
+            className={`text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 truncate transition-all duration-150 ${
               task.completed
                 ? "line-through text-muted"
                 : "text-foreground"
             }`}
+            style={!task.completed ? { opacity: titleOpacity } : undefined}
             onDoubleClick={(e) => {
               e.stopPropagation();
               setEditTitle(task.title);
