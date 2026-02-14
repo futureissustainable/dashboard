@@ -192,7 +192,7 @@ export default function Home() {
           </div>
         ) : (
           /* Column layout */
-          <div className="flex gap-3 sm:gap-4 p-4 sm:p-6 lg:p-8 h-[calc(100vh-72px)]">
+          <div className="flex gap-3 sm:gap-4 p-4 sm:p-6 lg:p-8 h-[calc(100vh-72px)] min-w-full">
             {sortedProjects.map((project, i) => (
               <ProjectColumn key={project.id} project={project} index={i} sortMode={sortMode} />
             ))}

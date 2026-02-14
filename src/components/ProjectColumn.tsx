@@ -17,6 +17,7 @@ import PriorityDots from "./PriorityDots";
 import TaskItem from "./TaskItem";
 import TaskFolder from "./TaskFolder";
 import IconPicker from "./IconPicker";
+import ColorPicker from "./ColorPicker";
 import type { ProjectDropData } from "./DndProvider";
 import type { SortMode } from "@/store/useStore";
 
@@ -31,6 +32,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
     deleteProject,
     updateProjectName,
     updateProjectIcon,
+    updateProjectColor,
     updateProjectPriority,
     addTask,
     addFolder,
@@ -38,6 +40,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
 
   const [showMenu, setShowMenu] = useState(false);
   const [showIconPicker, setShowIconPicker] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editName, setEditName] = useState(project.name);
   const [showAddTask, setShowAddTask] = useState(false);
@@ -181,14 +184,14 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
             </button>
 
             {showMenu && (
-              <div className="dropdown-enter absolute right-0 top-9 z-40 border border-border bg-surface-elevated min-w-[180px] py-1">
+              <div className="dropdown-enter absolute right-0 top-9 z-40 border border-border bg-surface-elevated min-w-[190px] py-2">
                 {!isImportanceMode && (
                   <button
                     onClick={() => {
                       setShowAddFolder(true);
                       setShowMenu(false);
                     }}
-                    className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
+                    className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
                   >
                     <FolderPlus size={14} weight="bold" className="text-muted" />
                     Add Folder
@@ -199,7 +202,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
                     setIsEditingName(true);
                     setShowMenu(false);
                   }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
+                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
                 >
                   <PencilSimple size={14} weight="bold" className="text-muted" />
                   Rename
@@ -209,18 +212,31 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
                     setShowIconPicker(true);
                     setShowMenu(false);
                   }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
+                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
                 >
                   <Palette size={14} weight="bold" className="text-muted" />
                   Change Icon
                 </button>
-                <div className="h-px bg-border my-1 mx-3" />
+                <button
+                  onClick={() => {
+                    setShowColorPicker(true);
+                    setShowMenu(false);
+                  }}
+                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-left text-foreground-secondary hover:bg-hover hover:text-foreground transition-colors"
+                >
+                  <div
+                    className="w-3.5 h-3.5 flex-shrink-0 border border-white/20"
+                    style={{ backgroundColor: color }}
+                  />
+                  Change Color
+                </button>
+                <div className="h-px bg-border my-2 mx-4" />
                 <button
                   onClick={() => {
                     deleteProject(project.id);
                     setShowMenu(false);
                   }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[12px] text-left text-red-400/80 hover:bg-hover hover:text-red-400 transition-colors"
+                  className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-left text-red-400/80 hover:bg-hover hover:text-red-400 transition-colors"
                 >
                   <Trash size={14} weight="bold" />
                   Delete Project
@@ -425,6 +441,15 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
           color={color}
           onSelect={(iconName) => updateProjectIcon(project.id, iconName)}
           onClose={() => setShowIconPicker(false)}
+        />
+      )}
+
+      {/* Color picker modal */}
+      {showColorPicker && (
+        <ColorPicker
+          currentColor={color}
+          onSelect={(c) => updateProjectColor(project.id, c)}
+          onClose={() => setShowColorPicker(false)}
         />
       )}
     </div>

@@ -46,6 +46,10 @@ interface StoreState {
   deleteProject: (projectId: string) => void;
   updateProjectName: (projectId: string, name: string) => void;
   updateProjectIcon: (projectId: string, iconName: string) => void;
+  updateProjectColor: (
+    projectId: string,
+    color: { name: string; bg: string; text: string }
+  ) => void;
   updateProjectPriority: (projectId: string, priority: Priority) => void;
   addFolder: (projectId: string, name: string) => void;
   deleteFolder: (projectId: string, folderId: string) => void;
@@ -125,6 +129,13 @@ export const useStore = create<StoreState>()(
         set((state) => ({
           projects: state.projects.map((p) =>
             p.id === projectId ? { ...p, iconName } : p
+          ),
+        })),
+
+      updateProjectColor: (projectId, color) =>
+        set((state) => ({
+          projects: state.projects.map((p) =>
+            p.id === projectId ? { ...p, color } : p
           ),
         })),
 
