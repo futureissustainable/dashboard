@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useDroppable } from "@dnd-kit/core";
 import { useStore, type Task, type Folder } from "@/store/useStore";
 import {
   FolderSimple,
@@ -10,6 +11,7 @@ import {
   X,
 } from "@phosphor-icons/react";
 import TaskItem from "./TaskItem";
+import type { FolderDropData } from "./DndProvider";
 
 interface TaskFolderProps {
   projectId: string;
@@ -25,6 +27,17 @@ export default function TaskFolder({
   color,
 }: TaskFolderProps) {
   const { deleteFolder, renameFolder, addTask } = useStore();
+
+  const dropData: FolderDropData = {
+    type: "folder",
+    projectId,
+    folderId: folder.id,
+  };
+
+  const { setNodeRef: setDropRef, isOver } = useDroppable({
+    id: `folder-drop-${folder.id}`,
+    data: dropData,
+  });
   const [expanded, setExpanded] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(folder.name);
@@ -48,7 +61,13 @@ export default function TaskFolder({
   const sortedTasks = [...tasks].sort((a, b) => a.priority - b.priority);
 
   return (
-    <div className="mb-1">
+    <div
+      ref={setDropRef}
+      className={`mb-1 transition-all duration-150 ${
+        isOver ? "rounded-sm bg-hover/50" : ""
+      }`}
+      style={isOver ? { outlineColor: color + "60", outline: `1px solid ${color}60` } : {}}
+    >
       {/* Folder header */}
       <div
         className="flex items-center gap-2 py-2.5 px-2 -mx-1 cursor-pointer group rounded-sm hover:bg-hover transition-colors duration-100"

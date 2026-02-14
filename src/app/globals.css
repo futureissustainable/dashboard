@@ -153,6 +153,12 @@ body {
   transition: width var(--duration-normal) var(--ease-out);
 }
 
+/* ─── Drag and drop ─── */
+.drop-target-task {
+  background: var(--hover);
+  border-radius: 2px;
+}
+
 /* ─── Resets ─── */
 input, textarea {
   background: transparent;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useDroppable } from "@dnd-kit/core";
 import { useStore, type Project, type Priority } from "@/store/useStore";
 import {
   DotsThree,
@@ -16,6 +17,7 @@ import PriorityDots from "./PriorityDots";
 import TaskItem from "./TaskItem";
 import TaskFolder from "./TaskFolder";
 import IconPicker from "./IconPicker";
+import type { ProjectDropData } from "./DndProvider";
 
 interface ProjectColumnProps {
   project: Project;
@@ -42,6 +44,16 @@ export default function ProjectColumn({ project, index }: ProjectColumnProps) {
   const [newFolderName, setNewFolderName] = useState("");
 
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // ── Droppable (drop on this project = move to root, no folder) ──
+  const projectDropData: ProjectDropData = {
+    type: "project",
+    projectId: project.id,
+  };
+  const { setNodeRef: setProjectDropRef, isOver: isProjectOver } = useDroppable({
+    id: `project-drop-${project.id}`,
+    data: projectDropData,
+  });
 
   // Click-outside for dropdown menu
   const closeMenu = useCallback(() => setShowMenu(false), []);
@@ -222,8 +234,13 @@ export default function ProjectColumn({ project, index }: ProjectColumnProps) {
         </div>
       </div>
 
-      {/* ── Body — scrollable ── */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-5 pb-2">
+      {/* ── Body — scrollable + project drop target ── */}
+      <div
+        ref={setProjectDropRef}
+        className={`flex-1 overflow-y-auto px-4 sm:px-5 pb-2 transition-colors duration-150 ${
+          isProjectOver ? "bg-hover/60" : ""
+        }`}
+      >
         {/* Folders */}
         {project.folders.map((folder) => {
           const folderTasks = project.tasks.filter(

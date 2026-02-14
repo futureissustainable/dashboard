@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useStore } from "@/store/useStore";
+import DndProvider from "@/components/DndProvider";
 import ProjectColumn from "@/components/ProjectColumn";
 import { Plus, X, SquaresFour } from "@phosphor-icons/react";
 
@@ -46,6 +47,7 @@ export default function Home() {
   }
 
   return (
+    <DndProvider>
     <div className="min-h-screen bg-background flex flex-col">
       {/* ── Header ── */}
       <header className="border-b border-border flex-shrink-0">
@@ -162,5 +164,6 @@ export default function Home() {
         )}
       </main>
     </div>
+    </DndProvider>
   );
 }
