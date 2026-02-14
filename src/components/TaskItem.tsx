@@ -8,7 +8,6 @@ import {
   Plus,
   Trash,
   Check,
-  DotsSixVertical,
 } from "@phosphor-icons/react";
 import PriorityDots from "./PriorityDots";
 import SubTaskItem from "./SubTaskItem";
@@ -23,6 +22,8 @@ interface TaskItemProps {
 export default function TaskItem({ projectId, task, color }: TaskItemProps) {
   const { updateTask, deleteTask, addSubTask } = useStore();
   const [expanded, setExpanded] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(task.title);
   const [newSubTask, setNewSubTask] = useState("");
   const [showSubInput, setShowSubInput] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,6 +74,13 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
     inputRef.current?.focus();
   };
 
+  const handleRename = () => {
+    if (editTitle.trim() && editTitle.trim() !== task.title) {
+      updateTask(projectId, task.id, { title: editTitle.trim() });
+    }
+    setIsEditing(false);
+  };
+
   const completedCount = task.subtasks.filter((s) => s.completed).length;
   const totalSubs = task.subtasks.length;
 
@@ -86,21 +94,13 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
         isDragging ? "opacity-30" : ""
       } ${isOver ? "drop-target-task" : ""}`}
     >
-      {/* Header row */}
+      {/* Header row — entire row is draggable */}
       <div
-        className="flex items-center gap-1.5 py-2.5 px-1 -mx-1 cursor-pointer rounded-sm hover:bg-hover transition-colors duration-100"
+        className="flex items-center gap-1.5 py-2.5 px-1 -mx-1 cursor-grab active:cursor-grabbing rounded-sm hover:bg-hover transition-colors duration-100 touch-none"
         onClick={() => setExpanded(!expanded)}
+        {...dragListeners}
+        {...dragAttributes}
       >
-        {/* Drag handle */}
-        <div
-          className="flex-shrink-0 text-muted/0 group-hover/task:text-muted/30 hover:!text-muted/60 cursor-grab active:cursor-grabbing transition-colors duration-100 p-0.5 touch-none"
-          {...dragListeners}
-          {...dragAttributes}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <DotsSixVertical size={12} weight="bold" />
-        </div>
-
         <CaretRight
           size={11}
           weight="bold"
@@ -114,6 +114,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
             e.stopPropagation();
             updateTask(projectId, task.id, { completed: !task.completed });
           }}
+          onPointerDown={(e) => e.stopPropagation()}
           className="flex-shrink-0 w-[15px] h-[15px] border flex items-center justify-center transition-all duration-150"
           style={{
             borderColor: task.completed ? color : "#333",
@@ -123,15 +124,40 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
           {task.completed && <Check size={9} weight="bold" color="#000" />}
         </button>
 
-        <span
-          className={`text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 truncate transition-colors duration-150 ${
-            task.completed
-              ? "line-through text-muted"
-              : "text-foreground"
-          }`}
-        >
-          {task.title}
-        </span>
+        {isEditing ? (
+          <input
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+            onBlur={handleRename}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleRename();
+              if (e.key === "Escape") {
+                setEditTitle(task.title);
+                setIsEditing(false);
+              }
+            }}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            className="text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 border-b border-border py-0.5 cursor-text"
+            autoFocus
+          />
+        ) : (
+          <span
+            className={`text-[13px] sm:text-[14px] leading-snug flex-1 min-w-0 truncate transition-colors duration-150 ${
+              task.completed
+                ? "line-through text-muted"
+                : "text-foreground"
+            }`}
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setEditTitle(task.title);
+              setIsEditing(true);
+            }}
+            title="Double-click to rename"
+          >
+            {task.title}
+          </span>
+        )}
 
         {/* Sub-task count */}
         {totalSubs > 0 && (
@@ -150,6 +176,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
         <div
           className="flex-shrink-0"
           onClick={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           <PriorityDots
             priority={task.priority}
@@ -166,6 +193,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
             e.stopPropagation();
             deleteTask(projectId, task.id);
           }}
+          onPointerDown={(e) => e.stopPropagation()}
           className="flex-shrink-0 opacity-0 group-hover/task:opacity-100 text-muted hover:text-foreground transition-opacity duration-100 p-1"
         >
           <Trash size={12} weight="bold" />
@@ -183,7 +211,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
       {/* Accordion body — CSS grid trick */}
       <div className={`accordion-wrapper ${expanded ? "open" : ""}`}>
         <div className="accordion-inner">
-          <div className="pl-[42px] pr-2 pb-3 space-y-0.5">
+          <div className="pl-[36px] pr-2 pb-3 space-y-0.5">
             {/* Notes */}
             <textarea
               ref={textareaRef}
