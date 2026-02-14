@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useCallback } from "react";
 import { PROJECT_ICONS } from "@/lib/constants";
 import { X } from "@phosphor-icons/react";
 
@@ -16,21 +17,39 @@ export default function IconPicker({
   onSelect,
   onClose,
 }: IconPickerProps) {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center modal-backdrop bg-black/70 p-4"
+      onClick={onClose}
+    >
       <div
-        className="border border-border bg-surface-elevated p-6 w-[360px]"
+        className="modal-content border border-border bg-surface-elevated w-full max-w-[360px]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-6">
-          <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+          <span className="font-mono text-[12px] uppercase tracking-[0.15em] text-muted">
             Select Icon
           </span>
-          <button onClick={onClose} className="text-muted hover:text-foreground">
-            <X size={16} weight="bold" />
+          <button
+            onClick={onClose}
+            className="text-muted hover:text-foreground p-1 -mr-1 transition-colors duration-100"
+          >
+            <X size={14} weight="bold" />
           </button>
         </div>
-        <div className="grid grid-cols-6 gap-2">
+        <div className="grid grid-cols-6 gap-1 p-4">
           {PROJECT_ICONS.map((icon) => {
             const IconComp = icon.component;
             const isActive = icon.name === currentIcon;
@@ -41,18 +60,18 @@ export default function IconPicker({
                   onSelect(icon.name);
                   onClose();
                 }}
-                className={`flex items-center justify-center p-2.5 border transition-colors duration-100 ${
+                className={`flex items-center justify-center p-3 border transition-all duration-100 ${
                   isActive
-                    ? "border-foreground"
-                    : "border-transparent hover:border-border"
+                    ? "border-foreground/40"
+                    : "border-transparent hover:border-border hover:bg-hover"
                 }`}
-                style={isActive ? { backgroundColor: color + "22" } : {}}
+                style={isActive ? { backgroundColor: color + "18" } : {}}
                 title={icon.name}
               >
                 <IconComp
                   size={20}
-                  weight="bold"
-                  color={isActive ? color : "#888"}
+                  weight={isActive ? "fill" : "bold"}
+                  color={isActive ? color : "#555"}
                 />
               </button>
             );
