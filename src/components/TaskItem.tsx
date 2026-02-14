@@ -117,11 +117,11 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
           onPointerDown={(e) => e.stopPropagation()}
           className="flex-shrink-0 w-[15px] h-[15px] border flex items-center justify-center transition-all duration-150"
           style={{
-            borderColor: task.completed ? color : "#333",
+            borderColor: task.completed ? color : "var(--border)",
             backgroundColor: task.completed ? color : "transparent",
           }}
         >
-          {task.completed && <Check size={9} weight="bold" color="#000" />}
+          {task.completed && <Check size={9} weight="bold" color="var(--background)" />}
         </button>
 
         {isEditing ? (
@@ -263,7 +263,7 @@ export default function TaskItem({ projectId, task, color }: TaskItemProps) {
                     }
                   }}
                   placeholder="Sub-task title..."
-                  className="flex-1 text-[12px] border-b border-border py-1.5 focus:border-muted"
+                  className="flex-1 text-[12px] border-b border-border py-1.5 focus:border-foreground"
                   autoFocus
                 />
                 <button

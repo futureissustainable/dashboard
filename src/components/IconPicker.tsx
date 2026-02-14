@@ -71,7 +71,7 @@ export default function IconPicker({
                 <IconComp
                   size={20}
                   weight={isActive ? "fill" : "bold"}
-                  color={isActive ? color : "#555"}
+                  color={isActive ? color : "var(--muted)"}
                 />
               </button>
             );

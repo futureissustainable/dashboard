@@ -166,7 +166,7 @@ export default function TaskFolder({
                     }
                   }}
                   placeholder="Task name..."
-                  className="flex-1 text-[13px] border-b border-border py-1.5 focus:border-muted"
+                  className="flex-1 text-[13px] border-b border-border py-1.5 focus:border-foreground"
                   autoFocus
                 />
                 <button

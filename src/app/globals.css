@@ -61,19 +61,19 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: var(--border);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: var(--muted);
 }
 
 ::selection {
-  background: #FFFFFF;
-  color: #000000;
+  background: var(--foreground);
+  color: var(--background);
 }
 
 *:focus-visible {
-  outline: 1px solid #FFFFFF;
+  outline: 1px solid var(--foreground);
   outline-offset: 2px;
 }
 

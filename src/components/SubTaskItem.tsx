@@ -24,12 +24,12 @@ export default function SubTaskItem({
         onClick={() => toggleSubTask(projectId, taskId, subtask.id)}
         className="flex-shrink-0 w-4 h-4 border flex items-center justify-center transition-all duration-150"
         style={{
-          borderColor: subtask.completed ? color : "#333",
+          borderColor: subtask.completed ? color : "var(--border)",
           backgroundColor: subtask.completed ? color : "transparent",
         }}
       >
         {subtask.completed && (
-          <Check size={10} weight="bold" color="#000" />
+          <Check size={10} weight="bold" color="var(--background)" />
         )}
       </button>
       <span

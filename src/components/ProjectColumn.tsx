@@ -283,10 +283,10 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
                         />
                       ))}
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-[0.12em] text-muted/30">
+                    <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-muted/30">
                       Priority {p}
                     </span>
-                    <span className="text-[10px] font-mono text-muted/20 tabular-nums">
+                    <span className="text-[11px] font-mono text-muted/20 tabular-nums">
                       {group.length}
                     </span>
                   </div>
@@ -337,7 +337,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
                     }
                   }}
                   placeholder="Folder name..."
-                  className="flex-1 text-[12px] font-mono uppercase tracking-wider border-b border-border py-1.5 focus:border-muted"
+                  className="flex-1 text-[12px] font-mono uppercase tracking-wider border-b border-border py-1.5 focus:border-foreground"
                   autoFocus
                 />
                 <button
@@ -388,7 +388,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
                 }
               }}
               placeholder="Task name..."
-              className="flex-1 text-[13px] border-b border-border py-1.5 focus:border-muted"
+              className="flex-1 text-[13px] border-b border-border py-1.5 focus:border-foreground"
               autoFocus
             />
             <button
@@ -423,7 +423,7 @@ export default function ProjectColumn({ project, index, sortMode }: ProjectColum
       <div className="border-t border-border px-4 sm:px-5 py-3">
         <button
           onClick={() => setShowAddTask(true)}
-          className="flex items-center gap-2 w-full text-[12px] font-mono uppercase tracking-[0.1em] text-muted/60 hover:text-foreground transition-colors duration-150 py-1 group"
+          className="flex items-center gap-2 w-full text-[12px] font-mono uppercase tracking-[0.1em] text-muted/60 hover:text-foreground transition-colors duration-100 py-1 group"
         >
           <Plus
             size={13}
