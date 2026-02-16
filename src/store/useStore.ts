@@ -41,6 +41,7 @@ export type SortMode = "grouped" | "importance";
 interface StoreState {
   projects: Project[];
   sortMode: SortMode;
+  lastModified: number;
   setSortMode: (mode: SortMode) => void;
   addProject: (name: string) => void;
   deleteProject: (projectId: string) => void;
@@ -88,6 +89,11 @@ interface StoreState {
     targetProjectId: string,
     targetTaskId: string
   ) => void;
+  setRemoteState: (
+    projects: Project[],
+    sortMode: SortMode,
+    lastModified: number
+  ) => void;
 }
 
 export const useStore = create<StoreState>()(
@@ -95,7 +101,9 @@ export const useStore = create<StoreState>()(
     (set) => ({
       projects: [],
       sortMode: "grouped" as SortMode,
-      setSortMode: (mode) => set({ sortMode: mode }),
+      lastModified: 0,
+
+      setSortMode: (mode) => set({ sortMode: mode, lastModified: Date.now() }),
 
       addProject: (name) =>
         set((state) => ({
@@ -111,11 +119,13 @@ export const useStore = create<StoreState>()(
               tasks: [],
             },
           ],
+          lastModified: Date.now(),
         })),
 
       deleteProject: (projectId) =>
         set((state) => ({
           projects: state.projects.filter((p) => p.id !== projectId),
+          lastModified: Date.now(),
         })),
 
       updateProjectName: (projectId, name) =>
@@ -123,6 +133,7 @@ export const useStore = create<StoreState>()(
           projects: state.projects.map((p) =>
             p.id === projectId ? { ...p, name } : p
           ),
+          lastModified: Date.now(),
         })),
 
       updateProjectIcon: (projectId, iconName) =>
@@ -130,6 +141,7 @@ export const useStore = create<StoreState>()(
           projects: state.projects.map((p) =>
             p.id === projectId ? { ...p, iconName } : p
           ),
+          lastModified: Date.now(),
         })),
 
       updateProjectColor: (projectId, color) =>
@@ -137,6 +149,7 @@ export const useStore = create<StoreState>()(
           projects: state.projects.map((p) =>
             p.id === projectId ? { ...p, color } : p
           ),
+          lastModified: Date.now(),
         })),
 
       updateProjectPriority: (projectId, priority) =>
@@ -144,6 +157,7 @@ export const useStore = create<StoreState>()(
           projects: state.projects.map((p) =>
             p.id === projectId ? { ...p, priority } : p
           ),
+          lastModified: Date.now(),
         })),
 
       addFolder: (projectId, name) =>
@@ -153,6 +167,7 @@ export const useStore = create<StoreState>()(
               ? { ...p, folders: [...p.folders, { id: uuid(), name }] }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       deleteFolder: (projectId, folderId) =>
@@ -168,6 +183,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       renameFolder: (projectId, folderId, name) =>
@@ -182,6 +198,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       addTask: (projectId, title, folderId) =>
@@ -205,6 +222,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       deleteTask: (projectId, taskId) =>
@@ -214,6 +232,7 @@ export const useStore = create<StoreState>()(
               ? { ...p, tasks: p.tasks.filter((t) => t.id !== taskId) }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       updateTask: (projectId, taskId, updates) =>
@@ -228,6 +247,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       addSubTask: (projectId, taskId, title) =>
@@ -250,6 +270,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       deleteSubTask: (projectId, taskId, subTaskId) =>
@@ -271,6 +292,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       toggleSubTask: (projectId, taskId, subTaskId) =>
@@ -294,6 +316,7 @@ export const useStore = create<StoreState>()(
                 }
               : p
           ),
+          lastModified: Date.now(),
         })),
 
       moveTask: (sourceProjectId, taskId, targetProjectId, targetFolderId) =>
@@ -338,6 +361,7 @@ export const useStore = create<StoreState>()(
               }
               return p;
             }),
+            lastModified: Date.now(),
           };
         }),
 
@@ -382,8 +406,12 @@ export const useStore = create<StoreState>()(
               }
               return p;
             }),
+            lastModified: Date.now(),
           };
         }),
+
+      setRemoteState: (projects, sortMode, lastModified) =>
+        set({ projects, sortMode, lastModified }),
     }),
     {
       name: "task-management-store",
