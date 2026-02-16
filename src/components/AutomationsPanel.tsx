@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowClockwise, CircleNotch, FileText } from "@phosphor-icons/react";
+import { ArrowClockwise, CircleNotch, FileText, Play } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
 import DocsEditor from "./DocsEditor";
@@ -23,6 +23,8 @@ export default function AutomationsPanel() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [total, setTotal] = useState(0);
+
+  const [triggering, setTriggering] = useState(false);
 
   // Feedback modal
   const [reviewTarget, setReviewTarget] = useState<{
@@ -106,6 +108,40 @@ export default function AutomationsPanel() {
     }
   };
 
+  const triggerWorkflow = async () => {
+    setTriggering(true);
+    try {
+      // Get list of workflows
+      const listRes = await fetch("/api/automations/trigger");
+      const listData = await listRes.json();
+      const workflows = listData.workflows || [];
+
+      if (workflows.length === 0) {
+        alert("No active workflows found in the repo.");
+        return;
+      }
+
+      // Trigger the first active workflow (or the only one)
+      const res = await fetch("/api/automations/trigger", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workflow_id: workflows[0].id }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert(`Triggered "${workflows[0].name}" — check Actions tab for progress.`);
+      } else {
+        alert(`Failed: ${data.error || "Unknown error"}`);
+      }
+    } catch (e) {
+      console.error("Trigger error:", e);
+      alert("Failed to trigger workflow.");
+    } finally {
+      setTriggering(false);
+    }
+  };
+
   if (view === "docs") {
     return (
       <div className="h-[calc(100vh-72px)]">
@@ -144,6 +180,18 @@ export default function AutomationsPanel() {
           >
             <FileText size={12} weight="bold" />
             Docs
+          </button>
+          <button
+            onClick={triggerWorkflow}
+            disabled={triggering}
+            className="text-muted hover:text-foreground p-1.5 transition-colors duration-100"
+            title="Run automation now"
+          >
+            {triggering ? (
+              <CircleNotch size={14} weight="bold" className="animate-spin" />
+            ) : (
+              <Play size={14} weight="fill" />
+            )}
           </button>
           <button
             onClick={() => fetchPosts()}
