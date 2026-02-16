@@ -328,7 +328,10 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          STATUS="$(git status --porcelain output/reddit/ feedback/reddit/)"
+          # Build list of existing paths to check (feedback dir may not exist yet)
+          PATHS="output/reddit/"
+          [ -d "feedback/reddit" ] && PATHS="$PATHS feedback/reddit/"
+          STATUS="$(git status --porcelain $PATHS)"
           if [ -z "$STATUS" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "::warning::No new post generated"
@@ -344,7 +347,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add output/reddit/ feedback/reddit/
+          git add output/reddit/
+          git add feedback/reddit/ 2>/dev/null || true
 
           TODAY="${{ steps.date.outputs.today }}"
           PILLAR="${{ steps.pillar.outputs.pillar }}"

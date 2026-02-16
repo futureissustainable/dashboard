@@ -65,14 +65,17 @@ export async function GET(request: Request) {
         const date = file.name.slice(0, 10);
         const slug = file.name.slice(11).replace(/\.md$/, "");
 
-        // Check for feedback
+        // Check for feedback — must match this specific post file, not just date
         let feedback = undefined;
         const feedbackKey = `${file.platform}/${date}.json`;
         const feedbackPath = feedbackMap.get(feedbackKey);
         if (feedbackPath) {
           try {
             const fb = await getFileContent(feedbackPath);
-            feedback = JSON.parse(fb.content);
+            const parsed = JSON.parse(fb.content);
+            if (parsed.postFile === file.name) {
+              feedback = parsed;
+            }
           } catch {
             // feedback file may be malformed, skip
           }
