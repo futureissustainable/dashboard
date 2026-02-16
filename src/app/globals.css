@@ -182,3 +182,109 @@ button {
   font-family: inherit;
   padding: 0;
 }
+
+/* ─── Post content (Markdown in automations) ─── */
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--foreground);
+  margin: 16px 0 8px;
+}
+.post-content h1 { font-size: 14px; }
+.post-content p {
+  margin: 8px 0;
+  line-height: 1.7;
+}
+.post-content ul,
+.post-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+.post-content li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+.post-content strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.post-content a {
+  color: var(--foreground-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.post-content a:hover {
+  color: var(--foreground);
+}
+.post-content blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+  color: var(--muted);
+  margin: 12px 0;
+}
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  margin: 12px 0;
+}
+.post-content th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 8px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.post-content td {
+  border-bottom: 1px solid var(--border-light);
+  padding: 6px 8px;
+  color: var(--foreground-secondary);
+}
+.post-content code {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  background: var(--surface-elevated);
+  padding: 1px 4px;
+}
+.post-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+
+/* ─── Score slider ─── */
+.score-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--border);
+  outline: none;
+  border-radius: 0;
+}
+.score-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--foreground);
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+}
+.score-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--foreground);
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+}

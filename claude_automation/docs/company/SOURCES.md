@@ -2,6 +2,8 @@
 
 **Purpose:** Authoritative references for all biobuilds content. (Last updated: February 2026)
 
+**Usage Rule:** ONLY USE IF NECESSARY FOR YOUR POINT/NARRATIVE. DON'T QUOTE A LOT OF SOURCES JUST FOR THE SAKE OF IT.
+
 ---
 
 ## Contents

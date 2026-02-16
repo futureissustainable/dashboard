@@ -115,6 +115,16 @@ Examples:
 
 ---
 
+## Feedback Loop
+
+Before generating a new post, check `feedback/` for past feedback on your platform:
+- `feedback/{platform}/YYYY-MM-DD.json` — contains approval status, score, and user reasoning
+- Learn from denied posts: read the `feedback` field and avoid repeating the same mistakes
+- Learn from low-scoring approved posts: the `feedback` field contains improvement notes
+- Prioritize patterns from high-scoring (80+) posts
+
+---
+
 ## Strategy Documents
 
 ### Shared (all platforms)

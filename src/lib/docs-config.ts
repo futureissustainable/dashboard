@@ -1,0 +1,86 @@
+export const EDITABLE_DOCS = [
+  {
+    id: "reddit-soul",
+    label: "Reddit Soul",
+    group: "Reddit",
+    path: "claude_automation/docs/reddit/REDDIT_SOUL.md",
+  },
+  {
+    id: "reddit-playbook",
+    label: "Reddit Playbook",
+    group: "Reddit",
+    path: "claude_automation/docs/reddit/REDDIT_PLAYBOOK.md",
+  },
+  {
+    id: "reddit-seo",
+    label: "Reddit SEO Report",
+    group: "Reddit",
+    path: "claude_automation/docs/reddit/REDDIT_REPORT_SEO.md",
+  },
+  {
+    id: "reddit-ai",
+    label: "Reddit AI Report",
+    group: "Reddit",
+    path: "claude_automation/docs/reddit/REDDIT_REPORT_AI.md",
+  },
+  {
+    id: "linkedin-soul",
+    label: "LinkedIn Soul",
+    group: "LinkedIn",
+    path: "claude_automation/docs/linkedin/LINKEDIN_SOUL.md",
+  },
+  {
+    id: "linkedin-playbook",
+    label: "LinkedIn Playbook",
+    group: "LinkedIn",
+    path: "claude_automation/docs/linkedin/LINKEDIN_PLAYBOOK.md",
+  },
+  {
+    id: "linkedin-past",
+    label: "LinkedIn Past Posts",
+    group: "LinkedIn",
+    path: "claude_automation/docs/linkedin/linkedin-past-posts.md",
+  },
+  {
+    id: "instagram-soul",
+    label: "Instagram Soul",
+    group: "Instagram",
+    path: "claude_automation/docs/instagram/INSTAGRAM_SOUL.md",
+  },
+  {
+    id: "instagram-playbook",
+    label: "Instagram Playbook",
+    group: "Instagram",
+    path: "claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md",
+  },
+  {
+    id: "instagram-past",
+    label: "Instagram Past Posts",
+    group: "Instagram",
+    path: "claude_automation/docs/instagram/instagram-past-posts.md",
+  },
+  {
+    id: "company-overview",
+    label: "Company Overview",
+    group: "Company",
+    path: "claude_automation/docs/company/biobuilds-company-overview.md",
+  },
+  {
+    id: "sources",
+    label: "Sources",
+    group: "Company",
+    path: "claude_automation/docs/company/SOURCES.md",
+  },
+  {
+    id: "claude-md",
+    label: "CLAUDE.md",
+    group: "System",
+    path: "claude_automation/CLAUDE.md",
+  },
+  {
+    id: "architecture",
+    label: "Architecture",
+    group: "System",
+    path: "claude_automation/ARCHITECTURE.md",
+  },
+];
