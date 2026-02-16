@@ -93,7 +93,7 @@ jobs:
 
       - name: Summarize feedback
         if: steps.check_feedback.outputs.has_new == 'true'
-        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -135,7 +135,7 @@ jobs:
 
           claude_args: |
             --max-turns 15
-            --model claude-haiku-4-5-20251001
+            --model claude-haiku-4-5
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -182,7 +182,7 @@ jobs:
 
       # --- Generate single caption (all markets) ---------------------------
       - name: Generate Instagram caption (all markets)
-        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
