@@ -69,6 +69,34 @@ jobs:
           echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
           echo "This week's pillar: ${PILLARS[$INDEX]}"
 
+      - name: Collect recent feedback
+        id: feedback
+        run: |
+          DIR="claude_automation/feedback/reddit"
+          if [ -d "$DIR" ]; then
+            FILES=$(ls -1 "$DIR"/*.json 2>/dev/null | sort -r | head -5)
+            if [ -n "$FILES" ]; then
+              SUMMARY=""
+              for f in $FILES; do
+                DATE=$(basename "$f" .json)
+                STATUS=$(jq -r '.status // "unknown"' "$f")
+                SCORE=$(jq -r '.score // "?"' "$f")
+                FB=$(jq -r '.feedback // ""' "$f" | head -c 200)
+                SUMMARY="${SUMMARY}${DATE}: ${STATUS} (${SCORE}/100) — ${FB}"$'\n'
+              done
+              echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+              echo "$SUMMARY" >> "$GITHUB_OUTPUT"
+              echo "EOF" >> "$GITHUB_OUTPUT"
+              echo "has_feedback=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_feedback=false" >> "$GITHUB_OUTPUT"
+              echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "has_feedback=false" >> "$GITHUB_OUTPUT"
+            echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
+          fi
+
       # --- Generate single post (all markets) ------------------------------
       - name: Generate Reddit post (all markets)
         uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
@@ -80,6 +108,14 @@ jobs:
             You are a Reddit post generator for the BioBuilds content strategy.
             Today's date: ${{ steps.date.outputs.today }}
             This week's content pillar: ${{ steps.pillar.outputs.pillar }}
+
+            ===============================================================
+            RECENT FEEDBACK ON PAST REDDIT POSTS (learn from this)
+            ===============================================================
+            ${{ steps.feedback.outputs.summary }}
+
+            Apply these lessons: repeat what scored high, fix what was denied
+            or scored low. This is non-negotiable.
 
             DO NOT run any git commands.
             DO NOT create branches, commits, or pull requests.
