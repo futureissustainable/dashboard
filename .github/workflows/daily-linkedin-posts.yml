@@ -104,11 +104,11 @@ jobs:
             DO NOT run any git commands.
 
             Steps:
-            1. Read feedback/linkedin/SUMMARY.md if it exists
-            2. List all .json files in feedback/linkedin/
+            1. Read claude_automation/feedback/linkedin/SUMMARY.md if it exists
+            2. List all .json files in claude_automation/feedback/linkedin/
             3. Read each JSON file. SKIP any where "summarized" is true.
                If no unsummarized files exist, stop — do nothing.
-            4. Update feedback/linkedin/SUMMARY.md with this exact format:
+            4. Update claude_automation/feedback/linkedin/SUMMARY.md with this exact format:
 
             ## LinkedIn Feedback ({N} posts reviewed)
 
@@ -135,7 +135,6 @@ jobs:
           claude_args: |
             --max-turns 15
             --model claude-haiku-4-5-20251001
-            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -249,24 +248,24 @@ jobs:
             PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
             ===============================================================
 
-            1. Read CLAUDE.md — project rules and constraints
-            2. Read docs/linkedin/LINKEDIN_SOUL.md — voice, writing rules,
+            1. Read claude_automation/CLAUDE.md — project rules and constraints
+            2. Read claude_automation/docs/linkedin/LINKEDIN_SOUL.md — voice, writing rules,
                audience segments, format strategy, output format
-            3. Read docs/linkedin/LINKEDIN_PLAYBOOK.md — platform strategy,
+            3. Read claude_automation/docs/linkedin/LINKEDIN_PLAYBOOK.md — platform strategy,
                algorithm signals, hook formulas, do's and don'ts
-            4. Read docs/linkedin/linkedin-past-posts.md — past post data.
+            4. Read claude_automation/docs/linkedin/linkedin-past-posts.md — past post data.
                Study what worked (high reactions) and what didn't.
-            5. Read docs/company/biobuilds-company-overview.md — company data,
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data,
                products, certifications, milestones, technical specs
-            6. Read .agents/skills/seo-audit/references/ai-writing-detection.md
-            7. If creatives are available, read Creatives/CATALOG.md for
+            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            7. If creatives are available, read claude_automation/Creatives/CATALOG.md for
                descriptions and metadata about each file
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
             ===============================================================
 
-            8. List all files in output/linkedin/ directory
+            8. List all files in claude_automation/output/linkedin/ directory
             9. Read the last 5 LinkedIn posts (if they exist) and extract:
                - What topics were already covered
                - What audience segments were targeted
@@ -291,7 +290,7 @@ jobs:
             PHASE 4 — MATCH CREATIVE (if available)
             ===============================================================
 
-            13. If Creatives/ has files, read Creatives/CATALOG.md and use the
+            13. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
                 descriptions and status to pick the best match for this week's
                 pillar and today's topic.
                 ONLY pick creatives that LinkedIn hasn't already used.
@@ -323,10 +322,10 @@ jobs:
                 - NO broetry, no "let that sink in", no emoji formatting
             19. Include creative_file or carousel_prompt or photo_prompt.
                 If using a catalog creative, set:
-                  creative_file: "Creatives/filename.jpg"
+                  creative_file: "claude_automation/Creatives/filename.jpg"
                   creative_status: "REQUEST USE LINKEDIN"
                 If no catalog match, provide photo_prompt/carousel_prompt only.
-            20. Save to output/linkedin/ as:
+            20. Save to claude_automation/output/linkedin/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
@@ -348,7 +347,6 @@ jobs:
           claude_args: |
             --max-turns 35
             --model claude-opus-4-6
-            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------

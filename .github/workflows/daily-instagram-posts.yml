@@ -105,11 +105,11 @@ jobs:
             DO NOT run any git commands.
 
             Steps:
-            1. Read feedback/instagram/SUMMARY.md if it exists
-            2. List all .json files in feedback/instagram/
+            1. Read claude_automation/feedback/instagram/SUMMARY.md if it exists
+            2. List all .json files in claude_automation/feedback/instagram/
             3. Read each JSON file. SKIP any where "summarized" is true.
                If no unsummarized files exist, stop — do nothing.
-            4. Update feedback/instagram/SUMMARY.md with this exact format:
+            4. Update claude_automation/feedback/instagram/SUMMARY.md with this exact format:
 
             ## Instagram Feedback ({N} posts reviewed)
 
@@ -136,7 +136,6 @@ jobs:
           claude_args: |
             --max-turns 15
             --model claude-haiku-4-5-20251001
-            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -242,24 +241,24 @@ jobs:
             PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
             ===============================================================
 
-            1. Read CLAUDE.md — project rules and constraints
-            2. Read docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
+            1. Read claude_automation/CLAUDE.md — project rules and constraints
+            2. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
                visual matching, audience segments, output format
-            3. Read docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
+            3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
                algorithm signals, visual guidelines, posting mechanics
-            4. Read docs/instagram/instagram-past-posts.md — past post data.
+            4. Read claude_automation/docs/instagram/instagram-past-posts.md — past post data.
                Study what worked (high likes, saves, shares) and what didn't.
                Pay special attention to visual descriptions of top performers.
-            5. Read docs/company/biobuilds-company-overview.md — company data
-            6. Read .agents/skills/seo-audit/references/ai-writing-detection.md
-            7. If creatives are available, read Creatives/CATALOG.md first for
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
+            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            7. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
                descriptions and metadata about each file, then list folder contents
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
             ===============================================================
 
-            8. List all files in output/instagram/ directory
+            8. List all files in claude_automation/output/instagram/ directory
             9. Read the last 5 Instagram posts (if they exist) and extract:
                 - What topics were already covered
                 - What visual styles were used
@@ -271,7 +270,7 @@ jobs:
             PHASE 3 — MATCH CREATIVE (if available)
             ===============================================================
 
-            11. If Creatives/ has files, read Creatives/CATALOG.md and use the
+            11. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
                 descriptions and status to pick the best match for this week's
                 pillar and today's topic.
                 ONLY pick creatives that Instagram hasn't already used.
@@ -304,10 +303,10 @@ jobs:
                 - NO spec dumps as the lead
             18. Include creative_brief or creative_file match.
                 If using a catalog creative, set:
-                  creative_file: "Creatives/filename.jpg"
+                  creative_file: "claude_automation/Creatives/filename.jpg"
                   creative_status: "REQUEST USE INSTA"
                 If no catalog match, provide creative_brief only.
-            19. Save to output/instagram/ as:
+            19. Save to claude_automation/output/instagram/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
@@ -328,7 +327,6 @@ jobs:
           claude_args: |
             --max-turns 35
             --model claude-opus-4-6
-            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
