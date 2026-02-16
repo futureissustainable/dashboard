@@ -1,0 +1,3 @@
+{
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- src/ package.json next.config.ts public/ tsconfig.json postcss.config.mjs eslint.config.mjs"
+}
