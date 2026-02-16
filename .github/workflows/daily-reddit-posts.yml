@@ -133,11 +133,10 @@ jobs:
             5. For each JSON you processed, update it: add "summarized": true
                to the JSON object and write it back.
 
-          claude_args: |
-            --max-turns 15
-            --model claude-haiku-4-5-20251001
-            --cwd claude_automation
-            --allowedTools "Read,Write,Edit,Glob,Grep"
+          model: claude-haiku-4-5-20251001
+          max_turns: "15"
+          cwd: claude_automation
+          allowed_tools: "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
         id: feedback
@@ -318,11 +317,10 @@ jobs:
             - ALWAYS include a TL;DR with 3-5 numeric anchors
             - ALWAYS include 3 comment recommendations with real Reddit URLs
 
-          claude_args: |
-            --max-turns 45
-            --model claude-opus-4-6
-            --cwd claude_automation
-            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+          model: claude-opus-4-6
+          max_turns: "45"
+          cwd: claude_automation
+          allowed_tools: "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
       - name: Check for changes
