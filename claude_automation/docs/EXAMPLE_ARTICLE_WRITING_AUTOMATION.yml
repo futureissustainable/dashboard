@@ -1,0 +1,337 @@
+# =============================================================================
+# BIOBUILDS Weekly Blog Batch Generator — v5.0 (15x Weekly, Opus 4.6)
+# =============================================================================
+#
+# Architecture:
+#   Runs once per week (Tuesday 00:00 UTC). Uses a 15-iteration sequential
+#   matrix to produce 15 topics, each adapted for three locales:
+#     Round N: EN (pick topic) → DE (adapt for DACH) → RO (adapt for Romania)
+#   Each round downloads the previous round's artifact so Claude sees all
+#   previously written articles and avoids duplicates.
+#   Result: 45 articles (15 × 3 languages) in a single PR for review.
+#
+# SETUP:
+#   1. Run `claude setup-token` locally → copy the token
+#   2. Repo → Settings → Secrets → Actions → New repository secret:
+#      Name:  CLAUDE_CODE_OAUTH_TOKEN
+#      Value: (paste token from step 1)
+#   3. Place this file at: .github/workflows/daily-blog.yml
+#   4. Merge to default branch (schedule only fires from default branch)
+#   5. Test: Actions tab → "Weekly Blog Batch" → Run workflow
+#
+# SECURITY:
+#   - Actions pinned to full 40-char commit SHAs
+#   - Permissions: contents:write + pull-requests:write + id-token:write
+#   - OAuth token = high-value credential → rotate every 60–90 days
+#   - Trigger: schedule + workflow_dispatch only (no PR/fork triggers)
+# =============================================================================
+
+name: Weekly Blog Batch
+
+on:
+  schedule:
+    - cron: '0 0 * * 2'           # Tuesday 00:00 UTC — once per week
+  workflow_dispatch:                # manual trigger from Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+# Prevent concurrent runs from conflicting
+concurrency:
+  group: weekly-blog
+  cancel-in-progress: false
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # GENERATE: 15 sequential rounds, each producing EN + DE + RO articles
+  # ═══════════════════════════════════════════════════════════════════════════
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        round: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Compute previous round number
+        if: matrix.round != 1
+        id: prev
+        run: echo "round=$(( ${{ matrix.round }} - 1 ))" >> "$GITHUB_OUTPUT"
+
+      - name: Download previous round
+        if: matrix.round != 1
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          name: workspace-round-${{ steps.prev.outputs.round }}
+          path: .
+
+      # ─── English article ───────────────────────────────────────────────
+      - name: Generate English article (round ${{ matrix.round }}/15)
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are the BIOBUILDS blog content engine.
+            Your job: write ONE new blog post in ENGLISH and save it to disk.
+            This is round ${{ matrix.round }} of 15 in a weekly batch.
+
+            ██  DO NOT run any git commands.
+            ██  DO NOT create branches, commits, or pull requests.
+
+            ═══════════════════════════════════════════════════════════════
+            PHASE 1 — RECONNAISSANCE
+            ═══════════════════════════════════════════════════════════════
+
+            1. Read CLAUDE.md for complete instructions
+            2. Read SEO.md for keyword strategy and content rules
+            3. Read SOURCES.md — your research database
+            4. Count articles per pillar in EN/ directory
+            5. Pick the pillar with the FEWEST articles
+            6. Read 2-3 existing EN articles to match format exactly
+            7. Read blog-styles.css — use ONLY existing classes
+
+            ═══════════════════════════════════════════════════════════════
+            PHASE 2 — RESEARCH
+            ═══════════════════════════════════════════════════════════════
+
+            8. Start with SOURCES.md — pick 3-5 relevant sources
+            9. Use WebFetch to extract real data from those sources
+            10. Use WebSearch for additional sources (2025-2026 data welcome)
+            11. You CAN use sources beyond SOURCES.md — just ensure they're
+                high-authority (.gov, .edu, peer-reviewed, reputable orgs, etc.)
+                Prefer European sources where possible
+            12. Cross-reference statistics across multiple sources
+
+            ═══════════════════════════════════════════════════════════════
+            PHASE 3 — WRITE ENGLISH VERSION
+            ═══════════════════════════════════════════════════════════════
+
+            13. Pick a topic that:
+                - Is NOT already covered by existing articles
+                - Targets a keyword from SEO.md
+                - Has sufficient source material
+
+            14. Write the article in ENGLISH:
+                - Match existing article format exactly
+                - Include Schema.org JSON-LD markup
+                - Use only bb-* CSS classes from blog-styles.css
+                - 2,000-3,000 words
+                - Every statistic backed by a source
+                - International/EU perspective (can mention all markets)
+
+            15. Save to EN/ directory using naming convention:
+                {Pillar}.{SubArticle} EN {url-slug}.html
+                Example: 3.3 EN timber-frame-insulation-guide.html
+
+            ═══════════════════════════════════════════════════════════════
+            RULES
+            ═══════════════════════════════════════════════════════════════
+            - NEVER run git commands
+            - NEVER invent statistics
+            - NEVER use CSS classes not in blog-styles.css
+            - NEVER duplicate existing topics
+
+          claude_args: |
+            --max-turns 25
+            --model claude-opus-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+
+      # ─── German article ────────────────────────────────────────────────
+      - name: Generate German article (round ${{ matrix.round }}/15)
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are the BIOBUILDS blog content engine.
+            Write the GERMAN version of today's blog post for DACH audience.
+            This is round ${{ matrix.round }} of 15 in a weekly batch.
+
+            ██  DO NOT run any git commands.
+
+            STEPS:
+            1. List files in EN/ — find the NEWEST .html file (today's article)
+            2. Read that EN article completely
+            3. Read MARKETS.md → follow DACH market section exactly
+            4. Read CLAUDE.md → formatting requirements
+            5. Read 2-3 existing DE articles → match German tone/style
+            6. Translate and ADAPT the EN article per MARKETS.md
+            7. Save to DE/ with SAME pillar.subarticle AND same slug as EN:
+               Example: EN has "3.3 EN timber-frame-insulation-guide.html"
+                     → Save as "3.3 DE timber-frame-insulation-guide.html"
+
+            RULES:
+            - Match EN article's pillar, subarticle, AND slug exactly
+            - Only change "EN" to "DE" in filename
+            - Follow MARKETS.md localization requirements
+            - Write natural German, not literal translation
+            - Update inLanguage to "de" in Schema.org
+            - NEVER run git commands
+
+          claude_args: |
+            --max-turns 25
+            --model claude-opus-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+
+      # ─── Romanian article ──────────────────────────────────────────────
+      - name: Generate Romanian article (round ${{ matrix.round }}/15)
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are the BIOBUILDS blog content engine.
+            Write the ROMANIAN version of today's blog post for Romanian audience.
+            This is round ${{ matrix.round }} of 15 in a weekly batch.
+
+            ██  DO NOT run any git commands.
+
+            STEPS:
+            1. List files in EN/ — find the NEWEST .html file (today's article)
+            2. Read that EN article completely
+            3. Read MARKETS.md → follow Romania market section exactly
+            4. Read CLAUDE.md → formatting requirements
+            5. Read 2-3 existing RO articles → match Romanian tone/style
+            6. Translate and ADAPT the EN article per MARKETS.md
+            7. Save to RO/ with SAME pillar.subarticle AND same slug as EN:
+               Example: EN has "3.3 EN timber-frame-insulation-guide.html"
+                     → Save as "3.3 RO timber-frame-insulation-guide.html"
+
+            RULES:
+            - Match EN article's pillar, subarticle, AND slug exactly
+            - Only change "EN" to "RO" in filename
+            - Follow MARKETS.md localization requirements
+            - Write natural Romanian, not literal translation
+            - Update inLanguage to "ro" in Schema.org
+            - NEVER run git commands
+
+          claude_args: |
+            --max-turns 25
+            --model claude-opus-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+
+      # ─── Upload cumulative workspace ───────────────────────────────────
+      - name: Upload workspace (round ${{ matrix.round }})
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        with:
+          name: workspace-round-${{ matrix.round }}
+          path: |
+            EN/
+            DE/
+            RO/
+          retention-days: 1
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # COMMIT: Collect all articles and create a single PR
+  # ═══════════════════════════════════════════════════════════════════════════
+  commit-and-pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: generate
+    if: always() && !cancelled()
+
+    env:
+      BRANCH_NAME: blog/weekly-${{ github.run_id }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Create working branch
+        run: git checkout -b "$BRANCH_NAME"
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          path: _artifacts
+
+      - name: Merge latest workspace
+        id: merge
+        run: |
+          # Find the highest-numbered successful round
+          LAST=$(ls -d _artifacts/workspace-round-* 2>/dev/null \
+            | sed 's/.*workspace-round-//' | sort -n | tail -1)
+
+          if [ -z "$LAST" ]; then
+            echo "::warning::No artifacts found — nothing to commit"
+            echo "has_articles=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Using workspace-round-${LAST} (highest successful round)"
+          cp -rf "_artifacts/workspace-round-${LAST}"/EN/* EN/ 2>/dev/null || true
+          cp -rf "_artifacts/workspace-round-${LAST}"/DE/* DE/ 2>/dev/null || true
+          cp -rf "_artifacts/workspace-round-${LAST}"/RO/* RO/ 2>/dev/null || true
+          rm -rf _artifacts
+          echo "has_articles=true" >> "$GITHUB_OUTPUT"
+          echo "rounds=$LAST" >> "$GITHUB_OUTPUT"
+
+      - name: Check for changes
+        if: steps.merge.outputs.has_articles == 'true'
+        id: changes
+        run: |
+          STATUS="$(git status --porcelain)"
+          if [ -z "$STATUS" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No new files detected"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "New content detected:"
+            echo "$STATUS"
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          ROUNDS="${{ steps.merge.outputs.rounds }}"
+          git commit -m "blog: weekly batch $(date +%Y-%m-%d) — ${ROUNDS} topics [EN/DE/RO]"
+          # Force push in case branch exists from a re-run
+          git push --force-with-lease origin "$BRANCH_NAME"
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth status || echo "$GITHUB_TOKEN" | gh auth login --with-token
+
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --json number --jq '.[0].number' 2>/dev/null || true)
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "PR #$EXISTING_PR already exists"
+            exit 0
+          fi
+
+          FILE_LIST=$(git show --name-only --pretty="" HEAD)
+          ROUNDS="${{ steps.merge.outputs.rounds }}"
+
+          PR_BODY="Weekly batch of auto-generated blog posts — ${ROUNDS} topics in 3 languages (EN, DE, RO).
+
+          Files:
+          ${FILE_LIST}"
+
+          gh pr create \
+            --title "Blog: weekly batch $(date +%Y-%m-%d) — ${ROUNDS} topics [EN/DE/RO]" \
+            --body "$PR_BODY" \
+            --base "${{ github.event.repository.default_branch }}" \
+            --head "$BRANCH_NAME"
