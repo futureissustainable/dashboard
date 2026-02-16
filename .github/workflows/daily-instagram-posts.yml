@@ -93,9 +93,10 @@ jobs:
 
       - name: Summarize feedback
         if: steps.check_feedback.outputs.has_new == 'true'
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
           prompt: |
             You are a feedback summarizer. Update the rolling feedback summary
@@ -132,10 +133,11 @@ jobs:
             5. For each JSON you processed, update it: add "summarized": true
                to the JSON object and write it back.
 
-          model: claude-haiku-4-5-20251001
-          max_turns: "15"
-          cwd: claude_automation
-          allowed_tools: "Read,Write,Edit,Glob,Grep"
+          claude_args: |
+            --max-turns 15
+            --model claude-haiku-4-5-20251001
+            --cwd claude_automation
+            --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
         id: feedback
@@ -181,9 +183,10 @@ jobs:
 
       # --- Generate single caption (all markets) ---------------------------
       - name: Generate Instagram caption (all markets)
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
           prompt: |
             You are an Instagram caption generator for the BioBuilds content strategy.
@@ -322,10 +325,11 @@ jobs:
             - ALWAYS lead with contrast
             - ALWAYS include a creative_brief or creative_file reference
 
-          model: claude-opus-4-6
-          max_turns: "35"
-          cwd: claude_automation
-          allowed_tools: "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+          claude_args: |
+            --max-turns 35
+            --model claude-opus-4-6
+            --cwd claude_automation
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
       - name: Check for changes
