@@ -20,7 +20,7 @@ export async function getDirectoryListing(
 ): Promise<GitHubFile[]> {
   const res = await fetch(`${API_BASE}/${path}`, {
     headers,
-    next: { revalidate: 0 },
+    cache: "no-store",
   });
   if (!res.ok) {
     if (res.status === 404) return [];
@@ -41,7 +41,7 @@ export async function getFileContent(
 ): Promise<{ content: string; sha: string }> {
   const res = await fetch(`${API_BASE}/${path}`, {
     headers,
-    next: { revalidate: 0 },
+    cache: "no-store",
   });
   if (!res.ok) {
     throw new Error(`GitHub API error: ${res.status} for ${path}`);
