@@ -5,7 +5,8 @@ import { useStore } from "@/store/useStore";
 import DndProvider from "@/components/DndProvider";
 import ProjectColumn from "@/components/ProjectColumn";
 import AutomationsPanel from "@/components/AutomationsPanel";
-import { Plus, X, SquaresFour, SortAscending, FolderSimple } from "@phosphor-icons/react";
+import { Plus, X, SquaresFour, SortAscending, FolderSimple, ArrowsClockwise } from "@phosphor-icons/react";
+import { useSync } from "@/hooks/useSync";
 
 type ActiveTab = "taskido" | "automations";
 
@@ -15,6 +16,7 @@ export default function Home() {
   const [newProjectName, setNewProjectName] = useState("");
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<ActiveTab>("taskido");
+  const { syncing } = useSync();
 
   useEffect(() => {
     setMounted(true);
@@ -79,6 +81,13 @@ export default function Home() {
               >
                 automations
               </button>
+              {syncing && (
+                <ArrowsClockwise
+                  size={12}
+                  weight="bold"
+                  className="text-muted animate-spin ml-1"
+                />
+              )}
             </div>
 
             {/* Taskido stats — only visible on taskido tab */}
