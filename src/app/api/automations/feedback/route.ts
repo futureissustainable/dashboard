@@ -38,6 +38,9 @@ export async function GET() {
   }
 }
 
+const VALID_PLATFORMS = ["reddit", "linkedin", "instagram"];
+const VALID_STATUSES = ["approved", "denied"];
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -46,6 +49,34 @@ export async function POST(request: Request) {
     if (!platform || !date || !status || score === undefined) {
       return NextResponse.json(
         { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    if (!VALID_PLATFORMS.includes(platform)) {
+      return NextResponse.json(
+        { error: "Invalid platform" },
+        { status: 400 }
+      );
+    }
+
+    if (!VALID_STATUSES.includes(status)) {
+      return NextResponse.json(
+        { error: "Invalid status (must be approved or denied)" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof score !== "number" || score < 0 || score > 100) {
+      return NextResponse.json(
+        { error: "Score must be a number between 0 and 100" },
+        { status: 400 }
+      );
+    }
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return NextResponse.json(
+        { error: "Date must be in YYYY-MM-DD format" },
         { status: 400 }
       );
     }

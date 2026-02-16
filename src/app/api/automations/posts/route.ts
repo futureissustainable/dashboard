@@ -9,11 +9,11 @@ const PLATFORMS = ["reddit", "linkedin", "instagram"] as const;
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const platformFilter = searchParams.get("platform");
-  const limit = parseInt(searchParams.get("limit") || "30", 10);
-  const offset = parseInt(searchParams.get("offset") || "0", 10);
+  const limit = Math.max(1, Math.min(50, parseInt(searchParams.get("limit") || "30", 10) || 30));
+  const offset = Math.max(0, parseInt(searchParams.get("offset") || "0", 10) || 0);
 
   try {
-    const platforms = platformFilter
+    const platforms = platformFilter && PLATFORMS.includes(platformFilter as typeof PLATFORMS[number])
       ? [platformFilter as (typeof PLATFORMS)[number]]
       : [...PLATFORMS];
 
