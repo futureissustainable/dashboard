@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowClockwise, CircleNotch, FileText, Lightning } from "@phosphor-icons/react";
+import { ArrowClockwise, Check, CircleNotch, FileText, Lightning, WarningCircle } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
 import DocsEditor from "./DocsEditor";
@@ -25,21 +25,34 @@ export default function AutomationsPanel() {
   const [total, setTotal] = useState(0);
 
   // Run all workflows
-  const [running, setRunning] = useState(false);
+  const [runStatus, setRunStatus] = useState<"idle" | "running" | "success" | "error">("idle");
+  const [runMessage, setRunMessage] = useState("");
 
   const triggerAll = async () => {
-    setRunning(true);
+    setRunStatus("running");
+    setRunMessage("");
     try {
       const res = await fetch("/api/automations/run", { method: "POST" });
       const data = await res.json();
-      if (data.failed?.length) {
-        console.error("Some workflows failed:", data.failed);
+      if (!res.ok || data.error) {
+        setRunStatus("error");
+        setRunMessage(data.error || "Request failed");
+      } else if (data.failed?.length) {
+        setRunStatus("error");
+        setRunMessage(`${data.triggered.length}/3 triggered`);
+      } else {
+        setRunStatus("success");
+        setRunMessage(`${data.triggered.length} workflows queued`);
       }
     } catch (e) {
+      setRunStatus("error");
+      setRunMessage("Network error");
       console.error("Failed to trigger workflows:", e);
-    } finally {
-      setRunning(false);
     }
+    setTimeout(() => {
+      setRunStatus("idle");
+      setRunMessage("");
+    }, 4000);
   };
 
   // Feedback modal
@@ -175,18 +188,37 @@ export default function AutomationsPanel() {
               className={loading ? "animate-spin" : ""}
             />
           </button>
-          <button
-            onClick={triggerAll}
-            disabled={running}
-            className="text-muted hover:text-foreground p-1.5 transition-colors duration-100"
-            title="Run all automations"
-          >
-            <Lightning
-              size={14}
-              weight={running ? "fill" : "bold"}
-              className={running ? "text-foreground animate-pulse" : ""}
-            />
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={triggerAll}
+              disabled={runStatus === "running"}
+              className={`p-1.5 transition-colors duration-100 ${
+                runStatus === "success"
+                  ? "text-green-400"
+                  : runStatus === "error"
+                  ? "text-red-400"
+                  : "text-muted hover:text-foreground"
+              }`}
+              title="Run all automations"
+            >
+              {runStatus === "running" ? (
+                <CircleNotch size={14} weight="bold" className="animate-spin" />
+              ) : runStatus === "success" ? (
+                <Check size={14} weight="bold" />
+              ) : runStatus === "error" ? (
+                <WarningCircle size={14} weight="bold" />
+              ) : (
+                <Lightning size={14} weight="bold" />
+              )}
+            </button>
+            {runMessage && (
+              <span className={`font-mono text-[10px] transition-opacity duration-200 ${
+                runStatus === "success" ? "text-green-400" : runStatus === "error" ? "text-red-400" : "text-muted"
+              }`}>
+                {runMessage}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
