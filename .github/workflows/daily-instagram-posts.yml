@@ -1,0 +1,309 @@
+# =============================================================================
+# BIOBUILDS Daily Instagram Caption Generator — v2.0
+# =============================================================================
+#
+# Architecture:
+#   Runs every weekday (Mon-Fri) at 01:00 UTC.
+#   Generates 1 Instagram caption in English that must resonate across all 3
+#   markets (DACH, Romania, international) simultaneously.
+#   Caption is matched to a creative from Creatives/ if available.
+#   Output is committed directly to main in the output/instagram/ folder.
+#
+# SETUP:
+#   1. Run `claude setup-token` locally -> copy the token
+#   2. Repo -> Settings -> Secrets -> Actions -> New repository secret:
+#      Name:  CLAUDE_CODE_OAUTH_TOKEN
+#      Value: (paste token from step 1)
+#   3. Place this file at: .github/workflows/daily-instagram-posts.yml
+#   4. Merge to default branch (schedule only fires from default branch)
+#   5. Test: Actions tab -> "Daily Instagram Posts" -> Run workflow
+#
+# SECURITY:
+#   - Actions pinned to full 40-char commit SHAs
+#   - Permissions: contents:write + id-token:write (no PR needed)
+#   - OAuth token = high-value credential -> rotate every 60-90 days
+#   - Trigger: schedule + workflow_dispatch only (no PR/fork triggers)
+# =============================================================================
+
+name: Daily Instagram Posts
+
+on:
+  schedule:
+    # Every weekday (Mon-Fri) at 02:00 UTC (staggered to avoid push conflicts)
+    - cron: '0 2 * * 1-5'
+  workflow_dispatch:                # manual trigger from Actions tab
+
+permissions:
+  contents: write
+  id-token: write
+
+# Prevent overlapping runs
+concurrency:
+  group: daily-instagram-posts
+  cancel-in-progress: false
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: claude_automation
+
+    steps:
+      # --- Setup -----------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Set today's date
+        id: date
+        run: echo "today=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Determine this week's content pillar
+        id: pillar
+        run: |
+          # Rotate through 8 pillars based on ISO week number
+          WEEK=$(date -u +%V)
+          PILLARS=("Energy & Performance" "Cost & Finance" "Construction & Process" "Materials & Sustainability" "Regulations & Certification" "Living Experience" "Market Comparison" "Lifestyle & Design")
+          INDEX=$(( (10#$WEEK - 1) % 8 ))
+          echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
+          echo "This week's pillar: ${PILLARS[$INDEX]}"
+
+      - name: Collect recent feedback
+        id: feedback
+        run: |
+          DIR="feedback/instagram"
+          if [ -d "$DIR" ]; then
+            FILES=$(ls -1 "$DIR"/*.json 2>/dev/null | sort -r | head -5)
+            if [ -n "$FILES" ]; then
+              SUMMARY=""
+              for f in $FILES; do
+                DATE=$(basename "$f" .json)
+                STATUS=$(jq -r '.status // "unknown"' "$f")
+                SCORE=$(jq -r '.score // "?"' "$f")
+                FB=$(jq -r '.feedback // ""' "$f" | head -c 200)
+                SUMMARY="${SUMMARY}${DATE}: ${STATUS} (${SCORE}/100) — ${FB}"$'\n'
+              done
+              echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+              echo "$SUMMARY" >> "$GITHUB_OUTPUT"
+              echo "EOF" >> "$GITHUB_OUTPUT"
+              echo "has_feedback=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_feedback=false" >> "$GITHUB_OUTPUT"
+              echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "has_feedback=false" >> "$GITHUB_OUTPUT"
+            echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: List available creatives
+        id: creatives
+        run: |
+          # Check for actual media files (not just CATALOG.md and .gitkeep)
+          MEDIA_FILES=$(find Creatives/ -type f \
+            \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \
+               -o -iname '*.webp' -o -iname '*.mp4' -o -iname '*.mov' \
+               -o -iname '*.gif' \) 2>/dev/null | head -50)
+
+          if [ -n "$MEDIA_FILES" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+            echo "list<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$MEDIA_FILES" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+
+            # Include catalog if it exists
+            if [ -f "Creatives/CATALOG.md" ]; then
+              echo "has_catalog=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_catalog=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "list=No creatives available" >> "$GITHUB_OUTPUT"
+            echo "has_catalog=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # --- Generate single caption (all markets) ---------------------------
+      - name: Generate Instagram caption (all markets)
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are an Instagram caption generator for the BioBuilds content strategy.
+            Today's date: ${{ steps.date.outputs.today }}
+            This week's content pillar: ${{ steps.pillar.outputs.pillar }}
+            Creatives available: ${{ steps.creatives.outputs.available }}
+            Creative files: ${{ steps.creatives.outputs.list }}
+            Creative catalog available: ${{ steps.creatives.outputs.has_catalog }}
+
+            ===============================================================
+            RECENT FEEDBACK ON PAST INSTAGRAM POSTS (learn from this)
+            ===============================================================
+            ${{ steps.feedback.outputs.summary }}
+
+            Apply these lessons: repeat what scored high, fix what was denied
+            or scored low. This is non-negotiable.
+
+            DO NOT run any git commands.
+            DO NOT create branches, commits, or pull requests.
+
+            ===============================================================
+            THE CORE CHALLENGE
+            ===============================================================
+
+            You must write ONE Instagram caption in ENGLISH that simultaneously
+            resonates with BioBuilds' two primary markets and broader
+            European audience:
+            - DACH (Germany, Austria, Switzerland) — primary market
+            - Romania — young families (30-45), ~70% IT industry, rest
+              entrepreneurs or higher-paying professions. NOT luxury.
+            - International (rest of EU) — secondary reach
+
+            The caption must pass the "send test": would someone DM this
+            to their partner when they're both thinking about building?
+
+            HOW TO DO THIS:
+            - Lead with a universal contrast that hits everywhere ("EUR 2,000
+              vs EUR 100 heating," "-10 outside, 24 inside," "3 weeks vs 3 years")
+            - Use visuals that transcend language (warmth, nature, family, contrast)
+            - Include one specific number that works across all markets
+            - Avoid market-specific jargon (no KfW numbers, no Romanian-only references)
+            - The emotion must be universal: "this is the life I want"
+
+            ===============================================================
+            AVAILABLE TOOLS (use ONLY these)
+            ===============================================================
+            You have ONLY these tools: Read, Write, Edit, Glob, Grep,
+            WebSearch, WebFetch.
+
+            Bash, curl, shell commands are NOT available.
+
+            ===============================================================
+            PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
+            ===============================================================
+
+            1. Read CLAUDE.md — project rules and constraints
+            2. Read docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
+               visual matching, audience segments, output format
+            3. Read docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
+               algorithm signals, visual guidelines, posting mechanics
+            4. Read docs/instagram/instagram-past-posts.md — past post data.
+               Study what worked (high likes, saves, shares) and what didn't.
+               Pay special attention to visual descriptions of top performers.
+            5. Read docs/company/biobuilds-company-overview.md — company data
+            6. Read .agents/skills/seo-audit/references/ai-writing-detection.md
+            7. If creatives are available, read Creatives/CATALOG.md first for
+               descriptions and metadata about each file, then list folder contents
+
+            ===============================================================
+            PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
+            ===============================================================
+
+            8. List all files in output/instagram/ directory
+            9. Read the last 5 Instagram posts (if they exist) and extract:
+                - What topics were already covered
+                - What visual styles were used
+                - What segments were targeted
+                - What caption styles performed (short vs long)
+            10. Make sure your post covers NEW ground
+
+            ===============================================================
+            PHASE 3 — MATCH CREATIVE (if available)
+            ===============================================================
+
+            11. If Creatives/ has files, read Creatives/CATALOG.md and use the
+                descriptions and status to pick the best match for this week's
+                pillar and today's topic.
+                ONLY pick creatives that Instagram hasn't already used.
+                OK to pick: [available], [USED ON LINKEDIN], [REQUEST USE LINKEDIN]
+                Skip: [reserved], [USED ON INSTA], [USED ON BOTH], [REQUEST USE INSTA]
+                A creative used on LinkedIn can still be used on Instagram.
+            12. If you pick a creative from the catalog, set the frontmatter
+                field creative_status to "REQUEST USE INSTA" and explain in
+                the post file why you chose it.
+            13. If no creatives match or none exist, create a detailed
+                creative_brief describing the ideal visual instead.
+
+            ===============================================================
+            PHASE 4 — WRITE THE CAPTION (English, all markets)
+            ===============================================================
+
+            14. Pick ONE primary audience segment but ensure cross-market appeal
+            15. Choose a format: static, carousel, or reel
+            16. Choose caption length: short (<50 words) or long (200-400 words)
+                NEVER write medium-length product descriptions
+            17. Write the full Instagram caption IN ENGLISH following ALL rules
+                in INSTAGRAM_SOUL.md:
+                - First 125 characters must stop the scroll
+                - Lead with contrast, not product
+                - Pass the "send test" across all 3 markets
+                - Include 2-3 specific data points woven naturally
+                - Use keywords in caption instead of hashtags where possible
+                - Maximum 3-5 hashtags if using any (test zero)
+                - NO AI writing tells
+                - NO spec dumps as the lead
+            18. Include creative_brief or creative_file match.
+                If using a catalog creative, set:
+                  creative_file: "Creatives/filename.jpg"
+                  creative_status: "REQUEST USE INSTA"
+                If no catalog match, provide creative_brief only.
+            19. Save to output/instagram/ as:
+                ${{ steps.date.outputs.today }}_[slug].md
+
+            ===============================================================
+            RULES (violations = failure)
+            ===============================================================
+            - NEVER use Bash, curl, or shell commands
+            - NEVER run git commands
+            - NEVER lead with specs (lead with feeling, prove with specs)
+            - NEVER write medium-length product descriptions
+            - NEVER use words like "revolutionary," "game-changer," "seamless"
+            - NEVER describe wrapped modules on trucks in the creative brief
+            - ALWAYS write in English
+            - ALWAYS pass the "send test" for all 3 markets
+            - ALWAYS include YAML frontmatter per INSTAGRAM_SOUL.md
+            - ALWAYS lead with contrast
+            - ALWAYS include a creative_brief or creative_file reference
+
+          claude_args: |
+            --max-turns 35
+            --model claude-opus-4-6
+            --cwd claude_automation
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+
+      # --- Commit directly to main -----------------------------------------
+      - name: Check for new posts
+        id: changes
+        run: |
+          STATUS="$(git status --porcelain output/instagram/)"
+          if [ -z "$STATUS" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No new Instagram post generated"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "New post detected:"
+            echo "$STATUS"
+          fi
+
+      - name: Commit and push to main
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add output/instagram/
+
+          TODAY="${{ steps.date.outputs.today }}"
+          PILLAR="${{ steps.pillar.outputs.pillar }}"
+
+          git commit -m "instagram: ${TODAY} [${PILLAR}]"
+
+          # Pull-rebase in case another workflow pushed first
+          git pull --rebase origin ${{ github.event.repository.default_branch }}
+          git push origin HEAD:${{ github.event.repository.default_branch }}
