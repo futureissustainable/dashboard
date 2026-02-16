@@ -46,6 +46,9 @@ jobs:
   generate-and-commit:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: claude_automation
 
     steps:
       # --- Setup -----------------------------------------------------------
@@ -69,29 +72,83 @@ jobs:
           echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
           echo "This week's pillar: ${PILLARS[$INDEX]}"
 
-      - name: Collect recent feedback
+      - name: Check for new feedback
+        id: check_feedback
+        run: |
+          DIR="feedback/instagram"
+          if [ -d "$DIR" ]; then
+            NEW=0
+            for f in "$DIR"/*.json; do
+              [ -f "$f" ] || continue
+              if ! jq -e '.summarized == true' "$f" >/dev/null 2>&1; then
+                NEW=$((NEW + 1))
+              fi
+            done
+            echo "new_count=$NEW" >> "$GITHUB_OUTPUT"
+            [ "$NEW" -gt 0 ] && echo "has_new=true" >> "$GITHUB_OUTPUT" || echo "has_new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new_count=0" >> "$GITHUB_OUTPUT"
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summarize feedback
+        if: steps.check_feedback.outputs.has_new == 'true'
+        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are a feedback summarizer. Update the rolling feedback summary
+            for the instagram platform.
+
+            DO NOT run any git commands.
+
+            Steps:
+            1. Read feedback/instagram/SUMMARY.md if it exists
+            2. List all .json files in feedback/instagram/
+            3. Read each JSON file. SKIP any where "summarized" is true.
+               If no unsummarized files exist, stop — do nothing.
+            4. Update feedback/instagram/SUMMARY.md with this exact format:
+
+            ## Instagram Feedback ({N} posts reviewed)
+
+            ### Patterns to REPEAT
+            - [pattern from high-scoring/approved posts] (seen Nx, avg score: X)
+
+            ### Patterns to AVOID
+            - [pattern from denied/low-scoring posts] (seen Nx)
+
+            ### Recent notes
+            - YYYY-MM-DD: status (score/100) — feedback text
+            (keep last 10 entries max)
+
+            Rules for updating:
+            - Merge new feedback into existing patterns (increment counts)
+            - Add new patterns if they don't exist yet
+            - Keep "Recent notes" to last 10 entries, drop oldest
+            - Be concise: each pattern should be one line
+            - Preserve existing pattern counts and averages
+
+            5. For each JSON you processed, update it: add "summarized": true
+               to the JSON object and write it back.
+
+          claude_args: |
+            --max-turns 15
+            --model claude-haiku-4-5-20251001
+            --cwd claude_automation
+            --allowedTools "Read,Write,Edit,Glob,Grep"
+
+      - name: Collect feedback summary
         id: feedback
         run: |
-          DIR="claude_automation/feedback/instagram"
-          if [ -d "$DIR" ]; then
-            FILES=$(ls -1 "$DIR"/*.json 2>/dev/null | sort -r | head -5)
-            if [ -n "$FILES" ]; then
-              SUMMARY=""
-              for f in $FILES; do
-                DATE=$(basename "$f" .json)
-                STATUS=$(jq -r '.status // "unknown"' "$f")
-                SCORE=$(jq -r '.score // "?"' "$f")
-                FB=$(jq -r '.feedback // ""' "$f" | head -c 200)
-                SUMMARY="${SUMMARY}${DATE}: ${STATUS} (${SCORE}/100) — ${FB}"$'\n'
-              done
-              echo "summary<<EOF" >> "$GITHUB_OUTPUT"
-              echo "$SUMMARY" >> "$GITHUB_OUTPUT"
-              echo "EOF" >> "$GITHUB_OUTPUT"
-              echo "has_feedback=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "has_feedback=false" >> "$GITHUB_OUTPUT"
-              echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
-            fi
+          SUMMARY_FILE="feedback/instagram/SUMMARY.md"
+          if [ -f "$SUMMARY_FILE" ]; then
+            CONTENT=$(head -c 2000 "$SUMMARY_FILE")
+            echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$CONTENT" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "has_feedback=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_feedback=false" >> "$GITHUB_OUTPUT"
             echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
@@ -271,19 +328,20 @@ jobs:
           claude_args: |
             --max-turns 35
             --model claude-opus-4-6
+            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
-      - name: Check for new posts
+      - name: Check for changes
         id: changes
         run: |
-          STATUS="$(git status --porcelain output/instagram/)"
+          STATUS="$(git status --porcelain output/instagram/ feedback/instagram/)"
           if [ -z "$STATUS" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "::warning::No new Instagram post generated"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "New post detected:"
+            echo "Changes detected:"
             echo "$STATUS"
           fi
 
@@ -293,7 +351,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add output/instagram/
+          git add output/instagram/ feedback/instagram/
 
           TODAY="${{ steps.date.outputs.today }}"
           PILLAR="${{ steps.pillar.outputs.pillar }}"
