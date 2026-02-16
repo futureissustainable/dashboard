@@ -1,0 +1,218 @@
+{
+  "projects": [
+    {
+      "id": "ab14e401-47bd-4ca5-b902-ab00a006b8d6",
+      "name": "BIOBUILDS",
+      "iconName": "Tree",
+      "color": {
+        "name": "Sage",
+        "bg": "#6B8E6B",
+        "text": "#FFFFFF"
+      },
+      "priority": 1,
+      "folders": [
+        {
+          "id": "e8738df7-253d-4d4a-838d-ca75cf730cec",
+          "name": "WEBSITE"
+        },
+        {
+          "id": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3",
+          "name": "META"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "99e6c2e0-62ac-4d2e-a79e-7c30162b807e",
+          "title": "CARPATHIAN CABINS",
+          "description": "",
+          "priority": 2,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "9804cffc-b25b-420c-8535-ad5f682a8227",
+          "title": "ENGRAMUS",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "09403fab-6765-4087-81a1-e6bb222573e1",
+          "title": "TECHNICAL DATA PAGE",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "e8738df7-253d-4d4a-838d-ca75cf730cec"
+        },
+        {
+          "id": "359ebffe-51ff-47ea-b396-3b58b81b0bef",
+          "title": "MATERIAL RESPONSABILITY PAGE",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "e8738df7-253d-4d4a-838d-ca75cf730cec"
+        },
+        {
+          "id": "66a50dae-643f-464a-86b9-e504dda6a3cd",
+          "title": "FINISHES PAGE",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "e8738df7-253d-4d4a-838d-ca75cf730cec"
+        },
+        {
+          "id": "b88b8bcf-a4ba-4d27-ab1a-0d82902d6305",
+          "title": "CARPATHIAN FOREST RENDER",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "30b3a056-359c-4edc-a600-2994f6aa7d0a",
+          "title": "META INFLUENCER",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3"
+        },
+        {
+          "id": "b2bbabc6-09a2-462e-9d46-fe781bff543d",
+          "title": "AUSTRIA 31% (+Tirol Tourism)",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3"
+        },
+        {
+          "id": "af7ad575-20ba-4c66-8a79-7f30d4556618",
+          "title": "GERMANIA 31%",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3"
+        },
+        {
+          "id": "927b0c84-d251-49e1-a0d5-35418adf697e",
+          "title": "ROMANIA 31% (+Testimonial)",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3"
+        },
+        {
+          "id": "05c98123-c979-48c4-9389-cee3b40c5ffd",
+          "title": "Europa (norway / sofia) 7%",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "424bdbb5-10e3-425d-9e50-a73efb7ea1d3"
+        },
+        {
+          "id": "bd219bb3-72f5-4e6e-9fd6-c6b323e79d6a",
+          "title": "BATHROOM Newsletter",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "63186dc1-8a71-4f44-8575-c9b7682fca21",
+          "title": "POST 14.02",
+          "description": "",
+          "priority": 1,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "609471cb-63b1-4a05-a6a8-32266cc2342a",
+          "title": "SOL RESIDENCE",
+          "description": "",
+          "priority": 2,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "ed360a31-bcb3-431f-b147-d943957d9cdb",
+          "title": "RUBRICA B2B SITE FORM",
+          "description": "",
+          "priority": 2,
+          "completed": false,
+          "subtasks": [],
+          "folderId": "e8738df7-253d-4d4a-838d-ca75cf730cec"
+        }
+      ]
+    },
+    {
+      "id": "ad60f2ef-1c63-4302-907b-48224549382f",
+      "name": "AI",
+      "iconName": "Diamond",
+      "color": {
+        "name": "Storm",
+        "bg": "#4F6D7A",
+        "text": "#FFFFFF"
+      },
+      "priority": 2,
+      "folders": [],
+      "tasks": [
+        {
+          "id": "28bbbb95-1a86-438b-9e11-bcf8c8553d45",
+          "title": "REDDIT AI",
+          "description": "",
+          "priority": 2,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "bf74dbad-33fc-4756-8029-c9700d182b9a",
+          "title": "BLOG AI",
+          "description": "",
+          "priority": 2,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        },
+        {
+          "id": "dacf3f7e-0fb5-42bb-be86-46d57d11b93a",
+          "title": "MEMOROS.COM",
+          "description": "",
+          "priority": 3,
+          "completed": false,
+          "subtasks": [],
+          "folderId": null
+        }
+      ]
+    },
+    {
+      "id": "29cad500-8b81-49b4-88bb-19a20e13dd00",
+      "name": "MUSIC",
+      "iconName": "Waves",
+      "color": {
+        "name": "Violet",
+        "bg": "#7B68AE",
+        "text": "#FFFFFF"
+      },
+      "priority": 3,
+      "folders": [],
+      "tasks": []
+    }
+  ],
+  "sortMode": "grouped",
+  "lastModified": 0
+}
