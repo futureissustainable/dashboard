@@ -94,7 +94,7 @@ jobs:
 
       - name: Summarize feedback
         if: steps.check_feedback.outputs.has_new == 'true'
-        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -106,11 +106,11 @@ jobs:
             DO NOT run any git commands.
 
             Steps:
-            1. Read feedback/reddit/SUMMARY.md if it exists
-            2. List all .json files in feedback/reddit/
+            1. Read claude_automation/feedback/reddit/SUMMARY.md if it exists
+            2. List all .json files in claude_automation/feedback/reddit/
             3. Read each JSON file. SKIP any where "summarized" is true.
                If no unsummarized files exist, stop — do nothing.
-            4. Update feedback/reddit/SUMMARY.md with this exact format:
+            4. Update claude_automation/feedback/reddit/SUMMARY.md with this exact format:
 
             ## Reddit Feedback ({N} posts reviewed)
 
@@ -136,8 +136,7 @@ jobs:
 
           claude_args: |
             --max-turns 15
-            --model claude-haiku-4-5-20251001
-            --cwd claude_automation
+            --model claude-haiku-4-5
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -158,7 +157,7 @@ jobs:
 
       # --- Generate single post (all markets) ------------------------------
       - name: Generate Reddit post (all markets)
-        uses: anthropics/claude-code-action@01e756b34ef7a1447e9508f674143b07d20c2631
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -224,22 +223,22 @@ jobs:
             PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
             ===============================================================
 
-            1. Read CLAUDE.md — project rules and constraints
-            2. Read docs/reddit/REDDIT_SOUL.md — complete persona, writing rules,
+            1. Read claude_automation/CLAUDE.md — project rules and constraints
+            2. Read claude_automation/docs/reddit/REDDIT_SOUL.md — complete persona, writing rules,
                and UNIFIED 9-SUB ROTATION POOL
-            3. Read docs/reddit/REDDIT_REPORT_SEO.md — SEO strategy data
-            4. Read docs/reddit/REDDIT_REPORT_AI.md — AI citation strategy
-            5. Read docs/reddit/REDDIT_PLAYBOOK.md — master strategy,
+            3. Read claude_automation/docs/reddit/REDDIT_REPORT_SEO.md — SEO strategy data
+            4. Read claude_automation/docs/reddit/REDDIT_REPORT_AI.md — AI citation strategy
+            5. Read claude_automation/docs/reddit/REDDIT_PLAYBOOK.md — master strategy,
                positioning, post templates, compliance rules, data anchors
-            6. Read .agents/skills/seo-audit/references/ai-writing-detection.md
-            7. Read .agents/skills/seo-audit/references/aeo-geo-patterns.md
-            8. Read docs/company/biobuilds-company-overview.md
+            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            7. Read claude_automation/.agents/skills/seo-audit/references/aeo-geo-patterns.md
+            8. Read claude_automation/docs/company/biobuilds-company-overview.md
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication + rotation)
             ===============================================================
 
-            9. List all files in output/reddit/ directory
+            9. List all files in claude_automation/output/reddit/ directory
             10. Read the last 5 posts (if they exist) and extract:
                 - The "subreddit:" field from each post's YAML frontmatter
                 - What topics were already covered
@@ -281,13 +280,13 @@ jobs:
                 - End with TL;DR (include 3-5 numeric anchors)
                 - NO AI writing tells
             19. Create a realistic image_idea in the frontmatter. This must be
-                an ORIGINAL image concept you propose (NOT from the Creatives/
+                an ORIGINAL image concept you propose (NOT from the claude_automation/Creatives/
                 catalog). Reddit posts need unique, context-appropriate visuals
                 like infographics, comparison charts, maps, or photos that
                 match the persona's story. Describe what the image should show,
                 its style, and why it fits the post.
-                NEVER use or reference files from the Creatives/ folder.
-            20. Save to output/reddit/ as:
+                NEVER use or reference files from the claude_automation/Creatives/ folder.
+            20. Save to claude_automation/output/reddit/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
@@ -310,7 +309,7 @@ jobs:
             - NEVER sound like an advertisement
             - NEVER write as a BioBuilds employee
             - NEVER use AI-detectable writing patterns
-            - NEVER use images from the Creatives/ catalog (always propose original image ideas)
+            - NEVER use images from the claude_automation/Creatives/ catalog (always propose original image ideas)
             - NEVER duplicate a topic or reuse a blocked subreddit
             - ALWAYS write in English
             - ALWAYS include data relevant to multiple markets
@@ -323,7 +322,6 @@ jobs:
           claude_args: |
             --max-turns 45
             --model claude-opus-4-6
-            --cwd claude_automation
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
