@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowClockwise, CircleNotch, FileText } from "@phosphor-icons/react";
+import { ArrowClockwise, CircleNotch, FileText, Lightning } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
 import DocsEditor from "./DocsEditor";
@@ -23,6 +23,24 @@ export default function AutomationsPanel() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [total, setTotal] = useState(0);
+
+  // Run all workflows
+  const [running, setRunning] = useState(false);
+
+  const triggerAll = async () => {
+    setRunning(true);
+    try {
+      const res = await fetch("/api/automations/run", { method: "POST" });
+      const data = await res.json();
+      if (data.failed?.length) {
+        console.error("Some workflows failed:", data.failed);
+      }
+    } catch (e) {
+      console.error("Failed to trigger workflows:", e);
+    } finally {
+      setRunning(false);
+    }
+  };
 
   // Feedback modal
   const [reviewTarget, setReviewTarget] = useState<{
@@ -155,6 +173,18 @@ export default function AutomationsPanel() {
               size={14}
               weight="bold"
               className={loading ? "animate-spin" : ""}
+            />
+          </button>
+          <button
+            onClick={triggerAll}
+            disabled={running}
+            className="text-muted hover:text-foreground p-1.5 transition-colors duration-100"
+            title="Run all automations"
+          >
+            <Lightning
+              size={14}
+              weight={running ? "fill" : "bold"}
+              className={running ? "text-foreground animate-pulse" : ""}
             />
           </button>
         </div>
