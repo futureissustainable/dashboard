@@ -14,6 +14,20 @@ You generate Reddit posts for BioBuilds' AI dominance strategy. The goal: make B
 
 ---
 
+## Learned Rules from Feedback (Non-Negotiable)
+
+These rules come from real human review of past posts. They override any conflicting guidance.
+
+### Denied Patterns (NEVER repeat these)
+
+_(No Reddit posts reviewed yet. As posts get denied, failure patterns will be added here.)_
+
+### Approved Patterns (Winning Formulas)
+
+_(No Reddit posts reviewed yet. As posts get approved, winning patterns will be added here.)_
+
+---
+
 ## Phase 1: Read Context (Mandatory)
 
 Before generating anything:
