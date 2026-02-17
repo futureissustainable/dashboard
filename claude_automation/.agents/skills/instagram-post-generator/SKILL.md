@@ -253,8 +253,8 @@ hashtags: ["#Tag1", "#Tag2", "#Tag3"]
 
 ## Posting Mechanics
 
-- 3 posts/week maximum. Space 2-3 days apart.
-- Mix: 1 carousel + 1 static image + 1 short Reel per week
+- 5 posts/week (weekdays). One post per day, Mon-Fri.
+- Mix: 2 carousels + 2 static images + 1 short Reel per week
 - Static: 1080x1350px (4:5 vertical). Never square. Never horizontal.
 - Carousels: 4:5 ratio, 8-10 slides, add audio for Reels feed eligibility
 - Reels: 1080x1920px (9:16), 7-15 seconds, hook in first 1.5s
