@@ -128,7 +128,7 @@ The "see more" fold appears at ~210 characters on mobile. This IS the post for 8
 
 **The Contrarian Claim:**
 - "Solar panels on a concrete house are a band-aid on a bullet wound."
-- "CLT uses double the timber for the same house. Nobody talks about this."
+- "Everyone says 'build green.' Nobody shows the energy bill 3 years later."
 
 **The "Wait, What?" Question:**
 - "Your home's CO2 levels hit 2,000 ppm every night. Your brain doesn't work right above 1,000."
@@ -290,8 +290,7 @@ photo_prompt: "Description of ideal accompanying image/visual"
 
 - Tuesday through Thursday, 8-10 AM CET
 - Carousels: 9-10:30 AM. Video: 8-9 AM. Text: 8-10 AM.
-- No links in post body. If needed, put in SECOND comment (not first).
-- Self-commenting now hurts reach. Don't do it.
+- No links in post body. If a link is essential, put in a SECOND comment (not first) — but avoid self-commenting when possible, as it now hurts reach.
 - Golden hour: first 60-90 min determine ~70% of total reach
 
 ---

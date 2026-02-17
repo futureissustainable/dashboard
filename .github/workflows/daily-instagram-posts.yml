@@ -3,7 +3,7 @@
 # =============================================================================
 #
 # Architecture:
-#   Runs every weekday (Mon-Fri) at 01:00 UTC.
+#   Runs every weekday (Mon-Fri) at 02:00 UTC.
 #   Generates 1 Instagram caption in English that must resonate across all 3
 #   markets (DACH, Romania, international) simultaneously.
 #   Caption is matched to a creative from Creatives/ if available.
@@ -55,7 +55,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Set today's date
@@ -144,9 +144,10 @@ jobs:
           SUMMARY_FILE="feedback/instagram/SUMMARY.md"
           if [ -f "$SUMMARY_FILE" ]; then
             CONTENT=$(head -c 2000 "$SUMMARY_FILE")
-            echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+            DELIM="FEEDBACK_SUMMARY_$(date +%s)"
+            echo "summary<<${DELIM}" >> "$GITHUB_OUTPUT"
             echo "$CONTENT" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
             echo "has_feedback=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_feedback=false" >> "$GITHUB_OUTPUT"
@@ -164,9 +165,10 @@ jobs:
 
           if [ -n "$MEDIA_FILES" ]; then
             echo "available=true" >> "$GITHUB_OUTPUT"
-            echo "list<<EOF" >> "$GITHUB_OUTPUT"
+            DELIM="CREATIVES_LIST_$(date +%s)"
+            echo "list<<${DELIM}" >> "$GITHUB_OUTPUT"
             echo "$MEDIA_FILES" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
 
             # Include catalog if it exists
             if [ -f "Creatives/CATALOG.md" ]; then
@@ -376,6 +378,10 @@ jobs:
 
           git commit -m "instagram: ${TODAY} [${PILLAR}]"
 
-          # Pull-rebase in case another workflow pushed first
-          git pull --rebase origin ${{ github.event.repository.default_branch }}
-          git push origin HEAD:${{ github.event.repository.default_branch }}
+          # Pull-rebase in case another workflow pushed first, with retry
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.event.repository.default_branch }} && \
+            git push origin HEAD:${{ github.event.repository.default_branch }} && break
+            echo "Push attempt $attempt failed, retrying in $((attempt * 2))s..."
+            sleep $((attempt * 2))
+          done

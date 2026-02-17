@@ -53,7 +53,7 @@ jobs:
             basename=$(basename "$file")
 
             # Check if filename appears in CATALOG.md
-            if ! grep -qF "$basename" Creatives/CATALOG.md; then
+            if ! grep -qwF "$basename" Creatives/CATALOG.md; then
               UNDOCUMENTED="${UNDOCUMENTED}- \`${basename}\`\n"
             fi
           done < <(find Creatives/ -type f \
@@ -63,9 +63,10 @@ jobs:
 
           if [ -n "$UNDOCUMENTED" ]; then
             echo "found=true" >> "$GITHUB_OUTPUT"
-            echo "files<<EOF" >> "$GITHUB_OUTPUT"
-            echo -e "$UNDOCUMENTED" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            DELIM="UNDOCUMENTED_FILES_$(date +%s)"
+            echo "files<<${DELIM}" >> "$GITHUB_OUTPUT"
+            printf '%b' "$UNDOCUMENTED" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
           else
             echo "found=false" >> "$GITHUB_OUTPUT"
           fi
