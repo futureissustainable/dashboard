@@ -42,6 +42,23 @@ Before generating anything:
 6. If `claude_automation/feedback/linkedin/SUMMARY.md` exists, read it and apply lessons
 7. Use WebSearch to find 2-3 current data points relevant to this week's pillar
 
+### MANDATORY — Study Past Performance Before Writing
+
+**You MUST complete these steps before writing a single word. No exceptions.**
+
+8. Read `claude_automation/docs/linkedin/MY-POST-ANALYSIS.md` — the founder's personal
+   analysis of what works and what doesn't. This is your #1 source of truth. Internalize
+   every principle before writing.
+9. Read `claude_automation/docs/linkedin/linkedin-past-posts.md` — full past post data.
+   At minimum, study the **top 3 best-performing posts** AND the **top 3 worst-performing
+   posts**. For each one, understand WHY it succeeded or failed. What made the hook land?
+   What data point drove reactions? What killed engagement?
+10. You may read additional posts from the file for broader patterns and reference.
+
+**HARD RULE: NEVER copy a past post's subject, hook, topic, or phrasing word-for-word.
+Every post you write must be 100% original. You are learning the PRINCIPLES and THINKING
+behind what works, not the words. If your output resembles any past post, it fails.**
+
 ---
 
 ## Core Voice: Authority Without Performance
