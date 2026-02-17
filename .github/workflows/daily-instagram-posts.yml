@@ -3,7 +3,7 @@
 # =============================================================================
 #
 # Architecture:
-#   Runs every weekday (Mon-Fri) at 01:00 UTC.
+#   Runs every weekday (Mon-Fri) at 02:00 UTC.
 #   Generates 1 Instagram caption in English that must resonate across all 3
 #   markets (DACH, Romania, international) simultaneously.
 #   Caption is matched to a creative from Creatives/ if available.
@@ -55,7 +55,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Set today's date
@@ -144,9 +144,10 @@ jobs:
           SUMMARY_FILE="feedback/instagram/SUMMARY.md"
           if [ -f "$SUMMARY_FILE" ]; then
             CONTENT=$(head -c 2000 "$SUMMARY_FILE")
-            echo "summary<<EOF" >> "$GITHUB_OUTPUT"
+            DELIM="FEEDBACK_SUMMARY_$(date +%s)"
+            echo "summary<<${DELIM}" >> "$GITHUB_OUTPUT"
             echo "$CONTENT" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
             echo "has_feedback=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_feedback=false" >> "$GITHUB_OUTPUT"
@@ -164,9 +165,10 @@ jobs:
 
           if [ -n "$MEDIA_FILES" ]; then
             echo "available=true" >> "$GITHUB_OUTPUT"
-            echo "list<<EOF" >> "$GITHUB_OUTPUT"
+            DELIM="CREATIVES_LIST_$(date +%s)"
+            echo "list<<${DELIM}" >> "$GITHUB_OUTPUT"
             echo "$MEDIA_FILES" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
 
             # Include catalog if it exists
             if [ -f "Creatives/CATALOG.md" ]; then
@@ -246,52 +248,67 @@ jobs:
                visual matching, audience segments, output format
             3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
                algorithm signals, visual guidelines, posting mechanics
-            4. Read claude_automation/docs/instagram/instagram-past-posts.md — past post data.
-               Study what worked (high likes, saves, shares) and what didn't.
-               Pay special attention to visual descriptions of top performers.
-            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
-            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
-            7. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
+            4. *** MANDATORY — FOUNDER'S POST ANALYSIS (READ FIRST) ***
+               Read claude_automation/docs/instagram/MY-POST-ANALYSIS.md — the founder's
+               personal analysis of what works and what doesn't. This is your #1 source
+               of truth. Internalize every principle before writing anything.
+
+            5. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
+               Read claude_automation/docs/instagram/instagram-past-posts.md — full past
+               post data. You MUST study at minimum the top 3 best-performing posts AND
+               the top 3 worst-performing posts. For each, understand WHY it succeeded
+               or failed. What made the hook work? What visual resonated? What killed it?
+               You may read additional posts for broader patterns and reference.
+
+               HARD RULE: You may draw INSPIRATION from past phrasing, hooks, and
+               structures that worked — but you must always iterate, improve, and
+               innovate on them. Never copy word-for-word. Every post must push
+               forward: test new angles, sharpen what worked, evolve the voice.
+               The goal is continuous improvement, not repetition.
+
+            6. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
+            7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            8. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
                descriptions and metadata about each file, then list folder contents
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
             ===============================================================
 
-            8. List all files in claude_automation/output/instagram/ directory
-            9. Read the last 5 Instagram posts (if they exist) and extract:
+            9. List all files in claude_automation/output/instagram/ directory
+            10. Read the last 5 Instagram posts (if they exist) and extract:
                 - What topics were already covered
                 - What visual styles were used
                 - What segments were targeted
                 - What caption styles performed (short vs long)
-            10. Make sure your post covers NEW ground
+            11. Make sure your post covers NEW ground
 
             ===============================================================
             PHASE 3 — MATCH CREATIVE (if available)
             ===============================================================
 
-            11. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
+            12. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
                 descriptions and status to pick the best match for this week's
                 pillar and today's topic.
                 ONLY pick creatives that Instagram hasn't already used.
                 OK to pick: [available], [USED ON LINKEDIN], [REQUEST USE LINKEDIN]
                 Skip: [reserved], [USED ON INSTA], [USED ON BOTH], [REQUEST USE INSTA]
                 A creative used on LinkedIn can still be used on Instagram.
-            12. If you pick a creative from the catalog, set the frontmatter
+            13. If you pick a creative from the catalog, set the frontmatter
                 field creative_status to "REQUEST USE INSTA" and explain in
                 the post file why you chose it.
-            13. If no creatives match or none exist, create a detailed
+            14. If no creatives match or none exist, create a detailed
                 creative_brief describing the ideal visual instead.
 
             ===============================================================
             PHASE 4 — WRITE THE CAPTION (English, all markets)
             ===============================================================
 
-            14. Pick ONE primary audience segment but ensure cross-market appeal
-            15. Choose a format: static, carousel, or reel
-            16. Choose caption length: short (<50 words) or long (200-400 words)
+            15. Pick ONE primary audience segment but ensure cross-market appeal
+            16. Choose a format: static, carousel, or reel
+            17. Choose caption length: short (<50 words) or long (200-400 words)
                 NEVER write medium-length product descriptions
-            17. Write the full Instagram caption IN ENGLISH following ALL rules
+            18. Write the full Instagram caption IN ENGLISH following ALL rules
                 in INSTAGRAM_SOUL.md:
                 - First 125 characters must stop the scroll
                 - Lead with contrast, not product
@@ -301,12 +318,12 @@ jobs:
                 - Maximum 3-5 hashtags if using any (test zero)
                 - NO AI writing tells
                 - NO spec dumps as the lead
-            18. Include creative_brief or creative_file match.
+            19. Include creative_brief or creative_file match.
                 If using a catalog creative, set:
                   creative_file: "claude_automation/Creatives/filename.jpg"
                   creative_status: "REQUEST USE INSTA"
                 If no catalog match, provide creative_brief only.
-            19. Save to claude_automation/output/instagram/ as:
+            20. Save to claude_automation/output/instagram/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
@@ -323,6 +340,8 @@ jobs:
             - ALWAYS include YAML frontmatter per INSTAGRAM_SOUL.md
             - ALWAYS lead with contrast
             - ALWAYS include a creative_brief or creative_file reference
+            - NEVER copy a past post word-for-word — inspire from what worked, then iterate and improve
+            - Every post must push forward — test new angles, sharpen winners, evolve the voice
 
           claude_args: |
             --max-turns 35
@@ -359,6 +378,10 @@ jobs:
 
           git commit -m "instagram: ${TODAY} [${PILLAR}]"
 
-          # Pull-rebase in case another workflow pushed first
-          git pull --rebase origin ${{ github.event.repository.default_branch }}
-          git push origin HEAD:${{ github.event.repository.default_branch }}
+          # Pull-rebase in case another workflow pushed first, with retry
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.event.repository.default_branch }} && \
+            git push origin HEAD:${{ github.event.repository.default_branch }} && break
+            echo "Push attempt $attempt failed, retrying in $((attempt * 2))s..."
+            sleep $((attempt * 2))
+          done
