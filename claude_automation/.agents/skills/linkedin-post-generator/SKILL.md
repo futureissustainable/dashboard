@@ -55,9 +55,10 @@ Before generating anything:
    What data point drove reactions? What killed engagement?
 10. You may read additional posts from the file for broader patterns and reference.
 
-**HARD RULE: NEVER copy a past post's subject, hook, topic, or phrasing word-for-word.
-Every post you write must be 100% original. You are learning the PRINCIPLES and THINKING
-behind what works, not the words. If your output resembles any past post, it fails.**
+**HARD RULE: You may draw INSPIRATION from past phrasing, hooks, and structures that
+worked — but you must always iterate, improve, and innovate on them. Never copy a past
+post word-for-word. Every post must push forward: test new angles, sharpen what worked,
+and evolve the voice. The goal is continuous improvement, not repetition.**
 
 ---
 

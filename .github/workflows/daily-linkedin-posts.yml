@@ -265,9 +265,11 @@ jobs:
                or failed. What made the hook land? What data drove reactions? What killed it?
                You may read additional posts for broader patterns and reference.
 
-               HARD RULE: NEVER copy a past post's subject, hook, topic, or phrasing
-               word-for-word. Every post must be 100% original. Learn the PRINCIPLES
-               and THINKING behind what works, not the words.
+               HARD RULE: You may draw INSPIRATION from past phrasing, hooks, and
+               structures that worked — but you must always iterate, improve, and
+               innovate on them. Never copy word-for-word. Every post must push
+               forward: test new angles, sharpen what worked, evolve the voice.
+               The goal is continuous improvement, not repetition.
 
             6. Read claude_automation/docs/company/biobuilds-company-overview.md — company data,
                products, certifications, milestones, technical specs
@@ -357,8 +359,8 @@ jobs:
             - ALWAYS include YAML frontmatter per LINKEDIN_SOUL.md
             - ALWAYS lead with a specific number or tension-creating statement
             - ALWAYS ground every claim in verifiable data
-            - NEVER reuse a past post's subject, hook, topic, or phrasing word-for-word
-            - Every post must be 100% original — learn principles, not words
+            - NEVER copy a past post word-for-word — inspire from what worked, then iterate and improve
+            - Every post must push forward — test new angles, sharpen winners, evolve the voice
 
           claude_args: |
             --max-turns 35
