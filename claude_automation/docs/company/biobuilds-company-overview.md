@@ -59,7 +59,7 @@ The world's first modular building system certified by Passivhaus Darmstadt. 99%
 Four models. All Passivhaus-certified. All expandable. Available in Semi-finished and Turnkey configurations.
 
 **Nest 24** — 24 m² · 1 bedroom
-The starting point. A studio, a guest house, an office, a first step.
+The starting point. A studio, a guest house, a home office, a first step.
 
 **Wanderlust 48** — 48 m² · 1–2 bedrooms
 For couples, remote workers, or anyone who needs room to think.

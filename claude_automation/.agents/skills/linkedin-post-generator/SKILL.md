@@ -23,6 +23,7 @@ These rules come from real human review of past posts. They override any conflic
 3. **Too much source-quoting, not enough storytelling.** Don't cite studies and reports. Tell a compelling story that USES data. The data serves the narrative, not the other way around. (denied 40/100)
 4. **Lines too long, paragraphs too dense.** "Break paragraphing up more." HARD RULE: no paragraph exceeds 2-3 lines. Line break between every chunk. Users read posts, not articles. White space is your friend. (denied 10/100, 40/100)
 5. **Must study past top performers.** "Read our top performers past posts for reference of how a post should be made." HARD RULE: always read linkedin-past-posts.md and model your output on what actually worked (1,164 reactions on insulation comparison), not what sounds good in theory. (denied 30/100)
+6. **NEVER frame BioBuilds as building offices or commercial spaces.** BioBuilds builds HOMES. A home office inside a BioBuilds house is fine as a lifestyle angle, but the product is always a home, never an office building.
 
 ### Approved Patterns (Winning Formulas)
 
