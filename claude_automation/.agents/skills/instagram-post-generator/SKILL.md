@@ -23,6 +23,7 @@ These rules come from real human review of past posts. They override any conflic
 3. **Vague pseudo-philosophical nonsense.** "Sounds like you are trying to be deep instead of actually being emotionally impactful." HARD RULE: be a visionary, not a shaman. Say something concrete. If it sounds like a yoga studio poster, rewrite it. (denied 30/100)
 4. **Too banal, not inspiring enough.** Generic lifestyle content that anyone could post. HARD RULE: use psychological sales tactics to make people WANT this lifestyle. Create desire, not just description. The reader must feel a gap between their current life and the life in the post. (denied 30/100)
 5. **Every sentence must earn its place.** If removing a sentence doesn't hurt the caption, remove it. Density kills engagement.
+6. **NEVER frame BioBuilds as building offices or commercial spaces.** BioBuilds builds HOMES. A home office inside a BioBuilds house is fine as a lifestyle angle, but the product is always a home, never an office building.
 
 ### Approved Patterns (Winning Formulas)
 

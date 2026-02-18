@@ -54,21 +54,25 @@ The world's first modular building system certified by Passivhaus Darmstadt. 99%
 **Health:** 99% dust/allergen filtration. Continuous fresh air. 54 dB soundproofing.
 **Planet:** Carbon-negative. 337 tonnes CO₂ saved per home.
 
+### Client Mix
+
+90% family homes. 7.5% tourism (holiday rentals, guesthouses). 2.5% offices. The core business is residential. Always has been. Content should reflect this: lead with families, not commercial use cases.
+
 ### The Product Line
 
 Four models. All Passivhaus-certified. All expandable. Available in Semi-finished and Turnkey configurations.
 
-**Nest 24** — 24 m² · 1 bedroom
-The starting point. A studio, a guest house, an office, a first step.
-
-**Wanderlust 48** — 48 m² · 1–2 bedrooms
-For couples, remote workers, or anyone who needs room to think.
-
-**Serenity 95** — 95 m² · up to 3 bedrooms
+**Serenity 95** — 95 m² · up to 3 bedrooms · **~40% of orders (most popular)**
 The family home. Three bedrooms, two bathrooms, space that breathes.
 
-**Sanctuary 142** — 142 m² · up to 5 bedrooms
+**Sanctuary 142** — 142 m² · up to 5 bedrooms · **~25% of orders**
 The full vision. Up to five bedrooms, open living, everything BIOBUILDS can deliver under one roof.
+
+**Wanderlust 48** — 48 m² · 1–2 bedrooms · **~25% of orders**
+For couples, remote workers, or anyone who needs room to think.
+
+**Nest 24** — 24 m² · 1 bedroom · **~10% of orders**
+The starting point. A studio, a guest house, a home office, a first step.
 
 ### Modularity
 

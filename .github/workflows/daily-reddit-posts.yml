@@ -305,6 +305,7 @@ jobs:
             ===============================================================
             RULES (violations = failure)
             ===============================================================
+            - NEVER frame BioBuilds as building offices or commercial spaces (we build HOMES)
             - NEVER use Bash, curl, or shell commands
             - NEVER run git commands
             - NEVER sound like an advertisement
