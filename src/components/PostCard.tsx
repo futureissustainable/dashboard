@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { CaretDown, CaretUp, ChartBar, Check, X } from "@phosphor-icons/react";
+import { ArrowClockwise, CaretDown, CaretUp, ChartBar, Check, X } from "@phosphor-icons/react";
 
 export type PostEntry = {
   platform: "reddit" | "linkedin" | "instagram";
@@ -36,10 +36,12 @@ export default function PostCard({
   post,
   onReview,
   onAddResults,
+  onReroll,
 }: {
   post: PostEntry;
   onReview: (post: PostEntry, status: "approved" | "denied") => void;
   onAddResults?: (post: PostEntry) => void;
+  onReroll?: (post: PostEntry) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const color = PLATFORM_COLORS[post.platform];
@@ -175,7 +177,17 @@ export default function PostCard({
           </div>
         )}
 
-        {post.feedback && post.feedback.feedback && !post.feedback.engagement && (
+        {post.feedback && post.feedback.status === "denied" && post.frontmatter.hook_id && onReroll && (
+          <button
+            onClick={() => onReroll(post)}
+            className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-yellow-400 hover:text-yellow-300 border border-yellow-400/30 hover:border-yellow-300 px-3 py-1.5 transition-colors duration-100"
+          >
+            <ArrowClockwise size={12} weight="bold" />
+            Re-roll
+          </button>
+        )}
+
+        {post.feedback && post.feedback.feedback && !post.feedback.engagement && !(post.feedback.status === "denied" && post.frontmatter.hook_id && onReroll) && (
           <p className="text-[11px] text-muted italic max-w-[50%] truncate">
             &ldquo;{post.feedback.feedback}&rdquo;
           </p>

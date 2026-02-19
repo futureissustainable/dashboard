@@ -1,11 +1,15 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowClockwise, Check, CircleNotch, FileText, Lightning, WarningCircle } from "@phosphor-icons/react";
+import { ArrowClockwise, Check, CircleNotch, FileText, Lightbulb, Lightning, WarningCircle } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
 import EngagementModal from "./EngagementModal";
+import RerollModal from "./RerollModal";
 import DocsEditor from "./DocsEditor";
+import HooksReviewPanel from "./HooksReviewPanel";
+import ExampleHooksPanel from "./ExampleHooksPanel";
+import type { HookSet, Platform } from "@/lib/types";
 
 type Filter = "all" | "reddit" | "linkedin" | "instagram";
 
@@ -16,14 +20,24 @@ const FILTERS: { value: Filter; label: string }[] = [
   { value: "instagram", label: "Instagram" },
 ];
 
+const PLATFORM_COLORS: Record<string, string> = {
+  reddit: "#FF4500",
+  linkedin: "#0A66C2",
+  instagram: "#E1306C",
+};
+
 export default function AutomationsPanel() {
-  const [view, setView] = useState<"feed" | "docs">("feed");
+  const [view, setView] = useState<"feed" | "docs" | "hooks-review" | "examples">("feed");
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   const [total, setTotal] = useState(0);
+
+  // Hooks state
+  const [hookSets, setHookSets] = useState<HookSet[]>([]);
+  const [activeHookSet, setActiveHookSet] = useState<HookSet | null>(null);
 
   // Run all workflows
   const [runStatus, setRunStatus] = useState<"idle" | "running" | "success" | "error">("idle");
@@ -65,6 +79,9 @@ export default function AutomationsPanel() {
   // Engagement modal
   const [engagementTarget, setEngagementTarget] = useState<PostEntry | null>(null);
 
+  // Reroll modal
+  const [rerollTarget, setRerollTarget] = useState<PostEntry | null>(null);
+
   const fetchPosts = useCallback(
     async (offset = 0, append = false) => {
       if (offset === 0) setLoading(true);
@@ -93,9 +110,24 @@ export default function AutomationsPanel() {
     [filter]
   );
 
+  const fetchHooks = useCallback(async () => {
+    try {
+      const params = new URLSearchParams({ status: "all" });
+      if (filter !== "all") params.set("platform", filter);
+      const res = await fetch(`/api/automations/hooks?${params}`);
+      const data = await res.json();
+      setHookSets(data.hookSets || []);
+    } catch (e) {
+      console.error("Failed to fetch hooks:", e);
+    }
+  }, [filter]);
+
   useEffect(() => {
-    if (view === "feed") fetchPosts();
-  }, [fetchPosts, view]);
+    if (view === "feed") {
+      fetchPosts();
+      fetchHooks();
+    }
+  }, [fetchPosts, fetchHooks, view]);
 
   const handleReview = (post: PostEntry, status: "approved" | "denied") => {
     setReviewTarget({ post, status });
@@ -117,10 +149,11 @@ export default function AutomationsPanel() {
       });
       const result = await res.json();
       if (result.success) {
-        // Optimistically update the post in local state
+        const postFileName = data.postFile;
         setPosts((prev) =>
-          prev.map((p) =>
-            p.platform === data.platform && p.date === data.date
+          prev.map((p) => {
+            const pFileName = p.filePath.split("/").pop() || "";
+            return p.platform === data.platform && pFileName === postFileName
               ? {
                   ...p,
                   feedback: {
@@ -130,8 +163,8 @@ export default function AutomationsPanel() {
                     reviewedAt: new Date().toISOString(),
                   },
                 }
-              : p
-          )
+              : p;
+          })
         );
       }
     } catch (e) {
@@ -144,6 +177,7 @@ export default function AutomationsPanel() {
   const handleEngagementSubmit = async (data: {
     platform: string;
     date: string;
+    postFile: string;
     engagement: {
       metrics: Record<string, number>;
       notes: string;
@@ -158,8 +192,9 @@ export default function AutomationsPanel() {
       const result = await res.json();
       if (result.success) {
         setPosts((prev) =>
-          prev.map((p) =>
-            p.platform === data.platform && p.date === data.date
+          prev.map((p) => {
+            const pFileName = p.filePath.split("/").pop() || "";
+            return p.platform === data.platform && pFileName === data.postFile
               ? {
                   ...p,
                   feedback: p.feedback
@@ -173,14 +208,95 @@ export default function AutomationsPanel() {
                       }
                     : p.feedback,
                 }
-              : p
-          )
+              : p;
+          })
         );
       }
     } catch (e) {
       console.error("Failed to save engagement:", e);
     } finally {
       setEngagementTarget(null);
+    }
+  };
+
+  const handleHookReviewSubmit = async (data: {
+    platform: string;
+    date: string;
+    approved_hook_ids: string[];
+    hook_feedback: Record<string, { score: number; feedback?: string }>;
+  }) => {
+    const res = await fetch("/api/automations/hooks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const result = await res.json();
+    if (!result.success) throw new Error("Failed to submit hook review");
+
+    // Update local state
+    setHookSets((prev) =>
+      prev.map((hs) =>
+        hs.platform === data.platform && hs.date === data.date
+          ? {
+              ...hs,
+              status: "reviewed" as const,
+              review: {
+                reviewed_at: new Date().toISOString(),
+                approved_hook_ids: data.approved_hook_ids,
+                hook_feedback: data.hook_feedback,
+              },
+            }
+          : hs
+      )
+    );
+
+    if (activeHookSet) {
+      setActiveHookSet((prev) =>
+        prev
+          ? {
+              ...prev,
+              status: "reviewed" as const,
+              review: {
+                reviewed_at: new Date().toISOString(),
+                approved_hook_ids: data.approved_hook_ids,
+                hook_feedback: data.hook_feedback,
+              },
+            }
+          : null
+      );
+    }
+  };
+
+  const handleTriggerPhase2 = async (platform: Platform, date: string, hookIds: string[]) => {
+    const res = await fetch("/api/automations/run/phase2", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ platform, date, hook_ids: hookIds }),
+    });
+    const result = await res.json();
+    if (!result.triggered) throw new Error(result.error || "Failed to trigger");
+  };
+
+  const handleRerollSubmit = async (data: {
+    platform: string;
+    date: string;
+    hook_id: string;
+    feedback: string;
+  }) => {
+    try {
+      const res = await fetch("/api/automations/run/reroll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (!result.triggered) {
+        console.error("Failed to trigger re-roll:", result.error);
+      }
+    } catch (e) {
+      console.error("Failed to trigger re-roll:", e);
+    } finally {
+      setRerollTarget(null);
     }
   };
 
@@ -191,6 +307,30 @@ export default function AutomationsPanel() {
       </div>
     );
   }
+
+  if (view === "examples") {
+    return (
+      <ExampleHooksPanel onBack={() => setView("feed")} />
+    );
+  }
+
+  if (view === "hooks-review" && activeHookSet) {
+    return (
+      <HooksReviewPanel
+        hookSet={activeHookSet}
+        onBack={() => {
+          setView("feed");
+          setActiveHookSet(null);
+          fetchHooks();
+        }}
+        onSubmitReview={handleHookReviewSubmit}
+        onTriggerPhase2={handleTriggerPhase2}
+      />
+    );
+  }
+
+  const pendingHooks = hookSets.filter((hs) => hs.status === "pending");
+  const reviewedHooksToday = hookSets.filter((hs) => hs.status === "reviewed");
 
   return (
     <div className="flex flex-col h-[calc(100vh-72px)]">
@@ -213,9 +353,21 @@ export default function AutomationsPanel() {
         </div>
 
         <div className="flex items-center gap-2">
+          {pendingHooks.length > 0 && (
+            <span className="font-mono text-[10px] text-yellow-400 tabular-nums">
+              {pendingHooks.length} hook{pendingHooks.length !== 1 ? "s" : ""} pending
+            </span>
+          )}
           <span className="font-mono text-[11px] text-muted tabular-nums">
             {total} post{total !== 1 ? "s" : ""}
           </span>
+          <button
+            onClick={() => setView("examples")}
+            className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
+          >
+            <Lightbulb size={12} weight="bold" />
+            Examples
+          </button>
           <button
             onClick={() => setView("docs")}
             className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
@@ -224,7 +376,7 @@ export default function AutomationsPanel() {
             Docs
           </button>
           <button
-            onClick={() => fetchPosts()}
+            onClick={() => { fetchPosts(); fetchHooks(); }}
             disabled={loading}
             className="text-muted hover:text-foreground p-1.5 transition-colors duration-100"
             title="Refresh"
@@ -246,7 +398,7 @@ export default function AutomationsPanel() {
                   ? "text-red-400"
                   : "text-muted hover:text-foreground"
               }`}
-              title="Run all automations"
+              title="Generate hooks (Phase 1)"
             >
               {runStatus === "running" ? (
                 <CircleNotch size={14} weight="bold" className="animate-spin" />
@@ -275,22 +427,103 @@ export default function AutomationsPanel() {
           <div className="flex items-center justify-center h-64">
             <CircleNotch size={20} weight="bold" className="animate-spin text-muted" />
           </div>
-        ) : posts.length === 0 ? (
-          <div className="flex items-center justify-center h-64">
-            <p className="text-[12px] font-mono text-muted">
-              No posts found
-            </p>
-          </div>
         ) : (
           <div className="p-4 sm:p-6 lg:p-8 space-y-3 max-w-4xl mx-auto">
-            {posts.map((post) => (
-              <PostCard
-                key={`${post.platform}-${post.date}-${post.slug}`}
-                post={post}
-                onReview={handleReview}
-                onAddResults={setEngagementTarget}
-              />
-            ))}
+            {/* Hooks Pending Review */}
+            {pendingHooks.length > 0 && (
+              <div className="border border-yellow-400/30 bg-yellow-400/5 p-4 space-y-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lightbulb size={14} weight="bold" className="text-yellow-400" />
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-yellow-400">
+                    Hooks Pending Review
+                  </span>
+                </div>
+                {pendingHooks.map((hs) => {
+                  const color = PLATFORM_COLORS[hs.platform];
+                  return (
+                    <button
+                      key={`${hs.platform}-${hs.date}`}
+                      onClick={() => {
+                        setActiveHookSet(hs);
+                        setView("hooks-review");
+                      }}
+                      className="w-full flex items-center gap-3 p-2 border border-border hover:border-foreground-secondary bg-surface transition-colors duration-100"
+                    >
+                      <span
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 border"
+                        style={{ color, borderColor: color }}
+                      >
+                        {hs.platform}
+                      </span>
+                      <span className="font-mono text-[11px] text-muted tabular-nums">
+                        {hs.date}
+                      </span>
+                      <span className="text-[11px] text-foreground-secondary">
+                        {hs.pillar}
+                      </span>
+                      <span className="ml-auto font-mono text-[10px] text-muted">
+                        {hs.hooks.length} hooks
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Recently Reviewed Hooks (with Write Posts option) */}
+            {reviewedHooksToday.filter((hs) => hs.review && hs.review.approved_hook_ids.length > 0).length > 0 && (
+              <div className="border border-border bg-surface p-4 space-y-2">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                  Reviewed Hooks
+                </span>
+                {reviewedHooksToday.map((hs) => {
+                  const color = PLATFORM_COLORS[hs.platform];
+                  const approvedCount = hs.review?.approved_hook_ids.length || 0;
+                  return (
+                    <button
+                      key={`reviewed-${hs.platform}-${hs.date}`}
+                      onClick={() => {
+                        setActiveHookSet(hs);
+                        setView("hooks-review");
+                      }}
+                      className="w-full flex items-center gap-3 p-2 border border-border hover:border-foreground-secondary transition-colors duration-100"
+                    >
+                      <span
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 border"
+                        style={{ color, borderColor: color }}
+                      >
+                        {hs.platform}
+                      </span>
+                      <span className="font-mono text-[11px] text-muted tabular-nums">
+                        {hs.date}
+                      </span>
+                      <span className="font-mono text-[10px] text-green-400">
+                        {approvedCount} approved
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Posts */}
+            {posts.length === 0 && pendingHooks.length === 0 ? (
+              <div className="flex items-center justify-center h-64">
+                <p className="text-[12px] font-mono text-muted">
+                  No posts found
+                </p>
+              </div>
+            ) : (
+              posts.map((post) => (
+                <PostCard
+                  key={`${post.platform}-${post.date}-${post.slug}`}
+                  post={post}
+                  onReview={handleReview}
+                  onAddResults={setEngagementTarget}
+                  onReroll={setRerollTarget}
+                />
+              ))
+            )}
 
             {hasMore && (
               <div className="flex justify-center pt-4 pb-8">
@@ -327,6 +560,15 @@ export default function AutomationsPanel() {
           post={engagementTarget}
           onClose={() => setEngagementTarget(null)}
           onSubmit={handleEngagementSubmit}
+        />
+      )}
+
+      {/* Reroll Modal */}
+      {rerollTarget && (
+        <RerollModal
+          post={rerollTarget}
+          onClose={() => setRerollTarget(null)}
+          onSubmit={handleRerollSubmit}
         />
       )}
     </div>

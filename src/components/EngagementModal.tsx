@@ -20,6 +20,7 @@ export default function EngagementModal({
   onSubmit: (data: {
     platform: string;
     date: string;
+    postFile: string;
     engagement: {
       metrics: Record<string, number>;
       notes: string;
@@ -46,6 +47,7 @@ export default function EngagementModal({
     onSubmit({
       platform: post.platform,
       date: post.date,
+      postFile: post.filePath.split("/").pop() || "",
       engagement: { metrics: parsed, notes: notes.trim() },
     });
   };

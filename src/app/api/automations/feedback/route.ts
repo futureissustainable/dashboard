@@ -41,14 +41,19 @@ export async function GET() {
 const VALID_PLATFORMS = ["reddit", "linkedin", "instagram"];
 const VALID_STATUSES = ["approved", "denied"];
 
+function feedbackPathForPost(platform: string, postFile: string): string {
+  const slug = postFile.replace(/\.md$/, "");
+  return `claude_automation/feedback/${platform}/${slug}.json`;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { platform, date, postFile, status, score, feedback } = body;
 
-    if (!platform || !date || !status || score === undefined) {
+    if (!platform || !date || !postFile || !status || score === undefined) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing required fields (platform, date, postFile, status, score)" },
         { status: 400 }
       );
     }
@@ -81,6 +86,33 @@ export async function POST(request: Request) {
       );
     }
 
+    // Look up hook_id from post frontmatter, then lever from hooks file
+    let hookId = "";
+    let lever = "";
+    try {
+      const postPath = `claude_automation/output/${platform}/${postFile}`;
+      const { content: postContent } = await getFileContent(postPath);
+      const fmMatch = postContent.match(/^---\n([\s\S]*?)\n---/);
+      if (fmMatch) {
+        const hookIdMatch = fmMatch[1].match(/hook_id:\s*"?([^"\n]+)"?/);
+        if (hookIdMatch) {
+          hookId = hookIdMatch[1].trim();
+          // Find lever from hooks file
+          const hooksPath = `claude_automation/hooks/${platform}/${date}.json`;
+          try {
+            const { content: hooksContent } = await getFileContent(hooksPath);
+            const hooksData = JSON.parse(hooksContent);
+            const hook = hooksData.hooks?.find((h: { id: string }) => h.id === hookId);
+            if (hook) lever = hook.psychological_lever || "";
+          } catch {
+            // hooks file may not exist for older posts
+          }
+        }
+      }
+    } catch {
+      // post file read failed, skip lever lookup
+    }
+
     const feedbackData = {
       platform,
       date,
@@ -89,9 +121,11 @@ export async function POST(request: Request) {
       score,
       feedback: feedback || "",
       reviewedAt: new Date().toISOString(),
+      hook_id: hookId,
+      psychological_lever: lever,
     };
 
-    const path = `claude_automation/feedback/${platform}/${date}.json`;
+    const path = feedbackPathForPost(platform, postFile);
     const content = JSON.stringify(feedbackData, null, 2);
     const message = `feedback: ${platform} ${date} — ${status} (${score}/100)`;
 
@@ -142,16 +176,28 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const path = `claude_automation/feedback/${platform}/${date}.json`;
+    if (!body.postFile) {
+      return NextResponse.json(
+        { error: "Missing required field: postFile" },
+        { status: 400 }
+      );
+    }
+
+    const path = feedbackPathForPost(platform, body.postFile);
 
     let existing;
     try {
       existing = await getFileContent(path);
     } catch {
-      return NextResponse.json(
-        { error: "No feedback found for this date. Approve/deny the post first." },
-        { status: 404 }
-      );
+      // Fall back to legacy date-based path
+      try {
+        existing = await getFileContent(`claude_automation/feedback/${platform}/${date}.json`);
+      } catch {
+        return NextResponse.json(
+          { error: "No feedback found for this post. Approve/deny the post first." },
+          { status: 404 }
+        );
+      }
     }
 
     const feedbackData = JSON.parse(existing.content);

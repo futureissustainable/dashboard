@@ -1,13 +1,12 @@
 # =============================================================================
-# BIOBUILDS Daily Instagram Caption Generator — v2.0
+# BIOBUILDS Instagram Hook Generator (Phase 1) — v3.0
 # =============================================================================
 #
 # Architecture:
 #   Runs every weekday (Mon-Fri) at 02:00 UTC.
-#   Generates 1 Instagram caption in English that must resonate across all 3
-#   markets (DACH, Romania, international) simultaneously.
-#   Caption is matched to a creative from Creatives/ if available.
-#   Output is committed directly to main in the output/instagram/ folder.
+#   Generates 10 wildly different hook/angle ideas for Instagram.
+#   Output is committed directly to main in the hooks/instagram/ folder.
+#   Human reviews hooks in dashboard, then triggers Phase 2 (caption writing).
 #
 # SETUP:
 #   1. Run `claude setup-token` locally -> copy the token
@@ -72,7 +71,24 @@ jobs:
           echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
           echo "This week's pillar: ${PILLARS[$INDEX]}"
 
+      - name: Check for existing unreviewed hooks
+        id: check_hooks
+        run: |
+          HOOKS_FILE="hooks/instagram/${{ steps.date.outputs.today }}.json"
+          if [ -f "$HOOKS_FILE" ]; then
+            STATUS=$(python3 -c "import json; print(json.load(open('$HOOKS_FILE'))['status'])" 2>/dev/null || echo "unknown")
+            if [ "$STATUS" = "pending" ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "::warning::Hooks already exist for today and haven't been reviewed yet"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check for new feedback
+        if: steps.check_hooks.outputs.skip != 'true'
         id: check_feedback
         run: |
           DIR="feedback/instagram"
@@ -92,7 +108,7 @@ jobs:
           fi
 
       - name: Summarize feedback
-        if: steps.check_feedback.outputs.has_new == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.check_feedback.outputs.has_new == 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -137,6 +153,14 @@ jobs:
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
 
+            6. LEVER PERFORMANCE TRACKING:
+               For each feedback JSON that has BOTH "psychological_lever" AND
+               ("engagement" data OR a score):
+               - Read existing claude_automation/hooks/instagram/lever-performance.json
+               - Merge: lever → { times_used, avg_review_score, avg_saves,
+                 avg_shares, trend, best_hook, worst_hook }
+               - Write updated lever-performance.json
+
             5. For each JSON you processed, update it: add "summarized": true
                to the JSON object and write it back.
 
@@ -146,6 +170,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
+        if: steps.check_hooks.outputs.skip != 'true'
         id: feedback
         run: |
           SUMMARY_FILE="feedback/instagram/SUMMARY.md"
@@ -162,6 +187,7 @@ jobs:
           fi
 
       - name: List available creatives
+        if: steps.check_hooks.outputs.skip != 'true'
         id: creatives
         run: |
           # Check for actual media files (not just CATALOG.md and .gitkeep)
@@ -191,7 +217,7 @@ jobs:
 
       # --- Rate creatives (pick highest potential) --------------------------
       - name: Rate creatives for Instagram
-        if: steps.creatives.outputs.available == 'true' && steps.creatives.outputs.has_catalog == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.creatives.outputs.available == 'true' && steps.creatives.outputs.has_catalog == 'true'
         id: rate_creatives
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -252,6 +278,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect creative ratings
+        if: steps.check_hooks.outputs.skip != 'true'
         id: creative_ratings
         run: |
           RATINGS_FILE=".creative-ratings-instagram.md"
@@ -270,6 +297,7 @@ jobs:
 
       # --- Pattern innovation (analyze what works, propose experiment) ------
       - name: Analyze winning patterns and propose experiment
+        if: steps.check_hooks.outputs.skip != 'true'
         id: innovation
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -295,7 +323,7 @@ jobs:
                last 5 generated captions
             5. Read all .json files in claude_automation/feedback/instagram/
                — look for any with "engagement" data (real post-publish metrics)
-            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+            6. Read claude_automation/docs/company/BIOBUILDS_BRAND_VOICE_MANIFESTO.md
                — use this movement/story psychology lens when analyzing which
                patterns work and proposing today's experiment
 
@@ -333,6 +361,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect innovation brief
+        if: steps.check_hooks.outputs.skip != 'true'
         id: innovation_brief
         run: |
           BRIEF_FILE=".pattern-innovation-instagram.md"
@@ -347,205 +376,166 @@ jobs:
             echo "brief=No innovation brief available" >> "$GITHUB_OUTPUT"
           fi
 
-      # --- Generate single caption (all markets) ---------------------------
-      - name: Generate Instagram caption (all markets)
+      # --- Generate 10 hooks (Phase 1) -------------------------------------
+      - name: Generate 5 Instagram hooks
+        if: steps.check_hooks.outputs.skip != 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
           prompt: |
-            You are an Instagram caption generator for the BioBuilds content strategy.
+            You are an Instagram hook generator for the BioBuilds content strategy.
             Today's date: ${{ steps.date.outputs.today }}
             This week's content pillar: ${{ steps.pillar.outputs.pillar }}
-            Creatives available: ${{ steps.creatives.outputs.available }}
-            Creative files: ${{ steps.creatives.outputs.list }}
-            Creative catalog available: ${{ steps.creatives.outputs.has_catalog }}
 
             ===============================================================
-            CREATIVE RATINGS (pre-analyzed by Sonnet — pick from the top)
+            CREATIVE RATINGS (available visuals, pre-analyzed)
             ===============================================================
             ${{ steps.creative_ratings.outputs.ratings }}
-
-            When selecting a creative, ALWAYS pick the highest-rated one from
-            the ratings above unless you have a strong, specific reason not to.
-            The ratings already account for pillar match, visual formula,
-            freshness, and the "send test." Trust them.
 
             ===============================================================
             INNOVATION BRIEF (winning patterns + today's experiment)
             ===============================================================
             ${{ steps.innovation_brief.outputs.brief }}
 
-            This brief was generated by analyzing your 62 top-performing
-            past posts. The "Today's Experiment" is a specific technique
-            to test. Use it. Break a rule if the experiment calls for it.
-            The best posts in history broke rules intentionally.
-
             ===============================================================
-            RECENT FEEDBACK ON PAST INSTAGRAM POSTS (learn from this)
+            RECENT FEEDBACK ON PAST INSTAGRAM POSTS
             ===============================================================
             ${{ steps.feedback.outputs.summary }}
-
-            Apply these lessons: repeat what scored high, fix what was denied
-            or scored low. This is non-negotiable.
 
             DO NOT run any git commands.
             DO NOT create branches, commits, or pull requests.
 
             ===============================================================
-            THE CORE CHALLENGE
+            YOUR TASK: Generate exactly 5 hook ideas
             ===============================================================
 
-            You must write ONE Instagram caption in ENGLISH that simultaneously
-            resonates with BioBuilds' two primary markets and broader
-            European audience:
-            - DACH (Germany, Austria, Switzerland) — primary market
-            - Romania — young families (30-45), ~70% IT industry, rest
-              entrepreneurs or higher-paying professions. NOT luxury.
-            - International (rest of EU) — secondary reach
-
-            The caption must pass the "send test": would someone DM this
-            to their partner when they're both thinking about building?
-
-            HOW TO DO THIS:
-            - Lead with a universal contrast that hits everywhere ("EUR 2,000
-              vs EUR 100 heating," "-10 outside, 24 inside," "3 weeks vs 3 years")
-            - Use visuals that transcend language (warmth, nature, family, contrast)
-            - Include one specific number that works across all markets
-            - Avoid market-specific jargon (no KfW numbers, no Romanian-only references)
-            - The emotion must be universal: "this is the life I want"
+            Instead of writing a full caption, generate 5 wildly different
+            hook/angle ideas. Each must target a DIFFERENT psychological
+            lever, audience segment, or content approach. Maximum diversity.
 
             ===============================================================
-            AVAILABLE TOOLS (use ONLY these)
-            ===============================================================
-            You have ONLY these tools: Read, Write, Edit, Glob, Grep,
-            WebSearch, WebFetch.
-
-            Bash, curl, shell commands are NOT available.
-
-            ===============================================================
-            PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
+            PHASE 1 — READ STRATEGY DOCS (mandatory)
             ===============================================================
 
-            1. Read claude_automation/CLAUDE.md — project rules and constraints
-            2. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
-               visual matching, audience segments, output format.
-               CRITICAL: This file begins with "Learned Rules from Feedback" — hand-curated
-               denied patterns with specific scores. These are NON-NEGOTIABLE. Read them first,
-               internalize them, and never repeat a denied pattern.
-            3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
-               algorithm signals, visual guidelines, posting mechanics
+            1. Read claude_automation/CLAUDE.md
+            2. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md
+               — especially "Learned Rules from Feedback"
+            3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md
+            4. Read claude_automation/docs/instagram/instagram-past-posts.md
+               — study top 5 best AND top 5 worst posts
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md
+            6. Read claude_automation/docs/company/BIOBUILDS_BRAND_VOICE_MANIFESTO.md
+            7. If hooks/instagram/ has reviewed JSON files, read the most recent
+               ones to learn which levers and angles scored highest vs lowest
+            8. Read claude_automation/hooks/instagram/examples.json if it exists
+               — these are HUMAN-WRITTEN example hooks (gold standard)
+               — study their hook_text, angle, lever, and notes carefully
+               — match their quality, specificity, and tone
+               — do NOT copy them verbatim, but use them as inspiration
 
-            4. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
-               Read claude_automation/docs/instagram/instagram-past-posts.md — full past
-               post data. You MUST study at minimum the top 3 best-performing posts AND
-               the top 3 worst-performing posts. For each, understand WHY it succeeded
-               or failed. What made the hook work? What visual resonated? What killed it?
-               You may read additional posts for broader patterns and reference.
-
-               HARD RULE: You may draw INSPIRATION from past phrasing, hooks, and
-               structures that worked — but you must always iterate, improve, and
-               innovate on them. Never copy word-for-word. Every post must push
-               forward: test new angles, sharpen what worked, evolve the voice.
-               The goal is continuous improvement, not repetition.
-
-            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
-            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
-               movement/story-driven marketing over product-first marketing. Internalize these
-               principles and apply them to today's post.
-            7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
-            8. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
-               descriptions and metadata about each file, then list folder contents
+            9. Read claude_automation/hooks/instagram/lever-performance.json if it exists
+               — shows which psychological levers ACTUALLY perform post-publish
+               — weight your 5 hooks toward high-performing levers
+               — always include 1 hook using an untested or underperforming lever
+               — if a lever has avg_review_score < 30, avoid unless genuinely different
 
             ===============================================================
-            PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
+            PHASE 2 — CHECK EXISTING (avoid duplication)
             ===============================================================
 
-            9. List all files in claude_automation/output/instagram/ directory
-            10. Read the last 5 Instagram posts (if they exist) and extract:
-                - What topics were already covered
-                - What visual styles were used
-                - What segments were targeted
-                - What caption styles performed (short vs long)
-            11. Make sure your post covers NEW ground
+            8. List claude_automation/output/instagram/ — read last 5 posts
+            9. List claude_automation/hooks/instagram/ — read recent hooks
+            10. Identify which angles, levers, and topics are overused
 
             ===============================================================
-            PHASE 3 — MATCH CREATIVE (if available)
+            PHASE 3 — RESEARCH (fresh data for hooks)
             ===============================================================
 
-            12. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
-                descriptions and status to pick the best match for this week's
-                pillar and today's topic.
-                ONLY pick creatives that Instagram hasn't already used.
-                OK to pick: [available], [USED ON LINKEDIN], [REQUEST USE LINKEDIN]
-                Skip: [reserved], [USED ON INSTA], [USED ON BOTH], [REQUEST USE INSTA]
-                A creative used on LinkedIn can still be used on Instagram.
-            13. If you pick a creative from the catalog, set the frontmatter
-                field creative_status to "REQUEST USE INSTA" and explain in
-                the post file why you chose it.
-            14. If no creatives match or none exist, create a detailed
-                creative_brief describing the ideal visual instead.
+            11. Use WebSearch to find 3-5 current data points relevant to
+                this week's pillar across DACH + Romania + EU
+            12. Find surprising numbers, contrasts, or facts that could
+                anchor different hooks
 
             ===============================================================
-            PHASE 4 — WRITE THE CAPTION (English, all markets)
+            PHASE 4 — GENERATE 10 HOOKS
             ===============================================================
 
-            15. Pick ONE primary audience segment but ensure cross-market appeal
-            16. Choose a format: static, carousel, or reel
-            17. Choose caption length: short (<50 words) or long (200-400 words)
-                NEVER write medium-length product descriptions
-            18. Write the full Instagram caption IN ENGLISH following ALL rules
-                in INSTAGRAM_SOUL.md:
-                - First 125 characters must stop the scroll
-                - Lead with contrast, not product
-                - Pass the "send test" across all 3 markets
-                - Include 2-3 specific data points woven naturally
-                - Use keywords in caption instead of hashtags where possible
-                - Maximum 3-5 hashtags if using any (test zero)
-                - NO AI writing tells
-                - NO spec dumps as the lead
-            19. Include creative_brief or creative_file match.
-                If using a catalog creative, set:
-                  creative_file: "claude_automation/Creatives/filename.jpg"
-                  creative_status: "REQUEST USE INSTA"
-                If no catalog match, provide creative_brief only.
-            20. Save to claude_automation/output/instagram/ as:
-                ${{ steps.date.outputs.today }}_[slug].md
+            For each hook, provide ALL of these fields:
+            - id: "h01" through "h05"
+            - hook_text: The actual opening line (complete, usable sentence)
+            - angle: 1-2 sentence description of the full caption approach
+            - psychological_lever: One of these categories:
+              cost savings, modernity contradiction, time value,
+              health/indoor environment, social comparison, material purity,
+              lifetime cost, sleep/performance, parental fear, industry failure,
+              humor/absurdity, regulation/compliance, investment/roi,
+              silence/privacy, summer heat, confrontation/material fight,
+              origin story, trust/legitimacy
+            - target_audience: Specific segment this hook targets
+            - differentiation: Why different from ALL other 9 hooks
+            - platform_meta: { "format": "static|carousel|reel", "creative_suggestion": "...", "caption_length": "short|long" }
+
+            RULES FOR HOOKS:
+            - Each hook MUST use a DIFFERENT psychological lever
+            - At least 1 hook must lead with a specific number or EUR amount
+            - At least 1 hook must include DACH-specific data
+            - At least 1 hook must include Romania/Eastern Europe angle
+            - Humor is welcome but not required for every batch
+            - If claude_automation/hooks/instagram/lever-performance.json exists,
+              bias toward high-performing levers but always include 1 experimental
+              lever not yet tested
+            - No two hooks should feel like variations of the same idea
+            - Each hook must be genuinely different in TONE, not just topic
+            - Write each hook_text as if it were the actual first line of the caption
+            - Hooks must pass the "send test" — would someone DM this to their partner?
+            - Apply all learned rules from feedback (denied patterns = banned)
+            - Hook text must be under 125 characters (Instagram fold limit)
+
+            ===============================================================
+            PHASE 5 — SAVE AS JSON
+            ===============================================================
+
+            Save to claude_automation/hooks/instagram/${{ steps.date.outputs.today }}.json
+            as a valid JSON object:
+
+            {
+              "platform": "instagram",
+              "date": "${{ steps.date.outputs.today }}",
+              "pillar": "${{ steps.pillar.outputs.pillar }}",
+              "generated_at": "<ISO timestamp>",
+              "status": "pending",
+              "hooks": [ ... 5 hook objects ... ]
+            }
 
             ===============================================================
             RULES (violations = failure)
             ===============================================================
-            - NEVER frame BioBuilds as building offices or commercial spaces (we build HOMES)
             - NEVER use Bash, curl, or shell commands
             - NEVER run git commands
-            - NEVER lead with specs (lead with feeling, prove with specs)
-            - NEVER write medium-length product descriptions
-            - NEVER use words like "revolutionary," "game-changer," "seamless"
-            - NEVER describe wrapped modules on trucks in the creative brief
-            - ALWAYS write in English
-            - ALWAYS pass the "send test" for all 3 markets
-            - ALWAYS include YAML frontmatter per INSTAGRAM_SOUL.md
-            - ALWAYS lead with contrast
-            - ALWAYS include a creative_brief or creative_file reference
-            - NEVER copy a past post word-for-word — inspire from what worked, then iterate and improve
-            - Every post must push forward — test new angles, sharpen winners, evolve the voice
+            - NEVER repeat an angle already in recent hooks or posts
+            - NEVER use AI-detectable writing patterns in hook_text
+            - ALWAYS generate exactly 5 hooks
+            - ALWAYS use different psychological levers
+            - ALWAYS write hook_text in English
 
           claude_args: |
-            --max-turns 35
+            --max-turns 25
             --model claude-opus-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
       - name: Check for changes
+        if: steps.check_hooks.outputs.skip != 'true'
         id: changes
         run: |
-          PATHS="output/instagram/"
+          PATHS="hooks/instagram/"
           [ -d "feedback/instagram" ] && PATHS="$PATHS feedback/instagram/"
           STATUS="$(git status --porcelain $PATHS)"
           if [ -z "$STATUS" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::No new Instagram post generated"
+            echo "::warning::No new Instagram hooks generated"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             echo "Changes detected:"
@@ -553,18 +543,18 @@ jobs:
           fi
 
       - name: Commit and push to main
-        if: steps.changes.outputs.has_changes == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.changes.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add output/instagram/
+          git add hooks/instagram/
           git add feedback/instagram/ 2>/dev/null || true
 
           TODAY="${{ steps.date.outputs.today }}"
           PILLAR="${{ steps.pillar.outputs.pillar }}"
 
-          git commit -m "instagram: ${TODAY} [${PILLAR}]"
+          git commit -m "hooks: instagram ${TODAY} [${PILLAR}]"
 
           # Pull-rebase in case another workflow pushed first, with retry
           for attempt in 1 2 3; do
