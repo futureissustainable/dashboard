@@ -5,7 +5,7 @@ export type Platform = "reddit" | "linkedin" | "instagram";
 // --- Hooks (Phase 1) ---
 
 export type Hook = {
-  id: string; // "h01"..."h10"
+  id: string; // "h01"..."h05"
   hook_text: string;
   angle: string;
   psychological_lever: string;

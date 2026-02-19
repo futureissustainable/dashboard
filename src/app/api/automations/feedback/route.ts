@@ -86,6 +86,33 @@ export async function POST(request: Request) {
       );
     }
 
+    // Look up hook_id from post frontmatter, then lever from hooks file
+    let hookId = "";
+    let lever = "";
+    try {
+      const postPath = `claude_automation/output/${platform}/${postFile}`;
+      const { content: postContent } = await getFileContent(postPath);
+      const fmMatch = postContent.match(/^---\n([\s\S]*?)\n---/);
+      if (fmMatch) {
+        const hookIdMatch = fmMatch[1].match(/hook_id:\s*"?([^"\n]+)"?/);
+        if (hookIdMatch) {
+          hookId = hookIdMatch[1].trim();
+          // Find lever from hooks file
+          const hooksPath = `claude_automation/hooks/${platform}/${date}.json`;
+          try {
+            const { content: hooksContent } = await getFileContent(hooksPath);
+            const hooksData = JSON.parse(hooksContent);
+            const hook = hooksData.hooks?.find((h: { id: string }) => h.id === hookId);
+            if (hook) lever = hook.psychological_lever || "";
+          } catch {
+            // hooks file may not exist for older posts
+          }
+        }
+      }
+    } catch {
+      // post file read failed, skip lever lookup
+    }
+
     const feedbackData = {
       platform,
       date,
@@ -94,6 +121,8 @@ export async function POST(request: Request) {
       score,
       feedback: feedback || "",
       reviewedAt: new Date().toISOString(),
+      hook_id: hookId,
+      psychological_lever: lever,
     };
 
     const path = feedbackPathForPost(platform, postFile);

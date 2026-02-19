@@ -96,9 +96,20 @@ export default function HookCard({
         </div>
       </div>
 
-      {/* Expand for differentiation + platform_meta */}
+      {/* Expand toggle */}
+      <div className="flex items-center mt-3 pl-8">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-foreground transition-colors duration-100"
+        >
+          {expanded ? <CaretUp size={10} weight="bold" /> : <CaretDown size={10} weight="bold" />}
+          {expanded ? "Less" : "Score & details"}
+        </button>
+      </div>
+
+      {/* Expanded: differentiation + platform_meta + score + feedback */}
       {expanded && (
-        <div className="mt-3 pl-8 space-y-2">
+        <div className="mt-3 pl-8 space-y-3">
           <div>
             <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
               Differentiation
@@ -119,44 +130,35 @@ export default function HookCard({
               ))}
             </div>
           )}
+
+          {/* Score slider */}
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
+              Score
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={score}
+              onChange={(e) => onScoreChange(hook.id, parseInt(e.target.value, 10))}
+              className="score-slider w-24"
+            />
+            <span className="font-mono text-[12px] font-bold tabular-nums w-7 text-right">
+              {score}
+            </span>
+          </div>
+
+          {/* Feedback */}
+          <input
+            type="text"
+            value={feedbackText}
+            onChange={(e) => onFeedbackChange(hook.id, e.target.value)}
+            placeholder="Optional feedback on this hook..."
+            className="w-full bg-transparent border-b border-border text-[11px] font-mono text-foreground-secondary py-1 focus:border-foreground-secondary transition-colors placeholder:text-muted/50"
+          />
         </div>
       )}
-
-      {/* Bottom row: expand + score */}
-      <div className="flex items-center justify-between mt-3 pl-8">
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted hover:text-foreground transition-colors duration-100"
-        >
-          {expanded ? <CaretUp size={10} weight="bold" /> : <CaretDown size={10} weight="bold" />}
-          {expanded ? "Less" : "More"}
-        </button>
-
-        <div className="flex items-center gap-3">
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={score}
-            onChange={(e) => onScoreChange(hook.id, parseInt(e.target.value, 10))}
-            className="score-slider w-20"
-          />
-          <span className="font-mono text-[12px] font-bold tabular-nums w-7 text-right">
-            {score}
-          </span>
-        </div>
-      </div>
-
-      {/* Optional feedback textarea (collapsed by default) */}
-      <div className="mt-2 pl-8">
-        <input
-          type="text"
-          value={feedbackText}
-          onChange={(e) => onFeedbackChange(hook.id, e.target.value)}
-          placeholder="Optional feedback on this hook..."
-          className="w-full bg-transparent border-b border-border text-[11px] font-mono text-foreground-secondary py-1 focus:border-foreground-secondary transition-colors placeholder:text-muted/50"
-        />
-      </div>
     </div>
   );
 }
