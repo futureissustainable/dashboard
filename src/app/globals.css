@@ -12,6 +12,32 @@
   --surface-elevated: #0E0E0E;
   --hover: #141414;
 
+  /* ─── Typography scale ─── */
+  --fs-p-sm: 14px;
+  --fs-p-lg: 16px;
+  --fs-p-xl: 20px;
+  --fs-p-xxl: 24px;
+  --fs-h-sm: 24px;
+  --fs-h-lg: 32px;
+  --fs-h-xl: 52px;
+  --fs-h-xxl: 76px;
+
+  /* ─── Spacing (8px grid) ─── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* ─── Animation ─── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
