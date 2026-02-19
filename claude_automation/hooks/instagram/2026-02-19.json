@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-19",
+  "pillar": "Lifestyle & Design",
+  "generated_at": "2026-02-19T14:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "German families will spend €120,000 on heating over 20 years. Ours spend it on living.",
+      "angle": "Frame the lifetime heating cost as a stolen life. The caption shows what €120,000 buys when it's not burning in a boiler: holidays, education, retirement years back. The home isn't the product. The freed-up life is.",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "DACH families aged 30-45 currently planning or budgeting a new build, obsessively comparing long-term costs",
+      "differentiation": "Uses a verified 20-year cumulative number (€120,000 from co2online data) instead of the monthly/annual heating comparisons used in every recent post. The scale of the number creates visceral loss aversion. No other hook uses lifetime framing.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Split image: left side shows a gas meter spinning in a dark basement, right side shows a family on a BIOBUILDS deck in summer, kids running through a sprinkler. Or: a pile of €120,000 in cash next to a traditional radiator, contrasted with a BIOBUILDS family on vacation. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Your walls are off-gassing right now. Your kids are breathing it.",
+      "angle": "Confront the invisible threat in every conventional home. Caption pivots immediately to the solution: 98% organic materials, zero formaldehyde, medical-grade ventilation. Not shaming the reader, showing them a fact they haven't considered. Alin's origin story (son's asthma diagnosis) is the proof, not the pitch.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents of young children (0-10) across all markets, especially those who already research organic food and clean products but haven't thought about their walls",
+      "differentiation": "Only hook that targets health anxiety. Only hook tied directly to the founder's origin story. No cost data, no speed claim. Pure emotional gut punch about what conventional materials do to children. Completely different register from every other hook.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: Close-up of a child sleeping peacefully in a BIOBUILDS bedroom, warm wood visible, soft light. Slide 2-3: Text cards with the VOC/formaldehyde data in clean typography. Slide 4: The BIOBUILDS ventilation system detail. Slide 5: Same child playing on the wood floor. The contrast is invisible danger vs visible safety.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "In Romania, 45% fewer building permits were issued this year. We delivered anyway.",
+      "angle": "Position BIOBUILDS as the exit from a broken system. While traditional construction is gridlocked by permits, delays, and cost overruns, factory-built Passivhaus homes ship in 21 days. The hook is a current headline number that Romanian IT professionals will instantly recognize from their own house-hunting frustration.",
+      "psychological_lever": "industry failure",
+      "target_audience": "Romanian IT professionals (30-45) actively trying to build or buy, frustrated by the construction system's dysfunction and 18% price increases",
+      "differentiation": "Only hook with a Romania-specific data point. Only hook that attacks the construction system directly. The tone is factual and confident, not poetic. Targets a completely different emotion: frustration and impatience, not aspiration or fear.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home being placed by crane onto its foundation in a Romanian landscape. Green hills, clear sky. The speed and simplicity of the image IS the argument against bureaucratic gridlock. Human presence: the family watching from the side. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Passivhaus homes sell for 6-13% more. Yours was built in 21 days.",
+      "angle": "Reframe the home as the smartest financial move, not just a lifestyle upgrade. While traditional homes depreciate and face tightening EU energy regulations (zero-emission building mandate by 2030), a Passivhaus-certified modular home appreciates. The reader realizes this isn't a cost, it's an investment that pays back from day one.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "Analytical decision-makers in DACH and Romania who think in spreadsheets, engineers and entrepreneurs who need the numbers to justify an emotional decision to their partner",
+      "differentiation": "Only hook that frames the home as a financial asset rather than a lifestyle or health product. Combines two data points (resale premium + build speed) that together create a unique value proposition no competitor can match. Appeals to the logical brain, not the emotional one.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A stunning BIOBUILDS exterior at golden hour, looking like a home worth far more than it cost. The aspirational visual does the emotional work while the caption does the financial work. A couple on the deck, wine glasses, the good life that also happens to be a great investment. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "The quietest room you've ever been in was probably a showroom. This one is someone's Tuesday.",
+      "angle": "Sell silence as the ultimate design feature that money rarely buys. 54dB sound insulation, triple-glazed windows, no mechanical noise. The caption paints the sensory experience of a BIOBUILDS living room: no traffic hum, no boiler clicking, no neighbor's TV. Just the sound of your own life. Make the reader feel the acoustic gap between their current home and this one.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Urban Europeans (all markets) living in apartments or noisy neighborhoods who fantasize about peace but assume it requires remote countryside isolation",
+      "differentiation": "Only hook about sound and sensory experience. No numbers, no cost, no speed. Pure experiential desire creation. The word 'Tuesday' makes it real and specific, not aspirational fantasy. Completely different tone: intimate, almost whispered.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Interior shot of a BIOBUILDS living room, late afternoon light through triple-glazed windows. A person reading on the couch, bare feet on wood floor, a cup of tea. Through the window: suburban street, cars, neighbors. But inside: stillness. The visual contrast is activity outside, absolute calm inside. Phone-quality feel. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
