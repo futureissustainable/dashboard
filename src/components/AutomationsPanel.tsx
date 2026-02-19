@@ -17,7 +17,6 @@ import FeedbackModal from "./FeedbackModal";
 import EngagementModal from "./EngagementModal";
 import RerollModal from "./RerollModal";
 import DocsEditor from "./DocsEditor";
-import HooksReviewPanel from "./HooksReviewPanel";
 import ExampleHooksPanel from "./ExampleHooksPanel";
 import WorkflowColumn, { ColumnSection } from "./WorkflowColumn";
 import HookSetCard from "./HookSetCard";
@@ -34,7 +33,7 @@ const FILTERS: { value: Filter; label: string }[] = [
 ];
 
 export default function AutomationsPanel() {
-  const [view, setView] = useState<"feed" | "docs" | "hooks-review" | "examples">("feed");
+  const [view, setView] = useState<"feed" | "docs" | "examples">("feed");
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [loading, setLoading] = useState(true);
@@ -44,7 +43,6 @@ export default function AutomationsPanel() {
 
   // Hooks state
   const [hookSets, setHookSets] = useState<HookSet[]>([]);
-  const [activeHookSet, setActiveHookSet] = useState<HookSet | null>(null);
 
   // Mobile tab (visible below lg breakpoint)
   const [mobileTab, setMobileTab] = useState<MobileTab>("hooks");
@@ -229,6 +227,7 @@ export default function AutomationsPanel() {
     }
   };
 
+  // Hook review — handled inline by HookSetCard
   const handleHookReviewSubmit = async (data: {
     platform: string;
     date: string;
@@ -243,6 +242,7 @@ export default function AutomationsPanel() {
     const result = await res.json();
     if (!result.success) throw new Error("Failed to submit hook review");
 
+    // Update local state so the card moves from pending → reviewed
     setHookSets((prev) =>
       prev.map((hs) =>
         hs.platform === data.platform && hs.date === data.date
@@ -258,22 +258,6 @@ export default function AutomationsPanel() {
           : hs
       )
     );
-
-    if (activeHookSet) {
-      setActiveHookSet((prev) =>
-        prev
-          ? {
-              ...prev,
-              status: "reviewed" as const,
-              review: {
-                reviewed_at: new Date().toISOString(),
-                approved_hook_ids: data.approved_hook_ids,
-                hook_feedback: data.hook_feedback,
-              },
-            }
-          : null
-      );
-    }
   };
 
   const handleTriggerPhase2 = async (platform: Platform, date: string, hookIds: string[]) => {
@@ -323,21 +307,6 @@ export default function AutomationsPanel() {
     return <ExampleHooksPanel onBack={() => setView("feed")} />;
   }
 
-  if (view === "hooks-review" && activeHookSet) {
-    return (
-      <HooksReviewPanel
-        hookSet={activeHookSet}
-        onBack={() => {
-          setView("feed");
-          setActiveHookSet(null);
-          fetchHooks();
-        }}
-        onSubmitReview={handleHookReviewSubmit}
-        onTriggerPhase2={handleTriggerPhase2}
-      />
-    );
-  }
-
   // ── Data categorization ──
 
   // Hooks
@@ -361,13 +330,13 @@ export default function AutomationsPanel() {
   return (
     <div className="flex flex-col h-[calc(100vh-72px)]">
       {/* ── Toolbar ── */}
-      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 border-b border-border flex-shrink-0">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center justify-between px-[var(--space-4)] sm:px-[var(--space-6)] lg:px-[var(--space-12)] py-[var(--space-3)] border-b border-border flex-shrink-0">
+        <div className="flex items-center gap-[var(--space-1)]">
           {FILTERS.map((f) => (
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`font-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-100 ${
+              className={`font-mono text-[var(--fs-p-sm)] uppercase tracking-wider px-[var(--space-3)] py-[var(--space-2)] border transition-colors duration-100 ${
                 filter === f.value
                   ? "text-foreground border-foreground"
                   : "text-muted border-border hover:text-foreground-secondary hover:border-foreground-secondary"
@@ -376,32 +345,32 @@ export default function AutomationsPanel() {
               {f.label}
             </button>
           ))}
-          <span className="font-mono text-[11px] text-muted tabular-nums ml-3">
+          <span className="font-mono text-[11px] text-muted tabular-nums ml-[var(--space-3)]">
             {total} post{total !== 1 ? "s" : ""}
           </span>
           {pendingHooks.length > 0 && (
-            <span className="flex items-center gap-1.5 ml-2">
+            <span className="flex items-center gap-[var(--space-2)] ml-[var(--space-2)]">
               <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0" />
-              <span className="font-mono text-[10px] text-yellow-400 tabular-nums">
+              <span className="font-mono text-[11px] text-yellow-400 tabular-nums">
                 {pendingHooks.length} hook{pendingHooks.length !== 1 ? "s" : ""} pending
               </span>
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-[var(--space-2)]">
           <button
             onClick={() => setView("examples")}
-            className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
+            className="flex items-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-[var(--space-3)] py-[var(--space-2)] transition-colors duration-100"
           >
-            <Lightbulb size={12} weight="bold" />
+            <Lightbulb size={14} weight="bold" />
             <span className="hidden sm:inline">Examples</span>
           </button>
           <button
             onClick={() => setView("docs")}
-            className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
+            className="flex items-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-[var(--space-3)] py-[var(--space-2)] transition-colors duration-100"
           >
-            <FileText size={12} weight="bold" />
+            <FileText size={14} weight="bold" />
             <span className="hidden sm:inline">Docs</span>
           </button>
           <button
@@ -410,7 +379,7 @@ export default function AutomationsPanel() {
               fetchHooks();
             }}
             disabled={loading}
-            className="text-muted hover:text-foreground p-1.5 transition-colors duration-100"
+            className="text-muted hover:text-foreground p-[var(--space-2)] transition-colors duration-100"
             title="Refresh"
           >
             <ArrowClockwise
@@ -419,11 +388,11 @@ export default function AutomationsPanel() {
               className={loading ? "animate-spin" : ""}
             />
           </button>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-[var(--space-2)]">
             <button
               onClick={triggerAll}
               disabled={runStatus === "running"}
-              className={`p-1.5 transition-colors duration-100 ${
+              className={`p-[var(--space-2)] transition-colors duration-100 ${
                 runStatus === "success"
                   ? "text-green-400"
                   : runStatus === "error"
@@ -444,7 +413,7 @@ export default function AutomationsPanel() {
             </button>
             {runMessage && (
               <span
-                className={`font-mono text-[10px] transition-opacity duration-200 ${
+                className={`font-mono text-[11px] transition-opacity duration-200 ${
                   runStatus === "success"
                     ? "text-green-400"
                     : runStatus === "error"
@@ -460,33 +429,33 @@ export default function AutomationsPanel() {
       </div>
 
       {/* ── Mobile tab switcher (below lg) ── */}
-      <div className="flex items-center gap-1 px-4 sm:px-6 py-2 border-b border-border lg:hidden flex-shrink-0">
+      <div className="flex items-center gap-[var(--space-1)] px-[var(--space-4)] sm:px-[var(--space-6)] py-[var(--space-2)] border-b border-border lg:hidden flex-shrink-0">
         <button
           onClick={() => setMobileTab("hooks")}
-          className={`flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-100 ${
+          className={`flex items-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider px-[var(--space-3)] py-[var(--space-2)] border transition-colors duration-100 ${
             mobileTab === "hooks"
               ? "text-foreground border-foreground"
               : "text-muted border-border hover:text-foreground-secondary"
           }`}
         >
-          <Sparkle size={11} weight="bold" />
+          <Sparkle size={12} weight="bold" />
           Hooks
           {pendingHooks.length > 0 && (
-            <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0 ml-0.5" />
+            <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0" />
           )}
         </button>
         <button
           onClick={() => setMobileTab("posts")}
-          className={`flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-100 ${
+          className={`flex items-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider px-[var(--space-3)] py-[var(--space-2)] border transition-colors duration-100 ${
             mobileTab === "posts"
               ? "text-foreground border-foreground"
               : "text-muted border-border hover:text-foreground-secondary"
           }`}
         >
-          <Article size={11} weight="bold" />
+          <Article size={12} weight="bold" />
           Posts
           {pendingPosts.length > 0 && (
-            <span className="font-mono text-[9px] tabular-nums text-muted ml-0.5">
+            <span className="font-mono text-[10px] tabular-nums text-yellow-400 ml-[var(--space-1)]">
               ({pendingPosts.length})
             </span>
           )}
@@ -499,24 +468,25 @@ export default function AutomationsPanel() {
           <CircleNotch size={20} weight="bold" className="animate-spin text-muted" />
         </div>
       ) : (
-        <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 lg:p-6 flex-1 overflow-hidden">
+        <div className="flex flex-col lg:flex-row gap-[var(--space-3)] sm:gap-[var(--space-4)] p-[var(--space-3)] sm:p-[var(--space-4)] lg:p-[var(--space-6)] flex-1 overflow-hidden">
           {/* ════════════════════════════════════════════════
               COLUMN 1: HOOKS — Content angles & ideas
+              Expands inline — no page navigation
               ════════════════════════════════════════════════ */}
           <WorkflowColumn
             title="Hooks"
-            icon={<Sparkle size={13} weight="bold" className="text-yellow-400" />}
+            icon={<Sparkle size={14} weight="bold" className="text-yellow-400" />}
             count={totalHooks}
             index={0}
             emptyMessage="No hooks generated yet"
             className={`${mobileTab === "hooks" ? "flex" : "hidden"} lg:flex`}
           >
-            {/* — Pending: needs your review — */}
+            {/* Pending: needs review */}
             {pendingHooks.length > 0 && (
               <>
-                <div className="flex items-center gap-2 pb-1">
+                <div className="flex items-center gap-[var(--space-2)] pb-[var(--space-1)]">
                   <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0" />
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-yellow-400">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-yellow-400">
                     Needs review
                   </span>
                 </div>
@@ -524,26 +494,21 @@ export default function AutomationsPanel() {
                   <HookSetCard
                     key={`pending-${hs.platform}-${hs.date}`}
                     hookSet={hs}
-                    variant="pending"
-                    onClick={() => {
-                      setActiveHookSet(hs);
-                      setView("hooks-review");
-                    }}
+                    onSubmitReview={handleHookReviewSubmit}
+                    onTriggerPhase2={handleTriggerPhase2}
                   />
                 ))}
               </>
             )}
 
-            {/* — Reviewed: ready to write posts — */}
+            {/* Reviewed: can write posts */}
             {reviewedHooks.length > 0 && (
               <>
-                {pendingHooks.length > 0 && (
+                {pendingHooks.length > 0 ? (
                   <ColumnSection label="Reviewed" count={reviewedHooks.length} />
-                )}
-                {pendingHooks.length === 0 && (
-                  <div className="flex items-center gap-2 pb-1">
-                    <CheckCircleIcon />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-green-400">
+                ) : (
+                  <div className="flex items-center gap-[var(--space-2)] pb-[var(--space-1)]">
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-green-400">
                       Reviewed
                     </span>
                   </div>
@@ -552,11 +517,8 @@ export default function AutomationsPanel() {
                   <HookSetCard
                     key={`reviewed-${hs.platform}-${hs.date}`}
                     hookSet={hs}
-                    variant="reviewed"
-                    onClick={() => {
-                      setActiveHookSet(hs);
-                      setView("hooks-review");
-                    }}
+                    onSubmitReview={handleHookReviewSubmit}
+                    onTriggerPhase2={handleTriggerPhase2}
                   />
                 ))}
               </>
@@ -568,18 +530,18 @@ export default function AutomationsPanel() {
               ════════════════════════════════════════════════ */}
           <WorkflowColumn
             title="Posts"
-            icon={<Article size={13} weight="bold" className="text-foreground-secondary" />}
+            icon={<Article size={14} weight="bold" className="text-foreground-secondary" />}
             count={totalPosts}
             index={1}
             emptyMessage="No posts yet — review hooks to generate posts"
             className={`${mobileTab === "posts" ? "flex" : "hidden"} lg:flex`}
           >
-            {/* — Pending review — */}
+            {/* Pending review */}
             {pendingPosts.length > 0 && (
               <>
-                <div className="flex items-center gap-2 pb-1">
+                <div className="flex items-center gap-[var(--space-2)] pb-[var(--space-1)]">
                   <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0" />
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-yellow-400">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-yellow-400">
                     Needs review ({pendingPosts.length})
                   </span>
                 </div>
@@ -595,7 +557,7 @@ export default function AutomationsPanel() {
               </>
             )}
 
-            {/* — Approved, awaiting engagement results — */}
+            {/* Approved, awaiting engagement */}
             {approvedPosts.length > 0 && (
               <>
                 <ColumnSection label="Approved" count={approvedPosts.length} />
@@ -612,7 +574,7 @@ export default function AutomationsPanel() {
               </>
             )}
 
-            {/* — Completed: has engagement data — */}
+            {/* Completed: has engagement data */}
             {completedPosts.length > 0 && (
               <>
                 <ColumnSection label="Results tracked" count={completedPosts.length} />
@@ -629,7 +591,7 @@ export default function AutomationsPanel() {
               </>
             )}
 
-            {/* — Denied — */}
+            {/* Denied */}
             {deniedPosts.length > 0 && (
               <>
                 <ColumnSection label="Denied" count={deniedPosts.length} muted />
@@ -654,14 +616,14 @@ export default function AutomationsPanel() {
 
       {/* ── Load More ── */}
       {hasMore && !loading && (
-        <div className="flex justify-center py-3 border-t border-border flex-shrink-0">
+        <div className="flex justify-center py-[var(--space-3)] border-t border-border flex-shrink-0">
           <button
             onClick={() => fetchPosts(posts.length, true)}
             disabled={loadingMore}
-            className="font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-6 py-2 transition-colors duration-100"
+            className="font-mono text-[var(--fs-p-sm)] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-[var(--space-6)] py-[var(--space-2)] transition-colors duration-100"
           >
             {loadingMore ? (
-              <CircleNotch size={12} weight="bold" className="animate-spin" />
+              <CircleNotch size={14} weight="bold" className="animate-spin" />
             ) : (
               "Load More"
             )}
@@ -693,15 +655,5 @@ export default function AutomationsPanel() {
         />
       )}
     </div>
-  );
-}
-
-/** Small inline check-circle icon */
-function CheckCircleIcon() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="flex-shrink-0">
-      <circle cx="5" cy="5" r="4" stroke="#22c55e" strokeWidth="1" />
-      <path d="M3 5l1.5 1.5L7 4" stroke="#22c55e" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
