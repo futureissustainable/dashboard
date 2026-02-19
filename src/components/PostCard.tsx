@@ -3,7 +3,7 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { CaretDown, CaretUp, Check, X } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, ChartBar, Check, X } from "@phosphor-icons/react";
 
 export type PostEntry = {
   platform: "reddit" | "linkedin" | "instagram";
@@ -18,6 +18,11 @@ export type PostEntry = {
     score: number;
     feedback: string;
     reviewedAt: string;
+    engagement?: {
+      recordedAt: string;
+      metrics: Record<string, number>;
+      notes?: string;
+    };
   };
 };
 
@@ -30,9 +35,11 @@ const PLATFORM_COLORS: Record<string, string> = {
 export default function PostCard({
   post,
   onReview,
+  onAddResults,
 }: {
   post: PostEntry;
   onReview: (post: PostEntry, status: "approved" | "denied") => void;
+  onAddResults?: (post: PostEntry) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const color = PLATFORM_COLORS[post.platform];
@@ -150,7 +157,25 @@ export default function PostCard({
           </div>
         )}
 
-        {post.feedback && post.feedback.feedback && (
+        {post.feedback && post.feedback.status === "approved" && !post.feedback.engagement && onAddResults && (
+          <button
+            onClick={() => onAddResults(post)}
+            className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-blue-400 hover:text-blue-300 border border-blue-400/30 hover:border-blue-300 px-3 py-1.5 transition-colors duration-100"
+          >
+            <ChartBar size={12} weight="bold" />
+            Add Results
+          </button>
+        )}
+
+        {post.feedback?.engagement && (
+          <div className="flex items-center gap-2 text-[11px] font-mono text-blue-400 tabular-nums">
+            {Object.entries(post.feedback.engagement.metrics).map(([k, v]) => (
+              <span key={k}>{v} {k}</span>
+            ))}
+          </div>
+        )}
+
+        {post.feedback && post.feedback.feedback && !post.feedback.engagement && (
           <p className="text-[11px] text-muted italic max-w-[50%] truncate">
             &ldquo;{post.feedback.feedback}&rdquo;
           </p>

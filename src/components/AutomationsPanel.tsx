@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { ArrowClockwise, Check, CircleNotch, FileText, Lightning, WarningCircle } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
+import EngagementModal from "./EngagementModal";
 import DocsEditor from "./DocsEditor";
 
 type Filter = "all" | "reddit" | "linkedin" | "instagram";
@@ -60,6 +61,9 @@ export default function AutomationsPanel() {
     post: PostEntry;
     status: "approved" | "denied";
   } | null>(null);
+
+  // Engagement modal
+  const [engagementTarget, setEngagementTarget] = useState<PostEntry | null>(null);
 
   const fetchPosts = useCallback(
     async (offset = 0, append = false) => {
@@ -134,6 +138,49 @@ export default function AutomationsPanel() {
       console.error("Failed to save feedback:", e);
     } finally {
       setReviewTarget(null);
+    }
+  };
+
+  const handleEngagementSubmit = async (data: {
+    platform: string;
+    date: string;
+    engagement: {
+      metrics: Record<string, number>;
+      notes: string;
+    };
+  }) => {
+    try {
+      const res = await fetch("/api/automations/feedback", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setPosts((prev) =>
+          prev.map((p) =>
+            p.platform === data.platform && p.date === data.date
+              ? {
+                  ...p,
+                  feedback: p.feedback
+                    ? {
+                        ...p.feedback,
+                        engagement: {
+                          recordedAt: new Date().toISOString(),
+                          metrics: data.engagement.metrics,
+                          notes: data.engagement.notes,
+                        },
+                      }
+                    : p.feedback,
+                }
+              : p
+          )
+        );
+      }
+    } catch (e) {
+      console.error("Failed to save engagement:", e);
+    } finally {
+      setEngagementTarget(null);
     }
   };
 
@@ -241,6 +288,7 @@ export default function AutomationsPanel() {
                 key={`${post.platform}-${post.date}-${post.slug}`}
                 post={post}
                 onReview={handleReview}
+                onAddResults={setEngagementTarget}
               />
             ))}
 
@@ -270,6 +318,15 @@ export default function AutomationsPanel() {
           status={reviewTarget.status}
           onClose={() => setReviewTarget(null)}
           onSubmit={handleFeedbackSubmit}
+        />
+      )}
+
+      {/* Engagement Modal */}
+      {engagementTarget && (
+        <EngagementModal
+          post={engagementTarget}
+          onClose={() => setEngagementTarget(null)}
+          onSubmit={handleEngagementSubmit}
         />
       )}
     </div>
