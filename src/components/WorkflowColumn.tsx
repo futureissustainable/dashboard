@@ -2,57 +2,33 @@
 
 interface WorkflowColumnProps {
   title: string;
-  accent: "yellow" | "green" | "blue";
+  icon?: React.ReactNode;
   count: number;
   index: number;
   children: React.ReactNode;
   emptyMessage: string;
-  showPulse?: boolean;
   className?: string;
 }
 
-const ACCENT_STYLES = {
-  yellow: {
-    border: "border-t-yellow-400",
-    text: "text-yellow-400",
-    pulse: "bg-yellow-400",
-  },
-  green: {
-    border: "border-t-green-400",
-    text: "text-green-400",
-    pulse: "bg-green-400",
-  },
-  blue: {
-    border: "border-t-blue-400",
-    text: "text-blue-400",
-    pulse: "bg-blue-400",
-  },
-};
-
 export default function WorkflowColumn({
   title,
-  accent,
+  icon,
   count,
   index,
   children,
   emptyMessage,
-  showPulse,
   className = "",
 }: WorkflowColumnProps) {
-  const styles = ACCENT_STYLES[accent];
-
   return (
     <div
-      className={`column-enter border border-border bg-surface flex flex-col max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-140px)] ${styles.border} border-t-2 ${className}`}
-      style={{ animationDelay: `${index * 80}ms`, flex: "1 1 0", minWidth: "300px" }}
+      className={`column-enter border border-border bg-surface flex flex-col max-h-[calc(100vh-100px)] sm:max-h-[calc(100vh-140px)] ${className}`}
+      style={{ animationDelay: `${index * 80}ms`, flex: "1 1 0", minWidth: "340px" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border flex-shrink-0">
         <div className="flex items-center gap-2">
-          {showPulse && count > 0 && (
-            <span className={`w-1.5 h-1.5 ${styles.pulse} animate-pulse flex-shrink-0`} />
-          )}
-          <span className={`font-mono text-[11px] font-bold uppercase tracking-wider ${styles.text}`}>
+          {icon}
+          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-foreground">
             {title}
           </span>
         </div>
@@ -71,6 +47,32 @@ export default function WorkflowColumn({
           children
         )}
       </div>
+    </div>
+  );
+}
+
+/**
+ * Section divider within a column — separates pending from completed items
+ */
+export function ColumnSection({
+  label,
+  count,
+  muted,
+}: {
+  label: string;
+  count?: number;
+  muted?: boolean;
+}) {
+  return (
+    <div className={`flex items-center gap-2 pt-3 pb-1 ${muted ? "opacity-50" : ""}`}>
+      <span className="flex-1 border-t border-border" />
+      <span className="font-mono text-[9px] uppercase tracking-widest text-muted whitespace-nowrap">
+        {label}
+        {count !== undefined && count > 0 && (
+          <span className="tabular-nums ml-1">({count})</span>
+        )}
+      </span>
+      <span className="flex-1 border-t border-border" />
     </div>
   );
 }
