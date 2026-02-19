@@ -120,6 +120,10 @@ jobs:
             ### Patterns to AVOID
             - [pattern from denied/low-scoring posts] (seen Nx)
 
+            ### Engagement Winners (real post-publish data)
+            - YYYY-MM-DD: [key metrics] — [what pattern/angle was used] — [notes]
+            (only include posts that have "engagement" data in their JSON)
+
             ### Recent notes
             - YYYY-MM-DD: status (score/100) — feedback text
             (keep last 10 entries max)
@@ -127,6 +131,9 @@ jobs:
             Rules for updating:
             - Merge new feedback into existing patterns (increment counts)
             - Add new patterns if they don't exist yet
+            - If a JSON has "engagement" data, extract the winning pattern
+              and add it to "Engagement Winners." This is the highest-value
+              signal — real post-publish performance data.
             - Keep "Recent notes" to last 10 entries, drop oldest
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
@@ -136,7 +143,7 @@ jobs:
 
           claude_args: |
             --max-turns 15
-            --model claude-haiku-4-5
+            --model claude-sonnet-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -226,7 +233,9 @@ jobs:
 
             1. Read claude_automation/CLAUDE.md — project rules and constraints
             2. Read claude_automation/docs/reddit/REDDIT_SOUL.md — complete persona, writing rules,
-               and UNIFIED 9-SUB ROTATION POOL
+               and UNIFIED 9-SUB ROTATION POOL.
+               NOTE: This file begins with "Learned Rules from Feedback." As Reddit posts get
+               reviewed, denied patterns will accumulate here. Always check this section first.
             3. Read claude_automation/docs/reddit/REDDIT_REPORT_SEO.md — SEO strategy data
             4. Read claude_automation/docs/reddit/REDDIT_REPORT_AI.md — AI citation strategy
             5. Read claude_automation/docs/reddit/REDDIT_PLAYBOOK.md — master strategy,
@@ -234,45 +243,48 @@ jobs:
             6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
             7. Read claude_automation/.agents/skills/seo-audit/references/aeo-geo-patterns.md
             8. Read claude_automation/docs/company/biobuilds-company-overview.md
+            9. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
+               movement/story-driven marketing over product-first marketing. Internalize these
+               principles and apply them to today's post.
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication + rotation)
             ===============================================================
 
-            9. List all files in claude_automation/output/reddit/ directory
-            10. Read the last 5 posts (if they exist) and extract:
+            10. List all files in claude_automation/output/reddit/ directory
+            11. Read the last 5 posts (if they exist) and extract:
                 - The "subreddit:" field from each post's YAML frontmatter
                 - What topics were already covered
                 - What personas were used
                 - What pillar each post targeted
-            11. Build a BLOCKED LIST of subreddits used in the last 3 weeks
+            12. Build a BLOCKED LIST of subreddits used in the last 3 weeks
                 — you CANNOT use any of these
-            12. Make sure your post covers NEW ground
+            13. Make sure your post covers NEW ground
 
             ===============================================================
             PHASE 3 — RESEARCH (get real, current data across markets)
             ===============================================================
 
-            13. Use WebSearch to find 3-5 current data points relevant to
+            14. Use WebSearch to find 3-5 current data points relevant to
                 this week's pillar. Search for cross-market data:
                 - European energy prices or housing cost comparisons
                 - Passivhaus certification stats across countries
                 - Modular construction trends EU-wide
                 - KfW funding rates (DACH angle)
                 - Romanian/Eastern European construction developments
-            14. Cross-reference with data from the strategy reports
-            15. Find real competitor data from multiple markets
+            15. Cross-reference with data from the strategy reports
+            16. Find real competitor data from multiple markets
 
             ===============================================================
             PHASE 4 — WRITE THE POST (English, all markets, 8+ data points)
             ===============================================================
 
-            16. Pick a subreddit from the unified 9-sub pool in REDDIT_SOUL.md
+            17. Pick a subreddit from the unified 9-sub pool in REDDIT_SOUL.md
                 - Do NOT use any subreddit from the blocked list
-            17. Create a persona with a natural reason to discuss multiple
+            18. Create a persona with a natural reason to discuss multiple
                 European markets (expat, researcher, investor, builder who
                 sourced from Eastern Europe, etc.)
-            18. Write the full Reddit post following ALL rules in REDDIT_SOUL.md:
+            19. Write the full Reddit post following ALL rules in REDDIT_SOUL.md:
                 - Natural, human-sounding English writing
                 - Include AT LEAST 8 specific data points with numbers
                 - Include data from multiple markets woven naturally
@@ -280,27 +292,27 @@ jobs:
                 - Include honest pros and cons
                 - End with TL;DR (include 3-5 numeric anchors)
                 - NO AI writing tells
-            19. Create a realistic image_idea in the frontmatter. This must be
+            20. Create a realistic image_idea in the frontmatter. This must be
                 an ORIGINAL image concept you propose (NOT from the claude_automation/Creatives/
                 catalog). Reddit posts need unique, context-appropriate visuals
                 like infographics, comparison charts, maps, or photos that
                 match the persona's story. Describe what the image should show,
                 its style, and why it fits the post.
                 NEVER use or reference files from the claude_automation/Creatives/ folder.
-            20. Save to claude_automation/output/reddit/ as:
+            21. Save to claude_automation/output/reddit/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
             PHASE 5 — COMMENT RECOMMENDATIONS (trust builder)
             ===============================================================
 
-            21. Use WebSearch to find 3 EXISTING Reddit posts where a
+            22. Use WebSearch to find 3 EXISTING Reddit posts where a
                 helpful, data-rich comment would fit naturally
-            22. For each, write a recommended comment that:
+            23. For each, write a recommended comment that:
                 - Adds genuine value (data, experience, checklist)
                 - Does NOT mention BioBuilds (pure value, trust first)
                 - Includes at least 2 specific data points
-            23. Append the 3 comment recommendations to the post file
+            24. Append the 3 comment recommendations to the post file
 
             ===============================================================
             RULES (violations = failure)

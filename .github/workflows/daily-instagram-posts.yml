@@ -119,6 +119,10 @@ jobs:
             ### Patterns to AVOID
             - [pattern from denied/low-scoring posts] (seen Nx)
 
+            ### Engagement Winners (real post-publish data)
+            - YYYY-MM-DD: [key metrics] — [what pattern/angle was used] — [notes]
+            (only include posts that have "engagement" data in their JSON)
+
             ### Recent notes
             - YYYY-MM-DD: status (score/100) — feedback text
             (keep last 10 entries max)
@@ -126,6 +130,9 @@ jobs:
             Rules for updating:
             - Merge new feedback into existing patterns (increment counts)
             - Add new patterns if they don't exist yet
+            - If a JSON has "engagement" data, extract the winning pattern
+              and add it to "Engagement Winners." This is the highest-value
+              signal — real post-publish performance data.
             - Keep "Recent notes" to last 10 entries, drop oldest
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
@@ -135,7 +142,7 @@ jobs:
 
           claude_args: |
             --max-turns 15
-            --model claude-haiku-4-5
+            --model claude-sonnet-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
@@ -182,6 +189,164 @@ jobs:
             echo "has_catalog=false" >> "$GITHUB_OUTPUT"
           fi
 
+      # --- Rate creatives (pick highest potential) --------------------------
+      - name: Rate creatives for Instagram
+        if: steps.creatives.outputs.available == 'true' && steps.creatives.outputs.has_catalog == 'true'
+        id: rate_creatives
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are a creative asset analyst for BioBuilds' Instagram content.
+            Today's date: ${{ steps.date.outputs.today }}
+            This week's content pillar: ${{ steps.pillar.outputs.pillar }}
+
+            Your job: rate every available creative 0-100 for how well it would
+            perform on Instagram this week, given the current pillar.
+
+            DO NOT run any git commands.
+
+            Steps:
+            1. Read claude_automation/Creatives/CATALOG.md for descriptions and
+               status of each creative asset
+            2. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md for what
+               visuals and formats perform best on Instagram
+            3. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md for the
+               proven visual formula and visual rules
+            4. Read claude_automation/docs/instagram/instagram-past-posts.md and study
+               which visuals drove the highest engagement. What creative styles
+               correlated with top performers? What visual killed engagement?
+            5. List files in claude_automation/output/instagram/ and read the last 5
+               posts to see which creatives were already used recently
+
+            Now rate EVERY creative in the catalog that is AVAILABLE for Instagram.
+            Available statuses: [available], [USED ON LINKEDIN], [REQUEST USE LINKEDIN]
+            Skip: [reserved], [USED ON INSTA], [USED ON BOTH], [REQUEST USE INSTA]
+
+            For each available creative, score 0-100 considering:
+            - How well does it match this week's pillar (${{ steps.pillar.outputs.pillar }})?
+            - Does it follow the proven visual formula? (Winter + warm glow + nature + human)
+            - Would it stop the scroll on Instagram specifically?
+            - Is it fresh (not recently used on Instagram)?
+            - Would someone DM this image to their partner? (the "send test")
+            - Does it create emotional contrast?
+
+            Write your ratings to claude_automation/.creative-ratings-instagram.md
+            in this exact format:
+
+            # Creative Ratings — Instagram — ${{ steps.date.outputs.today }}
+            Pillar: ${{ steps.pillar.outputs.pillar }}
+
+            | Score | Creative | Reason |
+            |-------|----------|--------|
+            | 95 | filename1.jpg | One-line reason |
+            | 82 | filename2.jpg | One-line reason |
+
+            Sort by score DESCENDING. Top creative = best match for today's post.
+
+          claude_args: |
+            --max-turns 15
+            --model claude-sonnet-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep"
+
+      - name: Collect creative ratings
+        id: creative_ratings
+        run: |
+          RATINGS_FILE=".creative-ratings-instagram.md"
+          if [ -f "$RATINGS_FILE" ]; then
+            CONTENT=$(head -c 3000 "$RATINGS_FILE")
+            DELIM="CREATIVE_RATINGS_$(date +%s)"
+            echo "ratings<<${DELIM}" >> "$GITHUB_OUTPUT"
+            echo "$CONTENT" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
+            echo "has_ratings=true" >> "$GITHUB_OUTPUT"
+            rm -f "$RATINGS_FILE"
+          else
+            echo "has_ratings=false" >> "$GITHUB_OUTPUT"
+            echo "ratings=No creative ratings available" >> "$GITHUB_OUTPUT"
+          fi
+
+      # --- Pattern innovation (analyze what works, propose experiment) ------
+      - name: Analyze winning patterns and propose experiment
+        id: innovation
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are a content strategist analyzing past post performance to
+            find winning patterns and propose experiments for Instagram.
+            Today's date: ${{ steps.date.outputs.today }}
+            This week's pillar: ${{ steps.pillar.outputs.pillar }}
+
+            DO NOT run any git commands.
+
+            Steps:
+            1. Read claude_automation/docs/instagram/instagram-past-posts.md
+               — this has 62 real posts with likes, comments, shares, saves,
+               reach, follows, image descriptions, and full captions
+            2. Read claude_automation/feedback/instagram/SUMMARY.md if it exists
+            3. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md
+               — focus on "Learned Rules from Feedback" section
+            4. List files in claude_automation/output/instagram/ and read the
+               last 5 generated captions
+            5. Read all .json files in claude_automation/feedback/instagram/
+               — look for any with "engagement" data (real post-publish metrics)
+            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+               — use this movement/story psychology lens when analyzing which
+               patterns work and proposing today's experiment
+
+            ANALYSIS:
+            - Rank top 5 past posts by saves (strongest purchase-intent signal),
+              then by shares (DM sends = Instagram's #1 algorithm signal)
+            - For each: identify the SPECIFIC pattern that made it work
+              (not vague — be precise about visual + caption combo)
+            - Cross-reference with denied patterns
+            - Note: static images get 4x more follows than reels based on
+              past data. Factor this into experiment design.
+            - If engagement data exists in feedback JSONs, weight those
+              insights highest — that's real post-publish performance
+
+            Write output to claude_automation/.pattern-innovation-instagram.md:
+
+            ## Winning Patterns (from real data)
+            1. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+            2. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+            3. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+
+            ## Today's Experiment
+            [One specific technique/angle/format to test that hasn't been
+            tried in the last 5 generated captions. Be creative. The best
+            Instagram posts make someone screenshot and DM it to their partner.]
+            Hypothesis: [Why this should work, based on patterns above]
+            How to measure: [saves and shares are the key signals]
+
+            ## Avoid Today
+            - [Specific anti-pattern from denied posts or low performers]
+
+          claude_args: |
+            --max-turns 15
+            --model claude-sonnet-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep"
+
+      - name: Collect innovation brief
+        id: innovation_brief
+        run: |
+          BRIEF_FILE=".pattern-innovation-instagram.md"
+          if [ -f "$BRIEF_FILE" ]; then
+            CONTENT=$(head -c 3000 "$BRIEF_FILE")
+            DELIM="INNOVATION_BRIEF_$(date +%s)"
+            echo "brief<<${DELIM}" >> "$GITHUB_OUTPUT"
+            echo "$CONTENT" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
+            rm -f "$BRIEF_FILE"
+          else
+            echo "brief=No innovation brief available" >> "$GITHUB_OUTPUT"
+          fi
+
       # --- Generate single caption (all markets) ---------------------------
       - name: Generate Instagram caption (all markets)
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
@@ -196,6 +361,26 @@ jobs:
             Creatives available: ${{ steps.creatives.outputs.available }}
             Creative files: ${{ steps.creatives.outputs.list }}
             Creative catalog available: ${{ steps.creatives.outputs.has_catalog }}
+
+            ===============================================================
+            CREATIVE RATINGS (pre-analyzed by Sonnet — pick from the top)
+            ===============================================================
+            ${{ steps.creative_ratings.outputs.ratings }}
+
+            When selecting a creative, ALWAYS pick the highest-rated one from
+            the ratings above unless you have a strong, specific reason not to.
+            The ratings already account for pillar match, visual formula,
+            freshness, and the "send test." Trust them.
+
+            ===============================================================
+            INNOVATION BRIEF (winning patterns + today's experiment)
+            ===============================================================
+            ${{ steps.innovation_brief.outputs.brief }}
+
+            This brief was generated by analyzing your 62 top-performing
+            past posts. The "Today's Experiment" is a specific technique
+            to test. Use it. Break a rule if the experiment calls for it.
+            The best posts in history broke rules intentionally.
 
             ===============================================================
             RECENT FEEDBACK ON PAST INSTAGRAM POSTS (learn from this)
@@ -245,15 +430,14 @@ jobs:
 
             1. Read claude_automation/CLAUDE.md — project rules and constraints
             2. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
-               visual matching, audience segments, output format
+               visual matching, audience segments, output format.
+               CRITICAL: This file begins with "Learned Rules from Feedback" — hand-curated
+               denied patterns with specific scores. These are NON-NEGOTIABLE. Read them first,
+               internalize them, and never repeat a denied pattern.
             3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
                algorithm signals, visual guidelines, posting mechanics
-            4. *** MANDATORY — FOUNDER'S POST ANALYSIS (READ FIRST) ***
-               Read claude_automation/docs/instagram/MY-POST-ANALYSIS.md — the founder's
-               personal analysis of what works and what doesn't. This is your #1 source
-               of truth. Internalize every principle before writing anything.
 
-            5. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
+            4. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
                Read claude_automation/docs/instagram/instagram-past-posts.md — full past
                post data. You MUST study at minimum the top 3 best-performing posts AND
                the top 3 worst-performing posts. For each, understand WHY it succeeded
@@ -266,7 +450,10 @@ jobs:
                forward: test new angles, sharpen what worked, evolve the voice.
                The goal is continuous improvement, not repetition.
 
-            6. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
+            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
+               movement/story-driven marketing over product-first marketing. Internalize these
+               principles and apply them to today's post.
             7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
             8. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
                descriptions and metadata about each file, then list folder contents

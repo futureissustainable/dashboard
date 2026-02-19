@@ -115,3 +115,67 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function PATCH(request: Request) {
+  try {
+    const body = await request.json();
+    const { platform, date, engagement } = body;
+
+    if (!platform || !date || !engagement) {
+      return NextResponse.json(
+        { error: "Missing required fields (platform, date, engagement)" },
+        { status: 400 }
+      );
+    }
+
+    if (!VALID_PLATFORMS.includes(platform)) {
+      return NextResponse.json(
+        { error: "Invalid platform" },
+        { status: 400 }
+      );
+    }
+
+    if (!engagement.metrics || typeof engagement.metrics !== "object") {
+      return NextResponse.json(
+        { error: "engagement.metrics must be an object" },
+        { status: 400 }
+      );
+    }
+
+    const path = `claude_automation/feedback/${platform}/${date}.json`;
+
+    let existing;
+    try {
+      existing = await getFileContent(path);
+    } catch {
+      return NextResponse.json(
+        { error: "No feedback found for this date. Approve/deny the post first." },
+        { status: 404 }
+      );
+    }
+
+    const feedbackData = JSON.parse(existing.content);
+    feedbackData.engagement = {
+      recordedAt: new Date().toISOString(),
+      metrics: engagement.metrics,
+      notes: engagement.notes || "",
+    };
+    feedbackData.summarized = false;
+
+    const content = JSON.stringify(feedbackData, null, 2);
+    const metricSummary = Object.entries(engagement.metrics)
+      .map(([k, v]) => `${v} ${k}`)
+      .join(", ");
+    const message = `engagement: ${platform} ${date} — ${metricSummary}`;
+
+    await createOrUpdateFile(path, content, message, existing.sha);
+
+    return NextResponse.json({ success: true, path });
+  } catch (error) {
+    console.error("Failed to save engagement:", error);
+    return NextResponse.json(
+      { error: "Failed to save engagement" },
+      { status: 500 }
+    );
+  }
+}

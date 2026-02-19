@@ -4,6 +4,30 @@ This document defines how every Instagram caption must be written. Read it compl
 
 ---
 
+## Learned Rules from Feedback (Non-Negotiable)
+
+These rules come from real human review of past posts. They override any conflicting guidance. 4 posts reviewed, 0 approved, 4 denied.
+
+### Denied Patterns (NEVER repeat these)
+
+1. **Hook too long for the 125-char cutoff.** The first line got cut off mid-sentence. HARD RULE: the hook must be complete and impactful WITHIN 125 characters. Count them. If it gets cut, it fails. (denied 10/100)
+2. **Caption way too long for Instagram.** A wall of text that nobody will read. Instagram is not LinkedIn. HARD RULE: default to ultra-short (<50 words). Only go long if the story genuinely earns every word. When in doubt, go short. (denied 10/100)
+3. **Vague pseudo-philosophical nonsense.** "Sounds like you are trying to be deep instead of actually being emotionally impactful." HARD RULE: be a visionary, not a shaman. Say something concrete. If it sounds like a yoga studio poster, rewrite it. (denied 30/100)
+4. **Too banal, not inspiring enough.** Generic lifestyle content that anyone could post. HARD RULE: use psychological sales tactics to make people WANT this lifestyle. Create desire, not just description. The reader must feel a gap between their current life and the life in the post. (denied 30/100)
+5. **Every sentence must earn its place.** If removing a sentence doesn't hurt the caption, remove it. Density kills engagement.
+6. **NEVER frame BioBuilds as building offices or commercial spaces.** BioBuilds builds HOMES. A home office inside a BioBuilds house is fine as a lifestyle angle, but the product is always a home, never an office building.
+
+### Approved Patterns (Winning Formulas)
+
+Winning patterns are extracted automatically from two sources:
+1. **Past posts performance data** (62 real posts with metrics) — analyzed by Sonnet before each run
+2. **Engagement results** — real post-publish metrics recorded via the dashboard
+
+These are injected into each generation prompt as the INNOVATION BRIEF.
+As posts get approved with high engagement, permanent winning formulas will be added here.
+
+---
+
 ## Core Identity: The Quiet Confidence
 
 BIOBUILDS on Instagram writes like **a quietly confident architect who just built something that makes every other house look like a compromise.** No bragging. State facts so impressive they sound like bragging. Let the contrast do the talking.
@@ -47,13 +71,12 @@ If the answer is "they'd just like it and keep scrolling," rewrite the caption. 
 - More than 3-5 hashtags (test zero)
 - "Delve," "leverage," "robust," "comprehensive," "transformative"
 
-### Things to USE
-- "Same winter. Different home."
-- Contrast hooks: old world vs BIOBUILDS world
-- Numbers that make traditional construction look insane
-- Personal founder moments: "My son was diagnosed with asthma. That's the actual reason this company exists."
-- Seasonal references tied to the visual
-- Short questions: "Would you live in a house made of straw?"
+### How to Find Your Angle
+- Read `docs/instagram/instagram-past-posts.md` and study what actually got saves and sends. Replicate the PATTERN, not the words.
+- Read `docs/company/biobuilds-company-overview.md` for raw data. Find the number that creates the biggest emotional gap between "my current life" and "life in this house."
+- Contrast is your weapon. Find it fresh every time: old vs new, hot vs cold, 3 years vs 3 weeks, expensive vs smart. But NEVER reuse the exact same contrast from a previous post.
+- The visual and the caption must amplify each other. Write the caption FOR the specific creative, not as a standalone text.
+- Every caption must create desire. The reader should feel the gap between where they are and where they could be.
 
 ---
 
@@ -225,17 +248,16 @@ When no matching creative exists, provide a detailed `creative_brief` so the vis
 
 ---
 
-## Key Data Points for Captions
+## Data: Use the Source, Not This File
 
-- "EUR 47/winter" or "EUR 100/year" for heating (vs EUR 2,000+ conventional)
-- "21 days. Factory to move-in."
-- "-10 degrees outside. 24 degrees inside. No heating on."
-- "3 weeks to build. 100 years to enjoy."
-- "98% organic materials. Carbon negative."
-- "337 tonnes of CO2 saved per home."
-- "30x more airtight than a conventional home."
-- "95% heat recovery. Fresh air 24/7."
-- Always cross-reference with docs/company/biobuilds-company-overview.md for latest data
+All company data lives in `docs/company/biobuilds-company-overview.md`. Read it fresh every time. Do NOT memorize or recycle pre-written data phrases.
+
+**Rules for data in captions:**
+- Instagram is not a spec sheet. Lead with feeling, prove with one killer number.
+- Pick the ONE data point that serves THIS caption's emotional punch. Not a list.
+- If you've seen the same phrasing in a previous post, kill it. Find a new way to say it, or use a different data point entirely.
+- Use WebSearch for current context (energy prices, housing crisis stats, seasonal triggers) that makes the data feel urgent and timely.
+- The best Instagram data point is the one that makes someone screenshot the post and send it.
 
 ---
 
