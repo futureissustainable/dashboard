@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ArrowClockwise, Check, CircleNotch, FileText, Lightbulb, Lightning, WarningCircle } from "@phosphor-icons/react";
+import { ArrowClockwise, CaretRight, Check, CircleNotch, FileText, Lightbulb, Lightning, WarningCircle } from "@phosphor-icons/react";
 import PostCard, { type PostEntry } from "./PostCard";
 import FeedbackModal from "./FeedbackModal";
 import EngagementModal from "./EngagementModal";
@@ -9,9 +9,11 @@ import RerollModal from "./RerollModal";
 import DocsEditor from "./DocsEditor";
 import HooksReviewPanel from "./HooksReviewPanel";
 import ExampleHooksPanel from "./ExampleHooksPanel";
+import WorkflowColumn from "./WorkflowColumn";
 import type { HookSet, Platform } from "@/lib/types";
 
 type Filter = "all" | "reddit" | "linkedin" | "instagram";
+type ColumnTab = "review" | "approved" | "tracked";
 
 const FILTERS: { value: Filter; label: string }[] = [
   { value: "all", label: "All" },
@@ -38,6 +40,9 @@ export default function AutomationsPanel() {
   // Hooks state
   const [hookSets, setHookSets] = useState<HookSet[]>([]);
   const [activeHookSet, setActiveHookSet] = useState<HookSet | null>(null);
+
+  // Mobile column tab
+  const [activeColumn, setActiveColumn] = useState<ColumnTab>("review");
 
   // Run all workflows
   const [runStatus, setRunStatus] = useState<"idle" | "running" | "success" | "error">("idle");
@@ -89,7 +94,7 @@ export default function AutomationsPanel() {
       try {
         const params = new URLSearchParams();
         if (filter !== "all") params.set("platform", filter);
-        params.set("limit", "20");
+        params.set("limit", "50");
         params.set("offset", String(offset));
         const res = await fetch(`/api/automations/posts?${params}`);
         const data = await res.json();
@@ -329,12 +334,34 @@ export default function AutomationsPanel() {
     );
   }
 
+  // ── Data categorization ──
   const pendingHooks = hookSets.filter((hs) => hs.status === "pending");
-  const reviewedHooksToday = hookSets.filter((hs) => hs.status === "reviewed");
+  const reviewedHooks = hookSets.filter(
+    (hs) => hs.status === "reviewed" && hs.review && hs.review.approved_hook_ids.length > 0
+  );
+
+  const reviewPosts = posts.filter((p) => !p.feedback);
+  const approvedPosts = posts.filter(
+    (p) => p.feedback?.status === "approved" && !p.feedback.engagement
+  );
+  const trackedPosts = posts.filter(
+    (p) => p.feedback?.status === "approved" && !!p.feedback.engagement
+  );
+  const deniedPosts = posts.filter((p) => p.feedback?.status === "denied");
+
+  const reviewCount = pendingHooks.length + reviewPosts.length;
+  const approvedCount = reviewedHooks.length + approvedPosts.length;
+  const trackedCount = trackedPosts.length + deniedPosts.length;
+
+  const COLUMN_TABS: { value: ColumnTab; label: string; count: number }[] = [
+    { value: "review", label: "Review", count: reviewCount },
+    { value: "approved", label: "Approved", count: approvedCount },
+    { value: "tracked", label: "Tracked", count: trackedCount },
+  ];
 
   return (
     <div className="flex flex-col h-[calc(100vh-72px)]">
-      {/* Sub-nav */}
+      {/* ── Toolbar ── */}
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 border-b border-border flex-shrink-0">
         <div className="flex items-center gap-1">
           {FILTERS.map((f) => (
@@ -350,30 +377,30 @@ export default function AutomationsPanel() {
               {f.label}
             </button>
           ))}
-        </div>
-
-        <div className="flex items-center gap-2">
+          <span className="font-mono text-[11px] text-muted tabular-nums ml-3">
+            {total} post{total !== 1 ? "s" : ""}
+          </span>
           {pendingHooks.length > 0 && (
-            <span className="font-mono text-[10px] text-yellow-400 tabular-nums">
+            <span className="font-mono text-[10px] text-yellow-400 tabular-nums ml-2">
               {pendingHooks.length} hook{pendingHooks.length !== 1 ? "s" : ""} pending
             </span>
           )}
-          <span className="font-mono text-[11px] text-muted tabular-nums">
-            {total} post{total !== 1 ? "s" : ""}
-          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setView("examples")}
             className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
           >
             <Lightbulb size={12} weight="bold" />
-            Examples
+            <span className="hidden sm:inline">Examples</span>
           </button>
           <button
             onClick={() => setView("docs")}
             className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
           >
             <FileText size={12} weight="bold" />
-            Docs
+            <span className="hidden sm:inline">Docs</span>
           </button>
           <button
             onClick={() => { fetchPosts(); fetchHooks(); }}
@@ -421,128 +448,223 @@ export default function AutomationsPanel() {
         </div>
       </div>
 
-      {/* Feed */}
-      <div className="flex-1 overflow-y-auto">
-        {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <CircleNotch size={20} weight="bold" className="animate-spin text-muted" />
-          </div>
-        ) : (
-          <div className="p-4 sm:p-6 lg:p-8 space-y-3 max-w-4xl mx-auto">
-            {/* Hooks Pending Review */}
-            {pendingHooks.length > 0 && (
-              <div className="border border-yellow-400/30 bg-yellow-400/5 p-4 space-y-2">
-                <div className="flex items-center gap-2 mb-2">
-                  <Lightbulb size={14} weight="bold" className="text-yellow-400" />
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-yellow-400">
-                    Hooks Pending Review
-                  </span>
-                </div>
-                {pendingHooks.map((hs) => {
-                  const color = PLATFORM_COLORS[hs.platform];
-                  return (
-                    <button
-                      key={`${hs.platform}-${hs.date}`}
-                      onClick={() => {
-                        setActiveHookSet(hs);
-                        setView("hooks-review");
-                      }}
-                      className="w-full flex items-center gap-3 p-2 border border-border hover:border-foreground-secondary bg-surface transition-colors duration-100"
-                    >
+      {/* ── Mobile column tabs (visible below lg) ── */}
+      <div className="flex items-center gap-1 px-4 sm:px-6 py-2 border-b border-border lg:hidden flex-shrink-0">
+        {COLUMN_TABS.map((tab) => (
+          <button
+            key={tab.value}
+            onClick={() => setActiveColumn(tab.value)}
+            className={`flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider px-3 py-1.5 border transition-colors duration-100 ${
+              activeColumn === tab.value
+                ? "text-foreground border-foreground"
+                : "text-muted border-border hover:text-foreground-secondary"
+            }`}
+          >
+            {tab.value === "review" && pendingHooks.length > 0 && (
+              <span className="w-1.5 h-1.5 bg-yellow-400 animate-pulse flex-shrink-0" />
+            )}
+            {tab.label}
+            <span className="text-[9px] tabular-nums">({tab.count})</span>
+          </button>
+        ))}
+      </div>
+
+      {/* ── Columns ── */}
+      {loading ? (
+        <div className="flex items-center justify-center flex-1">
+          <CircleNotch size={20} weight="bold" className="animate-spin text-muted" />
+        </div>
+      ) : (
+        <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 p-3 sm:p-4 lg:p-6 flex-1 overflow-hidden">
+          {/* ── Column 1: REVIEW ── */}
+          <WorkflowColumn
+            title="Review"
+            accent="yellow"
+            count={reviewCount}
+            index={0}
+            emptyMessage="All caught up"
+            showPulse
+            className={`${activeColumn === "review" ? "flex" : "hidden"} lg:flex`}
+          >
+            {/* Pending hook sets */}
+            {pendingHooks.map((hs) => {
+              const color = PLATFORM_COLORS[hs.platform];
+              return (
+                <button
+                  key={`hook-${hs.platform}-${hs.date}`}
+                  onClick={() => {
+                    setActiveHookSet(hs);
+                    setView("hooks-review");
+                  }}
+                  className="card-enter w-full flex items-center gap-3 p-3 border border-border border-l-2 border-l-yellow-400/30 bg-surface hover:bg-hover transition-colors duration-100 text-left"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
                       <span
                         className="font-mono text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 border"
                         style={{ color, borderColor: color }}
                       >
                         {hs.platform}
                       </span>
-                      <span className="font-mono text-[11px] text-muted tabular-nums">
+                      <span className="font-mono text-[10px] text-muted tabular-nums">
                         {hs.date}
                       </span>
-                      <span className="text-[11px] text-foreground-secondary">
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-foreground-secondary truncate">
                         {hs.pillar}
                       </span>
-                      <span className="ml-auto font-mono text-[10px] text-muted">
+                      <span className="ml-auto font-mono text-[10px] text-muted flex-shrink-0">
                         {hs.hooks.length} hooks
                       </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+                      <CaretRight size={10} weight="bold" className="text-muted flex-shrink-0" />
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
 
-            {/* Recently Reviewed Hooks (with Write Posts option) */}
-            {reviewedHooksToday.filter((hs) => hs.review && hs.review.approved_hook_ids.length > 0).length > 0 && (
-              <div className="border border-border bg-surface p-4 space-y-2">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-                  Reviewed Hooks
-                </span>
-                {reviewedHooksToday.map((hs) => {
-                  const color = PLATFORM_COLORS[hs.platform];
-                  const approvedCount = hs.review?.approved_hook_ids.length || 0;
-                  return (
-                    <button
-                      key={`reviewed-${hs.platform}-${hs.date}`}
-                      onClick={() => {
-                        setActiveHookSet(hs);
-                        setView("hooks-review");
-                      }}
-                      className="w-full flex items-center gap-3 p-2 border border-border hover:border-foreground-secondary transition-colors duration-100"
-                    >
-                      <span
-                        className="font-mono text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 border"
-                        style={{ color, borderColor: color }}
-                      >
-                        {hs.platform}
-                      </span>
-                      <span className="font-mono text-[11px] text-muted tabular-nums">
-                        {hs.date}
-                      </span>
-                      <span className="font-mono text-[10px] text-green-400">
-                        {approvedCount} approved
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Posts */}
-            {posts.length === 0 && pendingHooks.length === 0 ? (
-              <div className="flex items-center justify-center h-64">
-                <p className="text-[12px] font-mono text-muted">
-                  No posts found
-                </p>
-              </div>
-            ) : (
-              posts.map((post) => (
+            {/* Unreviewed posts */}
+            {reviewPosts.map((post) => (
+              <div key={`${post.platform}-${post.date}-${post.slug}`} className="card-enter">
                 <PostCard
-                  key={`${post.platform}-${post.date}-${post.slug}`}
                   post={post}
                   onReview={handleReview}
                   onAddResults={setEngagementTarget}
                   onReroll={setRerollTarget}
+                  compact
                 />
-              ))
-            )}
+              </div>
+            ))}
+          </WorkflowColumn>
 
-            {hasMore && (
-              <div className="flex justify-center pt-4 pb-8">
+          {/* ── Column 2: APPROVED ── */}
+          <WorkflowColumn
+            title="Approved"
+            accent="green"
+            count={approvedCount}
+            index={1}
+            emptyMessage="No approved content yet"
+            className={`${activeColumn === "approved" ? "flex" : "hidden"} lg:flex`}
+          >
+            {/* Reviewed hook sets with approved hooks */}
+            {reviewedHooks.map((hs) => {
+              const color = PLATFORM_COLORS[hs.platform];
+              const approvedCount = hs.review?.approved_hook_ids.length || 0;
+              return (
                 <button
-                  onClick={() => fetchPosts(posts.length, true)}
-                  disabled={loadingMore}
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-6 py-2.5 transition-colors duration-100"
+                  key={`reviewed-${hs.platform}-${hs.date}`}
+                  onClick={() => {
+                    setActiveHookSet(hs);
+                    setView("hooks-review");
+                  }}
+                  className="card-enter w-full flex items-center gap-3 p-3 border border-border border-l-2 border-l-green-400/30 bg-surface hover:bg-hover transition-colors duration-100 text-left"
                 >
-                  {loadingMore ? (
-                    <CircleNotch size={12} weight="bold" className="animate-spin" />
-                  ) : (
-                    "Load More"
-                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className="font-mono text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 border"
+                        style={{ color, borderColor: color }}
+                      >
+                        {hs.platform}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted tabular-nums">
+                        {hs.date}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] text-green-400">
+                        {approvedCount} approved
+                      </span>
+                      <span className="ml-auto font-mono text-[10px] text-muted flex-shrink-0">
+                        Write Posts
+                      </span>
+                      <CaretRight size={10} weight="bold" className="text-muted flex-shrink-0" />
+                    </div>
+                  </div>
                 </button>
+              );
+            })}
+
+            {/* Approved posts (no engagement yet) */}
+            {approvedPosts.map((post) => (
+              <div key={`${post.platform}-${post.date}-${post.slug}`} className="card-enter">
+                <PostCard
+                  post={post}
+                  onReview={handleReview}
+                  onAddResults={setEngagementTarget}
+                  onReroll={setRerollTarget}
+                  compact
+                />
+              </div>
+            ))}
+          </WorkflowColumn>
+
+          {/* ── Column 3: TRACKED ── */}
+          <WorkflowColumn
+            title="Tracked"
+            accent="blue"
+            count={trackedCount}
+            index={2}
+            emptyMessage="No tracked results yet"
+            className={`${activeColumn === "tracked" ? "flex" : "hidden"} lg:flex`}
+          >
+            {/* Posts with engagement metrics */}
+            {trackedPosts.map((post) => (
+              <div key={`${post.platform}-${post.date}-${post.slug}`} className="card-enter">
+                <PostCard
+                  post={post}
+                  onReview={handleReview}
+                  onAddResults={setEngagementTarget}
+                  onReroll={setRerollTarget}
+                  compact
+                />
+              </div>
+            ))}
+
+            {/* Denied posts separator */}
+            {deniedPosts.length > 0 && trackedPosts.length > 0 && (
+              <div className="flex items-center gap-2 pt-2">
+                <span className="flex-1 border-t border-border" />
+                <span className="font-mono text-[9px] uppercase tracking-widest text-muted">
+                  Denied
+                </span>
+                <span className="flex-1 border-t border-border" />
               </div>
             )}
-          </div>
-        )}
-      </div>
+
+            {/* Denied posts (dimmed) */}
+            {deniedPosts.map((post) => (
+              <div key={`denied-${post.platform}-${post.date}-${post.slug}`} className="card-enter opacity-60">
+                <PostCard
+                  post={post}
+                  onReview={handleReview}
+                  onAddResults={setEngagementTarget}
+                  onReroll={setRerollTarget}
+                  compact
+                />
+              </div>
+            ))}
+          </WorkflowColumn>
+        </div>
+      )}
+
+      {/* ── Load More (spans full width below columns) ── */}
+      {hasMore && !loading && (
+        <div className="flex justify-center py-3 border-t border-border flex-shrink-0">
+          <button
+            onClick={() => fetchPosts(posts.length, true)}
+            disabled={loadingMore}
+            className="font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-6 py-2 transition-colors duration-100"
+          >
+            {loadingMore ? (
+              <CircleNotch size={12} weight="bold" className="animate-spin" />
+            ) : (
+              "Load More"
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Feedback Modal */}
       {reviewTarget && (
