@@ -4,7 +4,7 @@
 #
 # Architecture:
 #   Runs every weekday (Mon-Fri) at 01:00 UTC.
-#   Generates 10 wildly different hook/angle ideas for Reddit.
+#   Generates 5 wildly different hook/angle ideas for Reddit.
 #   Output is committed directly to main in the hooks/reddit/ folder.
 #   Human reviews hooks in dashboard, then triggers Phase 2 (post writing).
 #
@@ -180,8 +180,8 @@ jobs:
             echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
           fi
 
-      # --- Generate 10 hooks (Phase 1) -------------------------------------
-      - name: Generate 10 Reddit hooks
+      # --- Generate 5 hooks (Phase 1) -------------------------------------
+      - name: Generate 5 Reddit hooks
         if: steps.check_hooks.outputs.skip != 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -205,10 +205,10 @@ jobs:
             DO NOT create branches, commits, or pull requests.
 
             ===============================================================
-            YOUR TASK: Generate exactly 10 hook ideas
+            YOUR TASK: Generate exactly 5 hook ideas
             ===============================================================
 
-            Instead of writing a full post, generate 10 wildly different
+            Instead of writing a full post, generate 5 wildly different
             hook/angle ideas. Each must target a DIFFERENT psychological
             lever, audience segment, or content approach. Maximum diversity.
 
@@ -252,11 +252,11 @@ jobs:
                 anchor different hooks
 
             ===============================================================
-            PHASE 4 — GENERATE 10 HOOKS
+            PHASE 4 — GENERATE 5 HOOKS
             ===============================================================
 
             For each hook, provide ALL of these fields:
-            - id: "h01" through "h10"
+            - id: "h01" through "h05"
             - hook_text: The actual title/opening line (complete, usable)
             - angle: 1-2 sentence description of the full post approach
             - psychological_lever: One of these categories:
@@ -267,17 +267,20 @@ jobs:
               silence/privacy, summer heat, confrontation/material fight,
               origin story, trust/legitimacy
             - target_audience: Specific segment this hook targets
-            - differentiation: Why different from ALL other 9 hooks
+            - differentiation: Why different from ALL other 4 hooks
             - platform_meta: { "subreddit": "<from 9-sub pool in REDDIT_SOUL.md>", "persona_type": "<expat|researcher|builder|investor|etc>", "mentions_biobuilds": "true|false" }
 
             RULES FOR HOOKS:
             - Each hook MUST use a DIFFERENT psychological lever
             - Each hook must suggest a subreddit from the unified 9-sub
               pool in REDDIT_SOUL.md
-            - At least 3 hooks must lead with a specific number or EUR amount
-            - At least 2 hooks must include DACH-specific data
-            - At least 2 hooks must include Romania/Eastern Europe angle
-            - At least 1 hook must use humor or an absurd contrast
+            - At least 1 hook must lead with a specific number or EUR amount
+            - At least 1 hook must include DACH-specific data
+            - At least 1 hook must include Romania/Eastern Europe angle
+            - Humor is welcome but not required for every batch
+            - If claude_automation/hooks/reddit/lever-performance.json exists,
+              bias toward high-performing levers but always include 1 experimental
+              lever not yet tested
             - No two hooks should feel like variations of the same idea
             - Each hook must be genuinely different in TONE, not just topic
             - Write each hook_text as if it were the actual Reddit post title
@@ -299,7 +302,7 @@ jobs:
               "pillar": "${{ steps.pillar.outputs.pillar }}",
               "generated_at": "<ISO timestamp>",
               "status": "pending",
-              "hooks": [ ... 10 hook objects ... ]
+              "hooks": [ ... 5 hook objects ... ]
             }
 
             ===============================================================
@@ -310,7 +313,7 @@ jobs:
             - NEVER repeat an angle already in recent hooks or posts
             - NEVER use AI-detectable writing patterns in hook_text
             - NEVER frame BioBuilds as building offices or commercial spaces
-            - ALWAYS generate exactly 10 hooks
+            - ALWAYS generate exactly 5 hooks
             - ALWAYS use different psychological levers
             - ALWAYS write hook_text in English
             - ALWAYS pick subreddits from the unified 9-sub pool in REDDIT_SOUL.md

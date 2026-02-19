@@ -153,6 +153,14 @@ jobs:
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
 
+            6. LEVER PERFORMANCE TRACKING:
+               For each feedback JSON that has BOTH "psychological_lever" AND
+               ("engagement" data OR a score):
+               - Read existing claude_automation/hooks/instagram/lever-performance.json
+               - Merge: lever → { times_used, avg_review_score, avg_saves,
+                 avg_shares, trend, best_hook, worst_hook }
+               - Write updated lever-performance.json
+
             5. For each JSON you processed, update it: add "summarized": true
                to the JSON object and write it back.
 
@@ -369,7 +377,7 @@ jobs:
           fi
 
       # --- Generate 10 hooks (Phase 1) -------------------------------------
-      - name: Generate 10 Instagram hooks
+      - name: Generate 5 Instagram hooks
         if: steps.check_hooks.outputs.skip != 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -400,10 +408,10 @@ jobs:
             DO NOT create branches, commits, or pull requests.
 
             ===============================================================
-            YOUR TASK: Generate exactly 10 hook ideas
+            YOUR TASK: Generate exactly 5 hook ideas
             ===============================================================
 
-            Instead of writing a full caption, generate 10 wildly different
+            Instead of writing a full caption, generate 5 wildly different
             hook/angle ideas. Each must target a DIFFERENT psychological
             lever, audience segment, or content approach. Maximum diversity.
 
@@ -427,6 +435,12 @@ jobs:
                — match their quality, specificity, and tone
                — do NOT copy them verbatim, but use them as inspiration
 
+            9. Read claude_automation/hooks/instagram/lever-performance.json if it exists
+               — shows which psychological levers ACTUALLY perform post-publish
+               — weight your 5 hooks toward high-performing levers
+               — always include 1 hook using an untested or underperforming lever
+               — if a lever has avg_review_score < 30, avoid unless genuinely different
+
             ===============================================================
             PHASE 2 — CHECK EXISTING (avoid duplication)
             ===============================================================
@@ -449,7 +463,7 @@ jobs:
             ===============================================================
 
             For each hook, provide ALL of these fields:
-            - id: "h01" through "h10"
+            - id: "h01" through "h05"
             - hook_text: The actual opening line (complete, usable sentence)
             - angle: 1-2 sentence description of the full caption approach
             - psychological_lever: One of these categories:
@@ -465,10 +479,13 @@ jobs:
 
             RULES FOR HOOKS:
             - Each hook MUST use a DIFFERENT psychological lever
-            - At least 3 hooks must lead with a specific number or EUR amount
-            - At least 2 hooks must include DACH-specific data
-            - At least 2 hooks must include Romania/Eastern Europe angle
-            - At least 1 hook must use humor or an absurd contrast
+            - At least 1 hook must lead with a specific number or EUR amount
+            - At least 1 hook must include DACH-specific data
+            - At least 1 hook must include Romania/Eastern Europe angle
+            - Humor is welcome but not required for every batch
+            - If claude_automation/hooks/instagram/lever-performance.json exists,
+              bias toward high-performing levers but always include 1 experimental
+              lever not yet tested
             - No two hooks should feel like variations of the same idea
             - Each hook must be genuinely different in TONE, not just topic
             - Write each hook_text as if it were the actual first line of the caption
@@ -489,7 +506,7 @@ jobs:
               "pillar": "${{ steps.pillar.outputs.pillar }}",
               "generated_at": "<ISO timestamp>",
               "status": "pending",
-              "hooks": [ ... 10 hook objects ... ]
+              "hooks": [ ... 5 hook objects ... ]
             }
 
             ===============================================================
@@ -499,7 +516,7 @@ jobs:
             - NEVER run git commands
             - NEVER repeat an angle already in recent hooks or posts
             - NEVER use AI-detectable writing patterns in hook_text
-            - ALWAYS generate exactly 10 hooks
+            - ALWAYS generate exactly 5 hooks
             - ALWAYS use different psychological levers
             - ALWAYS write hook_text in English
 
