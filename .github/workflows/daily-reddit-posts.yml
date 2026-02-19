@@ -154,6 +154,14 @@ jobs:
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
 
+            6. LEVER PERFORMANCE TRACKING:
+               For each feedback JSON that has BOTH "psychological_lever" AND
+               ("engagement" data OR a score):
+               - Read existing claude_automation/hooks/reddit/lever-performance.json
+               - Merge: lever → { times_used, avg_review_score, avg_saves,
+                 avg_shares, trend, best_hook, worst_hook }
+               - Write updated lever-performance.json
+
             5. For each JSON you processed, update it: add "summarized": true
                to the JSON object and write it back.
 
@@ -232,6 +240,11 @@ jobs:
                 — study their hook_text, angle, lever, and notes carefully
                 — match their quality, specificity, and tone
                 — do NOT copy them verbatim, but use them as inspiration
+            11. Read claude_automation/hooks/reddit/lever-performance.json if it exists
+                — shows which psychological levers ACTUALLY perform post-publish
+                — weight your 5 hooks toward high-performing levers
+                — always include 1 hook using an untested or underperforming lever
+                — if a lever has avg_review_score < 30, avoid unless genuinely different
 
             ===============================================================
             PHASE 2 — CHECK EXISTING (avoid duplication)
