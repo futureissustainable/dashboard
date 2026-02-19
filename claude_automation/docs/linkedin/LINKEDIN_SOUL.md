@@ -19,7 +19,12 @@ These rules come from real human review of past posts. They override any conflic
 
 ### Approved Patterns (Winning Formulas)
 
-_(0 approved out of 4 posts. The bar is high. Study the past top performers in linkedin-past-posts.md before writing.)_
+Winning patterns are extracted automatically from two sources:
+1. **Past posts performance data** (71 real posts with metrics) — analyzed by Sonnet before each run
+2. **Engagement results** — real post-publish metrics recorded via the dashboard
+
+These are injected into each generation prompt as the INNOVATION BRIEF.
+As posts get approved with high engagement, permanent winning formulas will be added here.
 
 ---
 

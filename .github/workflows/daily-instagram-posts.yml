@@ -119,6 +119,10 @@ jobs:
             ### Patterns to AVOID
             - [pattern from denied/low-scoring posts] (seen Nx)
 
+            ### Engagement Winners (real post-publish data)
+            - YYYY-MM-DD: [key metrics] — [what pattern/angle was used] — [notes]
+            (only include posts that have "engagement" data in their JSON)
+
             ### Recent notes
             - YYYY-MM-DD: status (score/100) — feedback text
             (keep last 10 entries max)
@@ -126,6 +130,9 @@ jobs:
             Rules for updating:
             - Merge new feedback into existing patterns (increment counts)
             - Add new patterns if they don't exist yet
+            - If a JSON has "engagement" data, extract the winning pattern
+              and add it to "Engagement Winners." This is the highest-value
+              signal — real post-publish performance data.
             - Keep "Recent notes" to last 10 entries, drop oldest
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
@@ -261,6 +268,82 @@ jobs:
             echo "ratings=No creative ratings available" >> "$GITHUB_OUTPUT"
           fi
 
+      # --- Pattern innovation (analyze what works, propose experiment) ------
+      - name: Analyze winning patterns and propose experiment
+        id: innovation
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are a content strategist analyzing past post performance to
+            find winning patterns and propose experiments for Instagram.
+            Today's date: ${{ steps.date.outputs.today }}
+            This week's pillar: ${{ steps.pillar.outputs.pillar }}
+
+            DO NOT run any git commands.
+
+            Steps:
+            1. Read claude_automation/docs/instagram/instagram-past-posts.md
+               — this has 62 real posts with likes, comments, shares, saves,
+               reach, follows, image descriptions, and full captions
+            2. Read claude_automation/feedback/instagram/SUMMARY.md if it exists
+            3. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md
+               — focus on "Learned Rules from Feedback" section
+            4. List files in claude_automation/output/instagram/ and read the
+               last 5 generated captions
+            5. Read all .json files in claude_automation/feedback/instagram/
+               — look for any with "engagement" data (real post-publish metrics)
+
+            ANALYSIS:
+            - Rank top 5 past posts by saves (strongest purchase-intent signal),
+              then by shares (DM sends = Instagram's #1 algorithm signal)
+            - For each: identify the SPECIFIC pattern that made it work
+              (not vague — be precise about visual + caption combo)
+            - Cross-reference with denied patterns
+            - Note: static images get 4x more follows than reels based on
+              past data. Factor this into experiment design.
+            - If engagement data exists in feedback JSONs, weight those
+              insights highest — that's real post-publish performance
+
+            Write output to claude_automation/.pattern-innovation-instagram.md:
+
+            ## Winning Patterns (from real data)
+            1. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+            2. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+            3. [Pattern] — Evidence: [Post title, metrics] — Why: [reason]
+
+            ## Today's Experiment
+            [One specific technique/angle/format to test that hasn't been
+            tried in the last 5 generated captions. Be creative. The best
+            Instagram posts make someone screenshot and DM it to their partner.]
+            Hypothesis: [Why this should work, based on patterns above]
+            How to measure: [saves and shares are the key signals]
+
+            ## Avoid Today
+            - [Specific anti-pattern from denied posts or low performers]
+
+          claude_args: |
+            --max-turns 15
+            --model claude-sonnet-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep"
+
+      - name: Collect innovation brief
+        id: innovation_brief
+        run: |
+          BRIEF_FILE=".pattern-innovation-instagram.md"
+          if [ -f "$BRIEF_FILE" ]; then
+            CONTENT=$(head -c 3000 "$BRIEF_FILE")
+            DELIM="INNOVATION_BRIEF_$(date +%s)"
+            echo "brief<<${DELIM}" >> "$GITHUB_OUTPUT"
+            echo "$CONTENT" >> "$GITHUB_OUTPUT"
+            echo "${DELIM}" >> "$GITHUB_OUTPUT"
+            rm -f "$BRIEF_FILE"
+          else
+            echo "brief=No innovation brief available" >> "$GITHUB_OUTPUT"
+          fi
+
       # --- Generate single caption (all markets) ---------------------------
       - name: Generate Instagram caption (all markets)
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
@@ -285,6 +368,16 @@ jobs:
             the ratings above unless you have a strong, specific reason not to.
             The ratings already account for pillar match, visual formula,
             freshness, and the "send test." Trust them.
+
+            ===============================================================
+            INNOVATION BRIEF (winning patterns + today's experiment)
+            ===============================================================
+            ${{ steps.innovation_brief.outputs.brief }}
+
+            This brief was generated by analyzing your 62 top-performing
+            past posts. The "Today's Experiment" is a specific technique
+            to test. Use it. Break a rule if the experiment calls for it.
+            The best posts in history broke rules intentionally.
 
             ===============================================================
             RECENT FEEDBACK ON PAST INSTAGRAM POSTS (learn from this)

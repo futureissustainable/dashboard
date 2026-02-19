@@ -120,6 +120,10 @@ jobs:
             ### Patterns to AVOID
             - [pattern from denied/low-scoring posts] (seen Nx)
 
+            ### Engagement Winners (real post-publish data)
+            - YYYY-MM-DD: [key metrics] — [what pattern/angle was used] — [notes]
+            (only include posts that have "engagement" data in their JSON)
+
             ### Recent notes
             - YYYY-MM-DD: status (score/100) — feedback text
             (keep last 10 entries max)
@@ -127,6 +131,9 @@ jobs:
             Rules for updating:
             - Merge new feedback into existing patterns (increment counts)
             - Add new patterns if they don't exist yet
+            - If a JSON has "engagement" data, extract the winning pattern
+              and add it to "Engagement Winners." This is the highest-value
+              signal — real post-publish performance data.
             - Keep "Recent notes" to last 10 entries, drop oldest
             - Be concise: each pattern should be one line
             - Preserve existing pattern counts and averages
