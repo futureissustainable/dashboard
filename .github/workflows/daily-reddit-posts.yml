@@ -1,13 +1,12 @@
 # =============================================================================
-# BIOBUILDS Daily Reddit Post & Comment Generator — v4.0
+# BIOBUILDS Reddit Hook Generator (Phase 1) — v5.0
 # =============================================================================
 #
 # Architecture:
 #   Runs every weekday (Mon-Fri) at 01:00 UTC.
-#   Generates 1 Reddit post in English that must resonate across all 3
-#   markets (DACH, Romania, international) simultaneously.
-#   Includes 3 comment recommendations for existing Reddit threads.
-#   Output is committed directly to main in the output/reddit/ folder.
+#   Generates 10 wildly different hook/angle ideas for Reddit.
+#   Output is committed directly to main in the hooks/reddit/ folder.
+#   Human reviews hooks in dashboard, then triggers Phase 2 (post writing).
 #
 # SETUP:
 #   1. Run `claude setup-token` locally -> copy the token
@@ -72,7 +71,24 @@ jobs:
           echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
           echo "This week's pillar: ${PILLARS[$INDEX]}"
 
+      - name: Check for existing unreviewed hooks
+        id: check_hooks
+        run: |
+          HOOKS_FILE="hooks/reddit/${{ steps.date.outputs.today }}.json"
+          if [ -f "$HOOKS_FILE" ]; then
+            STATUS=$(python3 -c "import json; print(json.load(open('$HOOKS_FILE'))['status'])" 2>/dev/null || echo "unknown")
+            if [ "$STATUS" = "pending" ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "::warning::Hooks already exist for today and haven't been reviewed yet"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check for new feedback
+        if: steps.check_hooks.outputs.skip != 'true'
         id: check_feedback
         run: |
           DIR="feedback/reddit"
@@ -93,7 +109,7 @@ jobs:
           fi
 
       - name: Summarize feedback
-        if: steps.check_feedback.outputs.has_new == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.check_feedback.outputs.has_new == 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -147,6 +163,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
+        if: steps.check_hooks.outputs.skip != 'true'
         id: feedback
         run: |
           SUMMARY_FILE="feedback/reddit/SUMMARY.md"
@@ -163,15 +180,16 @@ jobs:
             echo "summary=No feedback yet" >> "$GITHUB_OUTPUT"
           fi
 
-      # --- Generate single post (all markets) ------------------------------
-      - name: Generate Reddit post (all markets)
+      # --- Generate 10 hooks (Phase 1) -------------------------------------
+      - name: Generate 10 Reddit hooks
+        if: steps.check_hooks.outputs.skip != 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
           prompt: |
-            You are a Reddit post generator for the BioBuilds content strategy.
+            You are a Reddit hook generator for the BioBuilds content strategy.
             Today's date: ${{ steps.date.outputs.today }}
             This week's content pillar: ${{ steps.pillar.outputs.pillar }}
 
@@ -187,168 +205,127 @@ jobs:
             DO NOT create branches, commits, or pull requests.
 
             ===============================================================
-            THE CORE CHALLENGE
+            YOUR TASK: Generate exactly 10 hook ideas
             ===============================================================
 
-            You must write ONE Reddit post in ENGLISH that simultaneously
-            serves BioBuilds' two primary markets and broader European
-            audience:
-            - DACH (Germany, Austria, Switzerland) — primary market
-            - Romania — young families (30-45), ~70% IT industry, rest
-              entrepreneurs or higher-paying professions. NOT luxury.
-            - International (rest of EU) — secondary reach
-
-            The post must feel like a real person's experience or research
-            that naturally covers data relevant to multiple European markets.
-            A post about "comparing modular home manufacturers across Europe"
-            or "my experience building a Passivhaus" naturally serves all
-            audiences without feeling forced.
-
-            HOW TO DO THIS:
-            - Write as someone with a pan-European perspective (expat, researcher,
-              investor comparing options across countries, someone who built
-              in one country and is comparing to others)
-            - Include data points from multiple markets naturally:
-              * DACH angle: German prices (EUR 4,800/m2), KfW funding, Fertighaus context
-              * Romania angle: manufacturing origin, EUR 1,676/m2, certification data
-              * EU-wide: Passivhaus standards, energy prices, modular industry trends
-            - The persona should have a reason to discuss multiple markets
-            - Don't force all 3 markets in every paragraph; weave them naturally
+            Instead of writing a full post, generate 10 wildly different
+            hook/angle ideas. Each must target a DIFFERENT psychological
+            lever, audience segment, or content approach. Maximum diversity.
 
             ===============================================================
-            AVAILABLE TOOLS (use ONLY these)
-            ===============================================================
-            You have ONLY these tools: Read, Write, Edit, Glob, Grep,
-            WebSearch, WebFetch.
-
-            Bash, curl, shell commands are NOT available.
-
-            To search the internet: use WebSearch
-            To fetch a specific URL: use WebFetch
-            To find Reddit posts: use WebSearch with site:reddit.com queries
-
-            ===============================================================
-            PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
+            PHASE 1 — READ STRATEGY DOCS (mandatory)
             ===============================================================
 
-            1. Read claude_automation/CLAUDE.md — project rules and constraints
-            2. Read claude_automation/docs/reddit/REDDIT_SOUL.md — complete persona, writing rules,
-               and UNIFIED 9-SUB ROTATION POOL.
-               NOTE: This file begins with "Learned Rules from Feedback." As Reddit posts get
-               reviewed, denied patterns will accumulate here. Always check this section first.
-            3. Read claude_automation/docs/reddit/REDDIT_REPORT_SEO.md — SEO strategy data
-            4. Read claude_automation/docs/reddit/REDDIT_REPORT_AI.md — AI citation strategy
-            5. Read claude_automation/docs/reddit/REDDIT_PLAYBOOK.md — master strategy,
-               positioning, post templates, compliance rules, data anchors
+            1. Read claude_automation/CLAUDE.md
+            2. Read claude_automation/docs/reddit/REDDIT_SOUL.md
+               — especially "Learned Rules from Feedback" and the
+               UNIFIED 9-SUB ROTATION POOL
+            3. Read claude_automation/docs/reddit/REDDIT_PLAYBOOK.md
+            4. Read claude_automation/docs/reddit/REDDIT_REPORT_SEO.md
+            5. Read claude_automation/docs/reddit/REDDIT_REPORT_AI.md
             6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
             7. Read claude_automation/.agents/skills/seo-audit/references/aeo-geo-patterns.md
             8. Read claude_automation/docs/company/biobuilds-company-overview.md
-            9. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
-               movement/story-driven marketing over product-first marketing. Internalize these
-               principles and apply them to today's post.
+            9. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
 
             ===============================================================
-            PHASE 2 — CHECK EXISTING POSTS (avoid duplication + rotation)
+            PHASE 2 — CHECK EXISTING (avoid duplication)
             ===============================================================
 
-            10. List all files in claude_automation/output/reddit/ directory
-            11. Read the last 5 posts (if they exist) and extract:
-                - The "subreddit:" field from each post's YAML frontmatter
-                - What topics were already covered
-                - What personas were used
-                - What pillar each post targeted
-            12. Build a BLOCKED LIST of subreddits used in the last 3 weeks
-                — you CANNOT use any of these
-            13. Make sure your post covers NEW ground
+            10. List claude_automation/output/reddit/ — read last 5 posts
+            11. List claude_automation/hooks/reddit/ — read recent hooks
+            12. Identify which angles, levers, subreddits, and topics are
+                overused
 
             ===============================================================
-            PHASE 3 — RESEARCH (get real, current data across markets)
+            PHASE 3 — RESEARCH (fresh data for hooks)
             ===============================================================
 
-            14. Use WebSearch to find 3-5 current data points relevant to
-                this week's pillar. Search for cross-market data:
-                - European energy prices or housing cost comparisons
-                - Passivhaus certification stats across countries
-                - Modular construction trends EU-wide
-                - KfW funding rates (DACH angle)
-                - Romanian/Eastern European construction developments
-            15. Cross-reference with data from the strategy reports
-            16. Find real competitor data from multiple markets
+            13. Use WebSearch to find 3-5 current data points relevant to
+                this week's pillar across DACH + Romania + EU
+            14. Find surprising numbers, contrasts, or facts that could
+                anchor different hooks
 
             ===============================================================
-            PHASE 4 — WRITE THE POST (English, all markets, 8+ data points)
+            PHASE 4 — GENERATE 10 HOOKS
             ===============================================================
 
-            17. Pick a subreddit from the unified 9-sub pool in REDDIT_SOUL.md
-                - Do NOT use any subreddit from the blocked list
-            18. Create a persona with a natural reason to discuss multiple
-                European markets (expat, researcher, investor, builder who
-                sourced from Eastern Europe, etc.)
-            19. Write the full Reddit post following ALL rules in REDDIT_SOUL.md:
-                - Natural, human-sounding English writing
-                - Include AT LEAST 8 specific data points with numbers
-                - Include data from multiple markets woven naturally
-                - BioBuilds as ONE option among several (or not at all)
-                - Include honest pros and cons
-                - End with TL;DR (include 3-5 numeric anchors)
-                - NO AI writing tells
-            20. Create a realistic image_idea in the frontmatter. This must be
-                an ORIGINAL image concept you propose (NOT from the claude_automation/Creatives/
-                catalog). Reddit posts need unique, context-appropriate visuals
-                like infographics, comparison charts, maps, or photos that
-                match the persona's story. Describe what the image should show,
-                its style, and why it fits the post.
-                NEVER use or reference files from the claude_automation/Creatives/ folder.
-            21. Save to claude_automation/output/reddit/ as:
-                ${{ steps.date.outputs.today }}_[slug].md
+            For each hook, provide ALL of these fields:
+            - id: "h01" through "h10"
+            - hook_text: The actual title/opening line (complete, usable)
+            - angle: 1-2 sentence description of the full post approach
+            - psychological_lever: One of these categories:
+              cost savings, modernity contradiction, time value,
+              health/indoor environment, social comparison, material purity,
+              lifetime cost, sleep/performance, parental fear, industry failure,
+              humor/absurdity, regulation/compliance, investment/roi,
+              silence/privacy, summer heat, confrontation/material fight,
+              origin story, trust/legitimacy
+            - target_audience: Specific segment this hook targets
+            - differentiation: Why different from ALL other 9 hooks
+            - platform_meta: { "subreddit": "<from 9-sub pool in REDDIT_SOUL.md>", "persona_type": "<expat|researcher|builder|investor|etc>", "mentions_biobuilds": "true|false" }
+
+            RULES FOR HOOKS:
+            - Each hook MUST use a DIFFERENT psychological lever
+            - Each hook must suggest a subreddit from the unified 9-sub
+              pool in REDDIT_SOUL.md
+            - At least 3 hooks must lead with a specific number or EUR amount
+            - At least 2 hooks must include DACH-specific data
+            - At least 2 hooks must include Romania/Eastern Europe angle
+            - At least 1 hook must use humor or an absurd contrast
+            - No two hooks should feel like variations of the same idea
+            - Each hook must be genuinely different in TONE, not just topic
+            - Write each hook_text as if it were the actual Reddit post title
+            - Apply all learned rules from feedback (denied patterns = banned)
+            - Hooks must pass the "would I click this?" test
+            - platform_meta.mentions_biobuilds must be "true" or "false"
+              (string, not boolean) — most hooks should be "false"
 
             ===============================================================
-            PHASE 5 — COMMENT RECOMMENDATIONS (trust builder)
+            PHASE 5 — SAVE AS JSON
             ===============================================================
 
-            22. Use WebSearch to find 3 EXISTING Reddit posts where a
-                helpful, data-rich comment would fit naturally
-            23. For each, write a recommended comment that:
-                - Adds genuine value (data, experience, checklist)
-                - Does NOT mention BioBuilds (pure value, trust first)
-                - Includes at least 2 specific data points
-            24. Append the 3 comment recommendations to the post file
+            Save to claude_automation/hooks/reddit/${{ steps.date.outputs.today }}.json
+            as a valid JSON object:
+
+            {
+              "platform": "reddit",
+              "date": "${{ steps.date.outputs.today }}",
+              "pillar": "${{ steps.pillar.outputs.pillar }}",
+              "generated_at": "<ISO timestamp>",
+              "status": "pending",
+              "hooks": [ ... 10 hook objects ... ]
+            }
 
             ===============================================================
             RULES (violations = failure)
             ===============================================================
-            - NEVER frame BioBuilds as building offices or commercial spaces (we build HOMES)
             - NEVER use Bash, curl, or shell commands
             - NEVER run git commands
-            - NEVER sound like an advertisement
-            - NEVER write as a BioBuilds employee
-            - NEVER use AI-detectable writing patterns
-            - NEVER use images from the claude_automation/Creatives/ catalog (always propose original image ideas)
-            - NEVER duplicate a topic or reuse a blocked subreddit
-            - ALWAYS write in English
-            - ALWAYS include data relevant to multiple markets
-            - ALWAYS pick from the unified 9-sub pool in REDDIT_SOUL.md
-            - ALWAYS include YAML frontmatter per REDDIT_SOUL.md
-            - ALWAYS include at least 8 specific data points
-            - ALWAYS include a TL;DR with 3-5 numeric anchors
-            - ALWAYS include 3 comment recommendations with real Reddit URLs
+            - NEVER repeat an angle already in recent hooks or posts
+            - NEVER use AI-detectable writing patterns in hook_text
+            - NEVER frame BioBuilds as building offices or commercial spaces
+            - ALWAYS generate exactly 10 hooks
+            - ALWAYS use different psychological levers
+            - ALWAYS write hook_text in English
+            - ALWAYS pick subreddits from the unified 9-sub pool in REDDIT_SOUL.md
 
           claude_args: |
-            --max-turns 45
+            --max-turns 25
             --model claude-opus-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
       - name: Check for changes
+        if: steps.check_hooks.outputs.skip != 'true'
         id: changes
         run: |
-          # Build list of existing paths to check (feedback dir may not exist yet)
-          PATHS="output/reddit/"
+          PATHS="hooks/reddit/"
           [ -d "feedback/reddit" ] && PATHS="$PATHS feedback/reddit/"
           STATUS="$(git status --porcelain $PATHS)"
           if [ -z "$STATUS" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::No new post generated"
+            echo "::warning::No new Reddit hooks generated"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             echo "Changes detected:"
@@ -356,18 +333,18 @@ jobs:
           fi
 
       - name: Commit and push to main
-        if: steps.changes.outputs.has_changes == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.changes.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add output/reddit/
+          git add hooks/reddit/
           git add feedback/reddit/ 2>/dev/null || true
 
           TODAY="${{ steps.date.outputs.today }}"
           PILLAR="${{ steps.pillar.outputs.pillar }}"
 
-          git commit -m "reddit: ${TODAY} [${PILLAR}]"
+          git commit -m "hooks: reddit ${TODAY} [${PILLAR}]"
 
           # Pull-rebase in case another workflow pushed first, with retry
           for attempt in 1 2 3; do

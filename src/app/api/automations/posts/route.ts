@@ -65,15 +65,19 @@ export async function GET(request: Request) {
         const date = file.name.slice(0, 10);
         const slug = file.name.slice(11).replace(/\.md$/, "");
 
-        // Check for feedback — must match this specific post file, not just date
+        // Check for feedback — try slug-based path first, then legacy date-based
         let feedback = undefined;
-        const feedbackKey = `${file.platform}/${date}.json`;
-        const feedbackPath = feedbackMap.get(feedbackKey);
+        const slugKey = `${file.platform}/${file.name.replace(/\.md$/, "")}.json`;
+        const legacyKey = `${file.platform}/${date}.json`;
+        const feedbackPath = feedbackMap.get(slugKey) || feedbackMap.get(legacyKey);
         if (feedbackPath) {
           try {
             const fb = await getFileContent(feedbackPath);
             const parsed = JSON.parse(fb.content);
-            if (parsed.postFile === file.name) {
+            // For legacy date-based files, verify postFile matches
+            if (!feedbackMap.has(slugKey) && parsed.postFile && parsed.postFile !== file.name) {
+              // Legacy file belongs to a different post on the same date
+            } else {
               feedback = parsed;
             }
           } catch {

@@ -1,12 +1,12 @@
 # =============================================================================
-# BIOBUILDS Daily LinkedIn Post Generator — v2.0
+# BIOBUILDS LinkedIn Hook Generator (Phase 1) — v3.0
 # =============================================================================
 #
 # Architecture:
 #   Runs every weekday (Mon-Fri) at 01:30 UTC.
-#   Generates 1 LinkedIn post in English that must resonate across all 3
-#   markets (DACH, Romania, international) simultaneously.
-#   Output is committed directly to main in the output/linkedin/ folder.
+#   Generates 10 wildly different hook/angle ideas for LinkedIn.
+#   Output is committed directly to main in the hooks/linkedin/ folder.
+#   Human reviews hooks in dashboard, then triggers Phase 2 (post writing).
 #
 # SETUP:
 #   1. Run `claude setup-token` locally -> copy the token
@@ -71,7 +71,24 @@ jobs:
           echo "pillar=${PILLARS[$INDEX]}" >> "$GITHUB_OUTPUT"
           echo "This week's pillar: ${PILLARS[$INDEX]}"
 
+      - name: Check for existing unreviewed hooks
+        id: check_hooks
+        run: |
+          HOOKS_FILE="hooks/linkedin/${{ steps.date.outputs.today }}.json"
+          if [ -f "$HOOKS_FILE" ]; then
+            STATUS=$(python3 -c "import json; print(json.load(open('$HOOKS_FILE'))['status'])" 2>/dev/null || echo "unknown")
+            if [ "$STATUS" = "pending" ]; then
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              echo "::warning::Hooks already exist for today and haven't been reviewed yet"
+            else
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check for new feedback
+        if: steps.check_hooks.outputs.skip != 'true'
         id: check_feedback
         run: |
           DIR="feedback/linkedin"
@@ -91,7 +108,7 @@ jobs:
           fi
 
       - name: Summarize feedback
-        if: steps.check_feedback.outputs.has_new == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.check_feedback.outputs.has_new == 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -145,6 +162,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
+        if: steps.check_hooks.outputs.skip != 'true'
         id: feedback
         run: |
           SUMMARY_FILE="feedback/linkedin/SUMMARY.md"
@@ -161,6 +179,7 @@ jobs:
           fi
 
       - name: List available creatives
+        if: steps.check_hooks.outputs.skip != 'true'
         id: creatives
         run: |
           # Check for actual media files (not just CATALOG.md and .gitkeep)
@@ -189,7 +208,7 @@ jobs:
 
       # --- Rate creatives (pick highest potential) --------------------------
       - name: Rate creatives for LinkedIn
-        if: steps.creatives.outputs.available == 'true' && steps.creatives.outputs.has_catalog == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.creatives.outputs.available == 'true' && steps.creatives.outputs.has_catalog == 'true'
         id: rate_creatives
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -249,6 +268,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect creative ratings
+        if: steps.check_hooks.outputs.skip != 'true'
         id: creative_ratings
         run: |
           RATINGS_FILE=".creative-ratings-linkedin.md"
@@ -267,6 +287,7 @@ jobs:
 
       # --- Pattern innovation (analyze what works, propose experiment) ------
       - name: Analyze winning patterns and propose experiment
+        if: steps.check_hooks.outputs.skip != 'true'
         id: innovation
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
@@ -329,6 +350,7 @@ jobs:
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect innovation brief
+        if: steps.check_hooks.outputs.skip != 'true'
         id: innovation_brief
         run: |
           BRIEF_FILE=".pattern-innovation-linkedin.md"
@@ -343,228 +365,152 @@ jobs:
             echo "brief=No innovation brief available" >> "$GITHUB_OUTPUT"
           fi
 
-      # --- Generate single post (all markets) ------------------------------
-      - name: Generate LinkedIn post (all markets)
+      # --- Generate 10 hooks (Phase 1) -------------------------------------
+      - name: Generate 10 LinkedIn hooks
+        if: steps.check_hooks.outputs.skip != 'true'
         uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
           prompt: |
-            You are a LinkedIn post generator for the BioBuilds content strategy.
+            You are a LinkedIn hook generator for the BioBuilds content strategy.
             Today's date: ${{ steps.date.outputs.today }}
             This week's content pillar: ${{ steps.pillar.outputs.pillar }}
-            Creatives available: ${{ steps.creatives.outputs.available }}
-            Creative files: ${{ steps.creatives.outputs.list }}
-            Creative catalog available: ${{ steps.creatives.outputs.has_catalog }}
 
             ===============================================================
-            CREATIVE RATINGS (pre-analyzed by Sonnet — pick from the top)
+            CREATIVE RATINGS (available visuals, pre-analyzed)
             ===============================================================
             ${{ steps.creative_ratings.outputs.ratings }}
-
-            When selecting a creative, ALWAYS pick the highest-rated one from
-            the ratings above unless you have a strong, specific reason not to.
-            The ratings already account for pillar match, visual formula, and
-            freshness. Trust them.
 
             ===============================================================
             INNOVATION BRIEF (winning patterns + today's experiment)
             ===============================================================
             ${{ steps.innovation_brief.outputs.brief }}
 
-            This brief was generated by analyzing your 71 top-performing
-            past posts. The "Today's Experiment" is a specific technique
-            to test. Use it. Break a rule if the experiment calls for it.
-            The best posts in history broke rules intentionally.
-
             ===============================================================
-            RECENT FEEDBACK ON PAST LINKEDIN POSTS (learn from this)
+            RECENT FEEDBACK ON PAST LINKEDIN POSTS
             ===============================================================
             ${{ steps.feedback.outputs.summary }}
-
-            Apply these lessons: repeat what scored high, fix what was denied
-            or scored low. This is non-negotiable.
 
             DO NOT run any git commands.
             DO NOT create branches, commits, or pull requests.
 
             ===============================================================
-            THE CORE CHALLENGE
+            YOUR TASK: Generate exactly 10 hook ideas
             ===============================================================
 
-            You must write ONE LinkedIn post in ENGLISH that simultaneously
-            resonates with BioBuilds' two primary markets and broader
-            European audience:
-            - DACH (Germany, Austria, Switzerland) — primary market
-            - Romania — young families (30-45), ~70% IT industry, rest
-              entrepreneurs or higher-paying professions. NOT luxury.
-            - International (rest of EU) — secondary reach
-
-            This is the hard part. The post must feel relevant to someone
-            researching homes in Germany AND a young Romanian IT couple
-            planning their first house AND anyone else in Europe thinking
-            about building. One post, multiple audiences, zero compromise
-            on specificity. Don't over-define who reads it beyond this.
-
-            HOW TO DO THIS:
-            - Use data points that cross borders (EU energy prices, Passivhaus
-              standards, EUR pricing, construction timelines)
-            - Reference multiple markets naturally ("from the Black Forest to
-              the Carpathians," "whether your building code says KfW 40 or
-              nZEB")
-            - Include at least one DACH-specific data point (KfW, German
-              energy prices, Fertighaus market)
-            - Include at least one Romania/Eastern Europe angle (manufacturing
-              origin, cost advantage, certification despite skepticism)
-            - The universal hook must be a number or contrast that works
-              everywhere ("EUR 47 heating bill" hits equally hard in Munich
-              and Bucharest)
+            Instead of writing a full post, generate 10 wildly different
+            hook/angle ideas. Each must target a DIFFERENT psychological
+            lever, audience segment, or content approach. Maximum diversity.
 
             ===============================================================
-            AVAILABLE TOOLS (use ONLY these)
-            ===============================================================
-            You have ONLY these tools: Read, Write, Edit, Glob, Grep,
-            WebSearch, WebFetch.
-
-            Bash, curl, shell commands are NOT available.
-
-            ===============================================================
-            PHASE 1 — READ ALL INSTRUCTIONS (mandatory, do not skip)
+            PHASE 1 — READ STRATEGY DOCS (mandatory)
             ===============================================================
 
-            1. Read claude_automation/CLAUDE.md — project rules and constraints
-            2. Read claude_automation/docs/linkedin/LINKEDIN_SOUL.md — voice, writing rules,
-               audience segments, format strategy, output format.
-               CRITICAL: This file begins with "Learned Rules from Feedback" — hand-curated
-               denied patterns with specific scores. These are NON-NEGOTIABLE. Read them first,
-               internalize them, and never repeat a denied pattern.
-            3. Read claude_automation/docs/linkedin/LINKEDIN_PLAYBOOK.md — platform strategy,
-               algorithm signals, hook formulas, do's and don'ts
-
-            4. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
-               Read claude_automation/docs/linkedin/linkedin-past-posts.md — full past
-               post data. You MUST study at minimum the top 3 best-performing posts AND
-               the top 3 worst-performing posts. For each, understand WHY it succeeded
-               or failed. What made the hook land? What data drove reactions? What killed it?
-               You may read additional posts for broader patterns and reference.
-
-               HARD RULE: You may draw INSPIRATION from past phrasing, hooks, and
-               structures that worked — but you must always iterate, improve, and
-               innovate on them. Never copy word-for-word. Every post must push
-               forward: test new angles, sharpen what worked, evolve the voice.
-               The goal is continuous improvement, not repetition.
-
-            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data,
-               products, certifications, milestones, technical specs
-            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
-               movement/story-driven marketing over product-first marketing. Internalize these
-               principles and apply them to today's post.
-            7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
-            8. If creatives are available, read claude_automation/Creatives/CATALOG.md for
-               descriptions and metadata about each file
+            1. Read claude_automation/CLAUDE.md
+            2. Read claude_automation/docs/linkedin/LINKEDIN_SOUL.md
+               — especially "Learned Rules from Feedback"
+            3. Read claude_automation/docs/linkedin/LINKEDIN_PLAYBOOK.md
+            4. Read claude_automation/docs/linkedin/linkedin-past-posts.md
+               — study top 5 best AND top 5 worst posts
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md
+            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+            7. If hooks/linkedin/ has reviewed JSON files, read the most recent
+               ones to learn which levers and angles scored highest vs lowest
 
             ===============================================================
-            PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
+            PHASE 2 — CHECK EXISTING (avoid duplication)
             ===============================================================
 
-            9. List all files in claude_automation/output/linkedin/ directory
-            10. Read the last 5 LinkedIn posts (if they exist) and extract:
-               - What topics were already covered
-               - What audience segments were targeted
-               - What hook styles were used
-               - What pillar each post targeted
-            11. Make sure your post covers NEW ground with a DIFFERENT angle
+            8. List claude_automation/output/linkedin/ — read last 5 posts
+            9. List claude_automation/hooks/linkedin/ — read recent hooks
+            10. Identify which angles, levers, and topics are overused
 
             ===============================================================
-            PHASE 3 — RESEARCH (get real, current data across markets)
+            PHASE 3 — RESEARCH (fresh data for hooks)
             ===============================================================
 
-            12. Use WebSearch to find 2-3 current data points relevant to
-                this week's pillar. Search for data that spans markets:
-                - European energy prices or housing trends
-                - Passivhaus certification stats or industry news
-                - KfW funding rates (DACH angle)
-                - Romanian/Eastern European construction developments
-                - Modular construction or sustainability trends EU-wide
-            13. Find data that resonates across all 3 markets
+            11. Use WebSearch to find 3-5 current data points relevant to
+                this week's pillar across DACH + Romania + EU
+            12. Find surprising numbers, contrasts, or facts that could
+                anchor different hooks
 
             ===============================================================
-            PHASE 4 — MATCH CREATIVE (if available)
+            PHASE 4 — GENERATE 10 HOOKS
             ===============================================================
 
-            14. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
-                descriptions and status to pick the best match for this week's
-                pillar and today's topic.
-                ONLY pick creatives that LinkedIn hasn't already used.
-                OK to pick: [available], [USED ON INSTA], [REQUEST USE INSTA]
-                Skip: [reserved], [USED ON LINKEDIN], [USED ON BOTH], [REQUEST USE LINKEDIN]
-                A creative used on Instagram can still be used on LinkedIn.
-            15. If you pick a creative from the catalog, set the frontmatter
-                field creative_status to "REQUEST USE LINKEDIN" and explain
-                in the post file why you chose it.
-            16. If no creatives match or none exist, provide a photo_prompt
-                or carousel_prompt describing the ideal visual instead.
+            For each hook, provide ALL of these fields:
+            - id: "h01" through "h10"
+            - hook_text: The actual opening line (complete, usable sentence)
+            - angle: 1-2 sentence description of the full post approach
+            - psychological_lever: One of these categories:
+              cost savings, modernity contradiction, time value,
+              health/indoor environment, social comparison, material purity,
+              lifetime cost, sleep/performance, parental fear, industry failure,
+              humor/absurdity, regulation/compliance, investment/roi,
+              silence/privacy, summer heat, confrontation/material fight,
+              origin story, trust/legitimacy
+            - target_audience: Specific segment this hook targets
+            - differentiation: Why different from ALL other 9 hooks
+            - platform_meta: { "format": "text|carousel|video", "creative_suggestion": "..." }
+
+            RULES FOR HOOKS:
+            - Each hook MUST use a DIFFERENT psychological lever
+            - At least 3 hooks must lead with a specific number or EUR amount
+            - At least 2 hooks must include DACH-specific data
+            - At least 2 hooks must include Romania/Eastern Europe angle
+            - At least 1 hook must use humor or an absurd contrast
+            - No two hooks should feel like variations of the same idea
+            - Each hook must be genuinely different in TONE, not just topic
+            - Write each hook_text as if it were the actual first line of the post
+            - Hooks must pass the "send test" — would someone DM this?
+            - Apply all learned rules from feedback (denied patterns = banned)
+            - Hook text must be under 210 characters (LinkedIn fold limit)
 
             ===============================================================
-            PHASE 5 — WRITE THE POST (English, all markets)
+            PHASE 5 — SAVE AS JSON
             ===============================================================
 
-            17. Pick ONE primary audience segment but ensure cross-market appeal
-            18. Choose a format: text, carousel description, or video concept
-            19. Write the full LinkedIn post IN ENGLISH following ALL rules
-                in LINKEDIN_SOUL.md:
-                - Hook in first 210 characters with a specific number or tension
-                - 800-1,200 characters for text posts
-                - At least 3-5 specific data points with numbers
-                - Include data from multiple markets (DACH + RO + international)
-                - Data-first, emotion-grounded-in-specifics style
-                - Maximum 3 hashtags
-                - Close with discussion prompt, NOT a CTA
-                - NO AI writing tells
-                - NO broetry, no "let that sink in", no emoji formatting
-            20. Include creative_file or carousel_prompt or photo_prompt.
-                If using a catalog creative, set:
-                  creative_file: "claude_automation/Creatives/filename.jpg"
-                  creative_status: "REQUEST USE LINKEDIN"
-                If no catalog match, provide photo_prompt/carousel_prompt only.
-            21. Save to claude_automation/output/linkedin/ as:
-                ${{ steps.date.outputs.today }}_[slug].md
+            Save to claude_automation/hooks/linkedin/${{ steps.date.outputs.today }}.json
+            as a valid JSON object:
+
+            {
+              "platform": "linkedin",
+              "date": "${{ steps.date.outputs.today }}",
+              "pillar": "${{ steps.pillar.outputs.pillar }}",
+              "generated_at": "<ISO timestamp>",
+              "status": "pending",
+              "hooks": [ ... 10 hook objects ... ]
+            }
 
             ===============================================================
             RULES (violations = failure)
             ===============================================================
-            - NEVER frame BioBuilds as building offices or commercial spaces (we build HOMES)
             - NEVER use Bash, curl, or shell commands
             - NEVER run git commands
-            - NEVER write like a LinkedIn influencer
-            - NEVER use broetry or engagement bait
-            - NEVER use more than 3 hashtags
-            - NEVER put links in the post body
-            - NEVER use AI-detectable writing patterns
-            - ALWAYS write in English
-            - ALWAYS include data relevant to multiple markets
-            - ALWAYS include YAML frontmatter per LINKEDIN_SOUL.md
-            - ALWAYS lead with a specific number or tension-creating statement
-            - ALWAYS ground every claim in verifiable data
-            - NEVER copy a past post word-for-word — inspire from what worked, then iterate and improve
-            - Every post must push forward — test new angles, sharpen winners, evolve the voice
+            - NEVER repeat an angle already in recent hooks or posts
+            - NEVER use AI-detectable writing patterns in hook_text
+            - ALWAYS generate exactly 10 hooks
+            - ALWAYS use different psychological levers
+            - ALWAYS write hook_text in English
 
           claude_args: |
-            --max-turns 35
+            --max-turns 25
             --model claude-opus-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
 
       # --- Commit directly to main -----------------------------------------
       - name: Check for changes
+        if: steps.check_hooks.outputs.skip != 'true'
         id: changes
         run: |
-          PATHS="output/linkedin/"
+          PATHS="hooks/linkedin/"
           [ -d "feedback/linkedin" ] && PATHS="$PATHS feedback/linkedin/"
           STATUS="$(git status --porcelain $PATHS)"
           if [ -z "$STATUS" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::No new LinkedIn post generated"
+            echo "::warning::No new LinkedIn hooks generated"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             echo "Changes detected:"
@@ -572,20 +518,19 @@ jobs:
           fi
 
       - name: Commit and push to main
-        if: steps.changes.outputs.has_changes == 'true'
+        if: steps.check_hooks.outputs.skip != 'true' && steps.changes.outputs.has_changes == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add output/linkedin/
+          git add hooks/linkedin/
           git add feedback/linkedin/ 2>/dev/null || true
 
           TODAY="${{ steps.date.outputs.today }}"
           PILLAR="${{ steps.pillar.outputs.pillar }}"
 
-          git commit -m "linkedin: ${TODAY} [${PILLAR}]"
+          git commit -m "hooks: linkedin ${TODAY} [${PILLAR}]"
 
-          # Pull-rebase in case another workflow pushed first, with retry
           for attempt in 1 2 3; do
             git pull --rebase origin ${{ github.event.repository.default_branch }} && \
             git push origin HEAD:${{ github.event.repository.default_branch }} && break

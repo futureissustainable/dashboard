@@ -1,0 +1,226 @@
+# =============================================================================
+# BIOBUILDS LinkedIn Post Writer (Phase 2) — v1.0
+# =============================================================================
+#
+# Architecture:
+#   Triggered from the dashboard after human approves hooks.
+#   Writes a full LinkedIn post for each approved hook.
+#   Output is committed directly to main in the output/linkedin/ folder.
+# =============================================================================
+
+name: Write LinkedIn Posts (Phase 2)
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Date of hooks to develop (YYYY-MM-DD)'
+        required: true
+      hook_ids:
+        description: 'Comma-separated hook IDs to develop (e.g., h01,h05,h09)'
+        required: false
+        default: ''
+      reroll:
+        description: 'Is this a re-roll of a specific hook?'
+        required: false
+        default: 'false'
+      reroll_feedback:
+        description: 'Feedback for re-roll (what to change)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: posts-linkedin
+  cancel-in-progress: false
+
+jobs:
+  write-posts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: claude_automation
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Set date
+        id: date
+        run: echo "today=${{ github.event.inputs.date }}" >> "$GITHUB_OUTPUT"
+
+      - name: Read hooks file
+        id: hooks
+        run: |
+          HOOKS_FILE="hooks/linkedin/${{ steps.date.outputs.today }}.json"
+          if [ ! -f "$HOOKS_FILE" ]; then
+            echo "::error::No hooks file found at $HOOKS_FILE"
+            exit 1
+          fi
+
+          # Extract approved hook IDs from input or from the reviewed file
+          INPUT_IDS="${{ github.event.inputs.hook_ids }}"
+          if [ -n "$INPUT_IDS" ]; then
+            HOOK_IDS="$INPUT_IDS"
+          else
+            HOOK_IDS=$(python3 -c "
+          import json
+          data = json.load(open('$HOOKS_FILE'))
+          if data.get('review'):
+              print(','.join(data['review']['approved_hook_ids']))
+          " 2>/dev/null || echo "")
+          fi
+
+          echo "hook_ids=$HOOK_IDS" >> "$GITHUB_OUTPUT"
+          echo "hooks_file=$HOOKS_FILE" >> "$GITHUB_OUTPUT"
+          echo "Hook IDs to develop: $HOOK_IDS"
+
+          # Read pillar from hooks file
+          PILLAR=$(python3 -c "import json; print(json.load(open('$HOOKS_FILE'))['pillar'])" 2>/dev/null || echo "")
+          echo "pillar=$PILLAR" >> "$GITHUB_OUTPUT"
+
+      - name: Write LinkedIn posts for approved hooks
+        if: steps.hooks.outputs.hook_ids != ''
+        uses: anthropics/claude-code-action@68cfeead1890300cc87935dbe2c023825be87b8a
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          prompt: |
+            You are a LinkedIn post writer for BioBuilds.
+            Today's date: ${{ steps.date.outputs.today }}
+            Content pillar: ${{ steps.hooks.outputs.pillar }}
+            Hooks file: claude_automation/${{ steps.hooks.outputs.hooks_file }}
+            Hook IDs to develop: ${{ steps.hooks.outputs.hook_ids }}
+            Is re-roll: ${{ github.event.inputs.reroll }}
+            Re-roll feedback: ${{ github.event.inputs.reroll_feedback }}
+
+            DO NOT run any git commands.
+
+            ===============================================================
+            PHASE 1 — READ HOOKS + STRATEGY DOCS
+            ===============================================================
+
+            1. Read claude_automation/${{ steps.hooks.outputs.hooks_file }}
+               — find the hooks matching IDs: ${{ steps.hooks.outputs.hook_ids }}
+               — note each hook's text, angle, lever, and platform_meta
+            2. Read claude_automation/CLAUDE.md
+            3. Read claude_automation/docs/linkedin/LINKEDIN_SOUL.md
+               — CRITICAL: "Learned Rules from Feedback" are NON-NEGOTIABLE
+            4. Read claude_automation/docs/linkedin/LINKEDIN_PLAYBOOK.md
+            5. Read claude_automation/docs/linkedin/linkedin-past-posts.md
+               — study top 3 best AND top 3 worst posts
+            6. Read claude_automation/docs/company/biobuilds-company-overview.md
+            7. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+            8. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            9. If the hook's platform_meta suggests a creative, read
+               claude_automation/Creatives/CATALOG.md
+
+            If hook review feedback exists in the hooks file, read it and
+            apply it — the human told you what they liked about this angle.
+
+            ===============================================================
+            PHASE 2 — CHECK EXISTING POSTS
+            ===============================================================
+
+            10. List claude_automation/output/linkedin/ — read last 5 posts
+            11. Ensure your post covers new ground
+
+            ===============================================================
+            PHASE 3 — RESEARCH
+            ===============================================================
+
+            12. Use WebSearch to find 2-3 current data points that support
+                the approved hook's angle
+
+            ===============================================================
+            PHASE 4 — WRITE POST(S)
+            ===============================================================
+
+            For EACH approved hook ID, write a full LinkedIn post:
+
+            - Use the hook_text as your opening line (you may refine
+              slightly but keep the core angle and data point)
+            - Follow ALL rules in LINKEDIN_SOUL.md
+            - Hook in first 210 characters
+            - 800-1,200 characters for text posts
+            - At least 3-5 specific data points
+            - Include data from multiple markets (DACH + RO + international)
+            - Maximum 3 hashtags, close with discussion prompt
+            - NO AI writing tells, NO broetry
+            - Include creative_file or photo_prompt
+
+            YAML frontmatter MUST include:
+              hook_id: "<the hook ID, e.g. h01>"
+            Plus all standard LinkedIn frontmatter fields.
+
+            If this is a RE-ROLL (${{ github.event.inputs.reroll }} == 'true'):
+            - Only regenerate the specific hook's post
+            - Read the previous version in output/linkedin/ for context
+            - Apply this feedback: ${{ github.event.inputs.reroll_feedback }}
+            - Save with a new slug (append -v2, -v3 etc.)
+            - Include reroll_version in frontmatter
+
+            Save each post to claude_automation/output/linkedin/ as:
+            ${{ steps.date.outputs.today }}_[slug].md
+
+            ===============================================================
+            RULES
+            ===============================================================
+            - NEVER frame BioBuilds as building offices (we build HOMES)
+            - NEVER use Bash, curl, or shell commands
+            - NEVER run git commands
+            - ALWAYS include hook_id in YAML frontmatter
+            - ALWAYS write in English
+            - ALWAYS include data relevant to multiple markets
+
+          claude_args: |
+            --max-turns 35
+            --model claude-opus-4-6
+            --allowedTools "Read,Write,Edit,Glob,Grep,WebFetch,WebSearch"
+
+      - name: Check for changes
+        if: steps.hooks.outputs.hook_ids != ''
+        id: changes
+        run: |
+          STATUS="$(git status --porcelain output/linkedin/)"
+          if [ -z "$STATUS" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No new LinkedIn posts generated"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected:"
+            echo "$STATUS"
+          fi
+
+      - name: Commit and push to main
+        if: steps.hooks.outputs.hook_ids != '' && steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add output/linkedin/
+
+          TODAY="${{ steps.date.outputs.today }}"
+          PILLAR="${{ steps.hooks.outputs.pillar }}"
+          REROLL="${{ github.event.inputs.reroll }}"
+
+          if [ "$REROLL" = "true" ]; then
+            git commit -m "linkedin: reroll ${TODAY} [${PILLAR}]"
+          else
+            git commit -m "linkedin: posts ${TODAY} [${PILLAR}]"
+          fi
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin ${{ github.event.repository.default_branch }} && \
+            git push origin HEAD:${{ github.event.repository.default_branch }} && break
+            echo "Push attempt $attempt failed, retrying in $((attempt * 2))s..."
+            sleep $((attempt * 2))
+          done

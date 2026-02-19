@@ -41,14 +41,19 @@ export async function GET() {
 const VALID_PLATFORMS = ["reddit", "linkedin", "instagram"];
 const VALID_STATUSES = ["approved", "denied"];
 
+function feedbackPathForPost(platform: string, postFile: string): string {
+  const slug = postFile.replace(/\.md$/, "");
+  return `claude_automation/feedback/${platform}/${slug}.json`;
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { platform, date, postFile, status, score, feedback } = body;
 
-    if (!platform || !date || !status || score === undefined) {
+    if (!platform || !date || !postFile || !status || score === undefined) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing required fields (platform, date, postFile, status, score)" },
         { status: 400 }
       );
     }
@@ -91,7 +96,7 @@ export async function POST(request: Request) {
       reviewedAt: new Date().toISOString(),
     };
 
-    const path = `claude_automation/feedback/${platform}/${date}.json`;
+    const path = feedbackPathForPost(platform, postFile);
     const content = JSON.stringify(feedbackData, null, 2);
     const message = `feedback: ${platform} ${date} — ${status} (${score}/100)`;
 
@@ -142,16 +147,28 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const path = `claude_automation/feedback/${platform}/${date}.json`;
+    if (!body.postFile) {
+      return NextResponse.json(
+        { error: "Missing required field: postFile" },
+        { status: 400 }
+      );
+    }
+
+    const path = feedbackPathForPost(platform, body.postFile);
 
     let existing;
     try {
       existing = await getFileContent(path);
     } catch {
-      return NextResponse.json(
-        { error: "No feedback found for this date. Approve/deny the post first." },
-        { status: 404 }
-      );
+      // Fall back to legacy date-based path
+      try {
+        existing = await getFileContent(`claude_automation/feedback/${platform}/${date}.json`);
+      } catch {
+        return NextResponse.json(
+          { error: "No feedback found for this post. Approve/deny the post first." },
+          { status: 404 }
+        );
+      }
     }
 
     const feedbackData = JSON.parse(existing.content);
