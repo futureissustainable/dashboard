@@ -73,3 +73,19 @@ export async function createOrUpdateFile(
     throw new Error(`GitHub API PUT error: ${res.status} — ${err}`);
   }
 }
+
+export async function deleteFile(
+  path: string,
+  message: string,
+  sha: string
+): Promise<void> {
+  const res = await fetch(`${API_BASE}/${path}`, {
+    method: "DELETE",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ message, sha }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GitHub API DELETE error: ${res.status} — ${err}`);
+  }
+}

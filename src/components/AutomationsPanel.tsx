@@ -8,6 +8,7 @@ import EngagementModal from "./EngagementModal";
 import RerollModal from "./RerollModal";
 import DocsEditor from "./DocsEditor";
 import HooksReviewPanel from "./HooksReviewPanel";
+import ExampleHooksPanel from "./ExampleHooksPanel";
 import type { HookSet, Platform } from "@/lib/types";
 
 type Filter = "all" | "reddit" | "linkedin" | "instagram";
@@ -26,7 +27,7 @@ const PLATFORM_COLORS: Record<string, string> = {
 };
 
 export default function AutomationsPanel() {
-  const [view, setView] = useState<"feed" | "docs" | "hooks-review">("feed");
+  const [view, setView] = useState<"feed" | "docs" | "hooks-review" | "examples">("feed");
   const [posts, setPosts] = useState<PostEntry[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
   const [loading, setLoading] = useState(true);
@@ -307,6 +308,12 @@ export default function AutomationsPanel() {
     );
   }
 
+  if (view === "examples") {
+    return (
+      <ExampleHooksPanel onBack={() => setView("feed")} />
+    );
+  }
+
   if (view === "hooks-review" && activeHookSet) {
     return (
       <HooksReviewPanel
@@ -354,6 +361,13 @@ export default function AutomationsPanel() {
           <span className="font-mono text-[11px] text-muted tabular-nums">
             {total} post{total !== 1 ? "s" : ""}
           </span>
+          <button
+            onClick={() => setView("examples")}
+            className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"
+          >
+            <Lightbulb size={12} weight="bold" />
+            Examples
+          </button>
           <button
             onClick={() => setView("docs")}
             className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground border border-border hover:border-foreground px-3 py-1.5 transition-colors duration-100"

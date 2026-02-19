@@ -313,7 +313,7 @@ jobs:
                last 5 generated posts
             5. Read all .json files in claude_automation/feedback/linkedin/
                — look for any with "engagement" data (real post-publish metrics)
-            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+            6. Read claude_automation/docs/company/BIOBUILDS_BRAND_VOICE_MANIFESTO.md
                — use this movement/story psychology lens when analyzing which
                patterns work and proposing today's experiment
 
@@ -415,9 +415,14 @@ jobs:
             4. Read claude_automation/docs/linkedin/linkedin-past-posts.md
                — study top 5 best AND top 5 worst posts
             5. Read claude_automation/docs/company/biobuilds-company-overview.md
-            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+            6. Read claude_automation/docs/company/BIOBUILDS_BRAND_VOICE_MANIFESTO.md
             7. If hooks/linkedin/ has reviewed JSON files, read the most recent
                ones to learn which levers and angles scored highest vs lowest
+            8. Read claude_automation/hooks/linkedin/examples.json if it exists
+               — these are HUMAN-WRITTEN example hooks (gold standard)
+               — study their hook_text, angle, lever, and notes carefully
+               — match their quality, specificity, and tone
+               — do NOT copy them verbatim, but use them as inspiration
 
             ===============================================================
             PHASE 2 — CHECK EXISTING (avoid duplication)

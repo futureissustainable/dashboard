@@ -34,3 +34,19 @@ export type HookSet = HooksFile & {
   filePath: string;
   sha: string;
 };
+
+// --- Example Hooks (user-written inspiration for AI) ---
+
+export type ExampleHook = {
+  id: string;
+  hook_text: string;
+  angle?: string;
+  psychological_lever?: string;
+  notes?: string;
+};
+
+export type ExampleHooksFile = {
+  platform: Platform;
+  updated_at: string;
+  examples: ExampleHook[];
+};
