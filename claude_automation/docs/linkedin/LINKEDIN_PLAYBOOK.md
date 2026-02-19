@@ -9,7 +9,7 @@
 
 Alin's personal page: 33 posts. 87.2 avg reactions. Top post: 1,164. That insulation comparison post is proof of concept — the content CAN hit. But it hit once. The rest averages 30-50.
 
-BIOBUILDS company page: 38 posts. ~25 avg reactions. Top post: 60. Last 2 months: flatline. Multiple posts with literally 0 reactions. The page is functionally dead.
+BIOBUILDS company page: 38 posts. ~25 avg reactions. Top post: 60. Lower reach than Alin's personal page, but company pages always have lower organic distribution on LinkedIn. The page has valuable content and patterns to learn from. Both pages are data sources for what works.
 
 **What's broken:**
 

@@ -957,7 +957,7 @@ Design your future home today at biobuilds.com/build
 
 # PART 2: BIOBUILDS (Company LinkedIn Page)
 
-**Total Posts:** 38 | **Note:** Many recent posts (last 2 months) show 0 reactions — possible algorithm/reach issue
+**Total Posts:** 38
 
 ---
 
@@ -1461,7 +1461,7 @@ biobuilds.com
 **What doesn't work:**
 - Generic "future of construction" posts without personal story or data surprise
 - Repetitive speed/assembly messaging (diminishing returns)
-- Recent BIOBUILDS posts (last 2 months) = literally 0 reactions — needs investigation
+- Company page posts that repeat the same value props without fresh angles
 - Job postings, year recaps, duplicate posts
 
 **Content gap:**
@@ -1469,4 +1469,4 @@ biobuilds.com
 - Company posts repeat same value props (3 weeks, Passivhaus, 95%) without fresh angles
 - No controversy, no vulnerability, no data surprises on company page
 
-**Still pending images:** Alin #18-32 (15 posts) | BIOBUILDS #17-23 + zero-reaction table (21 posts)
+**Still pending images:** Alin #18-32 (15 posts) | BIOBUILDS #17-23 (21 posts)
