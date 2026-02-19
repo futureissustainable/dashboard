@@ -105,6 +105,21 @@ body {
   animation: columnSlideUp var(--duration-slow) var(--ease-out) both;
 }
 
+/* ─── Card entrance (for workflow column items) ─── */
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card-enter {
+  animation: cardSlideIn var(--duration-fast) var(--ease-out) both;
+}
+
 /* ─── Modal animations ─── */
 @keyframes fadeIn {
   from { opacity: 0; }
