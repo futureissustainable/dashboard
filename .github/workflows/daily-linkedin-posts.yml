@@ -292,6 +292,9 @@ jobs:
                last 5 generated posts
             5. Read all .json files in claude_automation/feedback/linkedin/
                — look for any with "engagement" data (real post-publish metrics)
+            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md
+               — use this movement/story psychology lens when analyzing which
+               patterns work and proposing today's experiment
 
             ANALYSIS:
             - Rank top 5 past posts by reactions (primary metric)
@@ -454,59 +457,62 @@ jobs:
 
             5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data,
                products, certifications, milestones, technical specs
-            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
-            7. If creatives are available, read claude_automation/Creatives/CATALOG.md for
+            6. Read claude_automation/docs/company/MEANING-OVER-PRODUCT.md — psychology of
+               movement/story-driven marketing over product-first marketing. Internalize these
+               principles and apply them to today's post.
+            7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            8. If creatives are available, read claude_automation/Creatives/CATALOG.md for
                descriptions and metadata about each file
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
             ===============================================================
 
-            8. List all files in claude_automation/output/linkedin/ directory
-            9. Read the last 5 LinkedIn posts (if they exist) and extract:
+            9. List all files in claude_automation/output/linkedin/ directory
+            10. Read the last 5 LinkedIn posts (if they exist) and extract:
                - What topics were already covered
                - What audience segments were targeted
                - What hook styles were used
                - What pillar each post targeted
-            10. Make sure your post covers NEW ground with a DIFFERENT angle
+            11. Make sure your post covers NEW ground with a DIFFERENT angle
 
             ===============================================================
             PHASE 3 — RESEARCH (get real, current data across markets)
             ===============================================================
 
-            11. Use WebSearch to find 2-3 current data points relevant to
+            12. Use WebSearch to find 2-3 current data points relevant to
                 this week's pillar. Search for data that spans markets:
                 - European energy prices or housing trends
                 - Passivhaus certification stats or industry news
                 - KfW funding rates (DACH angle)
                 - Romanian/Eastern European construction developments
                 - Modular construction or sustainability trends EU-wide
-            12. Find data that resonates across all 3 markets
+            13. Find data that resonates across all 3 markets
 
             ===============================================================
             PHASE 4 — MATCH CREATIVE (if available)
             ===============================================================
 
-            13. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
+            14. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
                 descriptions and status to pick the best match for this week's
                 pillar and today's topic.
                 ONLY pick creatives that LinkedIn hasn't already used.
                 OK to pick: [available], [USED ON INSTA], [REQUEST USE INSTA]
                 Skip: [reserved], [USED ON LINKEDIN], [USED ON BOTH], [REQUEST USE LINKEDIN]
                 A creative used on Instagram can still be used on LinkedIn.
-            14. If you pick a creative from the catalog, set the frontmatter
+            15. If you pick a creative from the catalog, set the frontmatter
                 field creative_status to "REQUEST USE LINKEDIN" and explain
                 in the post file why you chose it.
-            15. If no creatives match or none exist, provide a photo_prompt
+            16. If no creatives match or none exist, provide a photo_prompt
                 or carousel_prompt describing the ideal visual instead.
 
             ===============================================================
             PHASE 5 — WRITE THE POST (English, all markets)
             ===============================================================
 
-            16. Pick ONE primary audience segment but ensure cross-market appeal
-            17. Choose a format: text, carousel description, or video concept
-            18. Write the full LinkedIn post IN ENGLISH following ALL rules
+            17. Pick ONE primary audience segment but ensure cross-market appeal
+            18. Choose a format: text, carousel description, or video concept
+            19. Write the full LinkedIn post IN ENGLISH following ALL rules
                 in LINKEDIN_SOUL.md:
                 - Hook in first 210 characters with a specific number or tension
                 - 800-1,200 characters for text posts
@@ -517,12 +523,12 @@ jobs:
                 - Close with discussion prompt, NOT a CTA
                 - NO AI writing tells
                 - NO broetry, no "let that sink in", no emoji formatting
-            19. Include creative_file or carousel_prompt or photo_prompt.
+            20. Include creative_file or carousel_prompt or photo_prompt.
                 If using a catalog creative, set:
                   creative_file: "claude_automation/Creatives/filename.jpg"
                   creative_status: "REQUEST USE LINKEDIN"
                 If no catalog match, provide photo_prompt/carousel_prompt only.
-            20. Save to claude_automation/output/linkedin/ as:
+            21. Save to claude_automation/output/linkedin/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================
