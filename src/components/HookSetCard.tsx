@@ -4,10 +4,12 @@ import { useState } from "react";
 import {
   CaretDown,
   CaretUp,
+  Check,
   CheckCircle,
   CircleNotch,
   Lightning,
   PaperPlaneTilt,
+  X,
 } from "@phosphor-icons/react";
 import type { Hook, HookSet, Platform } from "@/lib/types";
 
@@ -41,11 +43,8 @@ function getLeverColor(lever: string): string {
   return "#666666";
 }
 
-/**
- * Inline accordion card for a hook set.
- * Clicking the header expands to show all individual hooks with checkboxes,
- * scores, and submit/write-posts actions — no page navigation needed.
- */
+type HookDecision = "approved" | "denied" | null;
+
 export default function HookSetCard({
   hookSet,
   onSubmitReview,
@@ -62,13 +61,19 @@ export default function HookSetCard({
 }) {
   const [open, setOpen] = useState(false);
   const isReviewed = hookSet.status === "reviewed";
-  const isPending = !isReviewed;
   const color = PLATFORM_COLORS[hookSet.platform];
 
-  // Review state (local to this card)
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => {
-    if (hookSet.review) return new Set(hookSet.review.approved_hook_ids);
-    return new Set();
+  // Per-hook decisions: approved / denied / null (undecided)
+  const [decisions, setDecisions] = useState<Record<string, HookDecision>>(() => {
+    const init: Record<string, HookDecision> = {};
+    for (const h of hookSet.hooks) {
+      if (hookSet.review) {
+        init[h.id] = hookSet.review.approved_hook_ids.includes(h.id) ? "approved" : "denied";
+      } else {
+        init[h.id] = null;
+      }
+    }
+    return init;
   });
   const [scores, setScores] = useState<Record<string, number>>(() => {
     const init: Record<string, number> = {};
@@ -89,25 +94,21 @@ export default function HookSetCard({
   const [triggeringPhase2, setTriggeringPhase2] = useState(false);
   const [phase2Triggered, setPhase2Triggered] = useState(false);
 
-  const approvedCount = submitted
-    ? (hookSet.review?.approved_hook_ids.length ?? selectedIds.size)
-    : selectedIds.size;
+  const approvedIds = Object.entries(decisions).filter(([, d]) => d === "approved").map(([id]) => id);
+  const deniedIds = Object.entries(decisions).filter(([, d]) => d === "denied").map(([id]) => id);
+  const decidedCount = approvedIds.length + deniedIds.length;
+  const allDecided = decidedCount === hookSet.hooks.length;
 
-  const toggleSelect = (id: string) => {
+  const setDecision = (id: string, decision: HookDecision) => {
     if (submitted) return;
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
+    setDecisions((prev) => ({ ...prev, [id]: decision }));
   };
 
   const handleSubmit = async () => {
     if (submitting || submitted) return;
-    if (selectedIds.size === 0) {
+    if (approvedIds.length === 0) {
       const confirmed = window.confirm(
-        "No hooks selected. No posts will be generated. Continue?"
+        "No hooks approved. No posts will be generated. Continue?"
       );
       if (!confirmed) return;
     }
@@ -122,7 +123,7 @@ export default function HookSetCard({
       await onSubmitReview({
         platform: hookSet.platform,
         date: hookSet.date,
-        approved_hook_ids: Array.from(selectedIds),
+        approved_hook_ids: approvedIds,
         hook_feedback: hookFeedback,
       });
       setSubmitted(true);
@@ -137,7 +138,7 @@ export default function HookSetCard({
     if (triggeringPhase2) return;
     setTriggeringPhase2(true);
     try {
-      const ids = hookSet.review?.approved_hook_ids ?? Array.from(selectedIds);
+      const ids = hookSet.review?.approved_hook_ids ?? approvedIds;
       await onTriggerPhase2(hookSet.platform as Platform, hookSet.date, ids);
       setPhase2Triggered(true);
     } catch (e) {
@@ -148,20 +149,13 @@ export default function HookSetCard({
   };
 
   return (
-    <div
-      className={`card-enter transition-colors duration-200 ${
-        isPending
-          ? "border border-dashed border-yellow-400/40 bg-yellow-400/[0.03]"
-          : "border border-dashed border-green-400/30 bg-green-400/[0.02]"
-      }`}
-    >
-      {/* ── Clickable header ── */}
+    <div className="card-enter border border-border bg-surface transition-all duration-200">
+      {/* ── Clickable header — same style as PostCard header ── */}
       <button
         onClick={() => setOpen(!open)}
         className="w-full text-left p-[var(--space-3)] group"
       >
-        {/* Top row */}
-        <div className="flex items-center gap-[var(--space-2)] mb-[var(--space-1)]">
+        <div className="flex items-center gap-[var(--space-2)]">
           <span
             className="font-mono text-[10px] font-bold uppercase tracking-widest px-[var(--space-2)] py-[var(--space-1)] border"
             style={{ color, borderColor: color }}
@@ -171,18 +165,22 @@ export default function HookSetCard({
           <span className="font-mono text-[11px] text-muted tabular-nums">
             {hookSet.date}
           </span>
-          <span className="text-[11px] text-foreground-secondary truncate">
+          <span className="text-border text-[10px]">|</span>
+          <span className="text-[11px] text-muted truncate">
             {hookSet.pillar}
           </span>
           <span className="ml-auto flex items-center gap-[var(--space-2)] flex-shrink-0">
-            {isPending ? (
-              <span className="font-mono text-[11px] text-yellow-400 tabular-nums">
-                {hookSet.hooks.length} hooks
+            {submitted ? (
+              <span className="font-mono text-[10px] uppercase tracking-widest text-green-400 px-[var(--space-2)] py-[var(--space-1)] border border-green-400/40">
+                {approvedIds.length} approved
+              </span>
+            ) : decidedCount > 0 ? (
+              <span className="font-mono text-[10px] text-muted tabular-nums">
+                {decidedCount}/{hookSet.hooks.length} reviewed
               </span>
             ) : (
-              <span className="font-mono text-[11px] text-green-400 tabular-nums flex items-center gap-1">
-                <CheckCircle size={12} weight="bold" />
-                {approvedCount} approved
+              <span className="font-mono text-[10px] text-muted tabular-nums">
+                {hookSet.hooks.length} hooks
               </span>
             )}
             {open ? (
@@ -194,63 +192,66 @@ export default function HookSetCard({
         </div>
       </button>
 
-      {/* ── Accordion body (CSS grid animation) ── */}
+      {/* ── Accordion body ── */}
       <div className={`accordion-wrapper ${open ? "open" : ""}`}>
         <div className="accordion-inner">
           <div className="px-[var(--space-3)] pb-[var(--space-3)] space-y-[var(--space-2)]">
-            {/* Instruction text */}
-            {isPending && !submitted && (
-              <p className="text-[var(--fs-p-sm)] text-muted pb-[var(--space-1)]">
-                Select hooks to develop into posts. Score all to train the AI.
-              </p>
-            )}
-
-            {/* Individual hooks */}
+            {/* Individual hooks — each card mirrors PostCard style */}
             {hookSet.hooks.map((hook) => (
-              <InlineHook
+              <InlineHookCard
                 key={hook.id}
                 hook={hook}
-                selected={selectedIds.has(hook.id)}
+                decision={decisions[hook.id]}
                 score={scores[hook.id]}
                 feedbackText={feedbacks[hook.id]}
                 readOnly={submitted}
-                onToggleSelect={toggleSelect}
+                onDecide={(d) => setDecision(hook.id, d)}
                 onScoreChange={(id, s) => setScores((p) => ({ ...p, [id]: s }))}
                 onFeedbackChange={(id, f) => setFeedbacks((p) => ({ ...p, [id]: f }))}
               />
             ))}
 
-            {/* ── Footer: selection count + action buttons ── */}
+            {/* ── Footer ── */}
             <div className="flex items-center justify-between pt-[var(--space-2)] border-t border-border/50">
               <span className="font-mono text-[11px] text-muted tabular-nums">
-                {selectedIds.size} selected
+                {approvedIds.length > 0 && (
+                  <span className="text-green-400">{approvedIds.length} approved</span>
+                )}
+                {approvedIds.length > 0 && deniedIds.length > 0 && (
+                  <span className="text-border mx-1">|</span>
+                )}
+                {deniedIds.length > 0 && (
+                  <span className="text-red-400">{deniedIds.length} denied</span>
+                )}
+                {decidedCount === 0 && "No decisions yet"}
               </span>
 
               <div className="flex items-center gap-[var(--space-2)]">
                 {!submitted ? (
                   <button
                     onClick={handleSubmit}
-                    disabled={submitting}
+                    disabled={submitting || !allDecided}
                     className={`flex items-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider border px-[var(--space-4)] py-[var(--space-2)] transition-all duration-200 ${
-                      submitting
+                      submitting || !allDecided
                         ? "text-muted border-border cursor-not-allowed"
                         : "text-green-400 border-green-400/40 hover:bg-green-400/10 hover:border-green-400"
                     }`}
+                    title={allDecided ? "" : "Approve or deny all hooks to submit"}
                   >
                     {submitting ? (
                       <CircleNotch size={14} weight="bold" className="animate-spin" />
                     ) : (
                       <PaperPlaneTilt size={14} weight="bold" />
                     )}
-                    Submit Review
+                    Submit
                   </button>
                 ) : (
                   <>
                     <span className="font-mono text-[11px] text-green-400 uppercase tracking-wider flex items-center gap-1">
                       <CheckCircle size={12} weight="bold" />
-                      Reviewed
+                      Submitted
                     </span>
-                    {approvedCount > 0 && !phase2Triggered && (
+                    {approvedIds.length > 0 && !phase2Triggered && (
                       <button
                         onClick={handleWritePosts}
                         disabled={triggeringPhase2}
@@ -265,7 +266,7 @@ export default function HookSetCard({
                         ) : (
                           <Lightning size={14} weight="bold" />
                         )}
-                        Write Posts ({approvedCount})
+                        Write Posts ({approvedIds.length})
                       </button>
                     )}
                     {phase2Triggered && (
@@ -285,114 +286,87 @@ export default function HookSetCard({
 }
 
 /**
- * Single hook row inside the accordion.
- * Compact: checkbox + hook text + lever badge + expandable score/feedback.
+ * Single hook card — mirrors PostCard visual structure exactly:
+ * Header (lever badge + audience) → Body (hook text + angle) → Action bar (approve/deny)
+ * After decision: status badge + score slider + feedback
  */
-function InlineHook({
+function InlineHookCard({
   hook,
-  selected,
+  decision,
   score,
   feedbackText,
   readOnly,
-  onToggleSelect,
+  onDecide,
   onScoreChange,
   onFeedbackChange,
 }: {
   hook: Hook;
-  selected: boolean;
+  decision: HookDecision;
   score: number;
   feedbackText: string;
   readOnly: boolean;
-  onToggleSelect: (id: string) => void;
+  onDecide: (d: HookDecision) => void;
   onScoreChange: (id: string, score: number) => void;
   onFeedbackChange: (id: string, feedback: string) => void;
 }) {
-  const [showDetail, setShowDetail] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const leverColor = getLeverColor(hook.psychological_lever);
+  const hasDecision = decision !== null;
 
   return (
-    <div
-      className={`border p-[var(--space-3)] transition-all duration-200 ${
-        selected
-          ? "border-green-400/50 bg-green-400/[0.04]"
-          : "border-border bg-surface"
-      }`}
-    >
-      {/* Row 1: checkbox + hook text */}
-      <div className="flex items-start gap-[var(--space-3)]">
-        <button
-          onClick={() => onToggleSelect(hook.id)}
-          disabled={readOnly}
-          className={`mt-[2px] flex-shrink-0 w-[var(--space-5)] h-[var(--space-5)] border flex items-center justify-center transition-all duration-200 ${
-            readOnly ? "cursor-default" : "cursor-pointer"
-          } ${
-            selected
-              ? "border-green-400 bg-green-400/20 text-green-400"
-              : "border-border hover:border-foreground-secondary"
-          }`}
+    <div className="border border-border bg-surface p-[var(--space-3)] transition-all duration-200">
+      {/* ── Header — lever badge + audience (mirrors PostCard: platform + date + pillar) ── */}
+      <div className="flex items-center gap-[var(--space-2)] mb-[var(--space-2)]">
+        <span
+          className="font-mono text-[10px] uppercase tracking-widest px-[var(--space-2)] py-[var(--space-1)] border"
+          style={{ color: leverColor, borderColor: `${leverColor}40` }}
         >
-          {selected && (
-            <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-              <path d="M1 4L3.5 6.5L9 1" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-          )}
-        </button>
-
-        <div className="flex-1 min-w-0">
-          <p className="text-[var(--fs-p-sm)] text-foreground leading-relaxed">
-            &ldquo;{hook.hook_text}&rdquo;
-          </p>
-
-          {/* Lever + audience */}
-          <div className="flex flex-wrap items-center gap-[var(--space-2)] mt-[var(--space-2)]">
-            <span
-              className="font-mono text-[10px] uppercase tracking-widest px-[var(--space-2)] py-[var(--space-1)] border"
-              style={{ color: leverColor, borderColor: `${leverColor}40` }}
-            >
-              {hook.psychological_lever}
-            </span>
-            <span className="text-[12px] text-muted truncate">
-              {hook.target_audience}
-            </span>
-          </div>
-
-          {/* Angle */}
-          <p className="text-[12px] text-foreground-secondary mt-[var(--space-1)] leading-relaxed">
-            {hook.angle}
-          </p>
-        </div>
+          {hook.psychological_lever}
+        </span>
+        <span className="text-[11px] text-muted truncate">
+          {hook.target_audience}
+        </span>
+        {hasDecision && (
+          <span
+            className={`ml-auto font-mono text-[10px] uppercase tracking-widest px-[var(--space-2)] py-[var(--space-1)] border flex-shrink-0 ${
+              decision === "approved"
+                ? "text-green-400 border-green-400/40"
+                : "text-red-400 border-red-400/40"
+            }`}
+          >
+            {decision} {score}/100
+          </span>
+        )}
       </div>
 
-      {/* Expand toggle for score/detail */}
-      <div className="flex items-center mt-[var(--space-2)] pl-[var(--space-8)]">
-        <button
-          onClick={() => setShowDetail(!showDetail)}
-          className="flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider text-muted hover:text-foreground transition-colors duration-100"
-        >
-          {showDetail ? (
-            <CaretUp size={10} weight="bold" />
-          ) : (
-            <CaretDown size={10} weight="bold" />
-          )}
-          {showDetail ? "Less" : "Score & details"}
-        </button>
-      </div>
+      {/* ── Body — hook text (like title) + angle (like preview) ── */}
+      <p className="text-[var(--fs-p-sm)] text-foreground font-medium leading-relaxed mb-[var(--space-2)] line-clamp-2">
+        &ldquo;{hook.hook_text}&rdquo;
+      </p>
+      <p className="text-[11px] text-muted leading-relaxed mb-[var(--space-2)]">
+        {hook.angle}
+      </p>
 
-      {/* Expanded detail (nested accordion) */}
-      <div className={`accordion-wrapper ${showDetail ? "open" : ""}`}>
+      {/* ── Expand for details ── */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-muted hover:text-foreground transition-colors duration-100 mb-[var(--space-3)]"
+      >
+        {expanded ? <CaretUp size={11} weight="bold" /> : <CaretDown size={11} weight="bold" />}
+        {expanded ? "Collapse" : "Details"}
+      </button>
+
+      <div className={`accordion-wrapper ${expanded ? "open" : ""}`}>
         <div className="accordion-inner">
-          <div className="mt-[var(--space-3)] pl-[var(--space-8)] space-y-[var(--space-3)]">
-            {/* Differentiation */}
+          <div className="space-y-[var(--space-2)] mb-[var(--space-3)]">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
                 Differentiation
               </span>
-              <p className="text-[12px] text-foreground-secondary mt-[var(--space-1)]">
+              <p className="text-[12px] text-foreground-secondary mt-[var(--space-1)] leading-relaxed">
                 {hook.differentiation}
               </p>
             </div>
-
-            {/* Platform meta */}
             {Object.keys(hook.platform_meta).length > 0 && (
               <div className="flex flex-wrap gap-[var(--space-2)]">
                 {Object.entries(hook.platform_meta).map(([k, v]) => (
@@ -405,44 +379,101 @@ function InlineHook({
                 ))}
               </div>
             )}
-
-            {/* Score slider */}
-            <div className="flex items-center gap-[var(--space-3)]">
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-                Score
-              </span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                value={score}
-                onChange={(e) => onScoreChange(hook.id, parseInt(e.target.value, 10))}
-                disabled={readOnly}
-                className="score-slider w-24"
-              />
-              <span className="font-mono text-[13px] font-bold tabular-nums w-7 text-right">
-                {score}
-              </span>
-            </div>
-
-            {/* Feedback input */}
-            {!readOnly && (
-              <input
-                type="text"
-                value={feedbackText}
-                onChange={(e) => onFeedbackChange(hook.id, e.target.value)}
-                placeholder="Optional feedback on this hook..."
-                className="w-full bg-transparent border-b border-border text-[12px] font-mono text-foreground-secondary py-[var(--space-1)] focus:border-foreground-secondary transition-colors placeholder:text-muted/50"
-              />
-            )}
-            {readOnly && feedbackText && (
-              <p className="text-[12px] text-muted italic">
-                &ldquo;{feedbackText}&rdquo;
-              </p>
-            )}
           </div>
         </div>
       </div>
+
+      {/* ══════════════════════════════════════════════════
+          ACTION BAR — identical to PostCard pattern
+          ══════════════════════════════════════════════════ */}
+
+      {/* No decision yet: approve/deny bar */}
+      {!hasDecision && !readOnly && (
+        <div className="flex gap-[var(--space-2)] pt-[var(--space-3)] border-t border-border">
+          <button
+            onClick={() => onDecide("approved")}
+            className="flex-1 flex items-center justify-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider text-green-400 hover:text-green-300 border border-green-400/30 hover:border-green-400 hover:bg-green-400/[0.06] py-[var(--space-3)] transition-all duration-200"
+          >
+            <Check size={16} weight="bold" />
+            Approve
+          </button>
+          <button
+            onClick={() => onDecide("denied")}
+            className="flex-1 flex items-center justify-center gap-[var(--space-2)] font-mono text-[var(--fs-p-sm)] uppercase tracking-wider text-red-400 hover:text-red-300 border border-red-400/30 hover:border-red-400 hover:bg-red-400/[0.06] py-[var(--space-3)] transition-all duration-200"
+          >
+            <X size={16} weight="bold" />
+            Deny
+          </button>
+        </div>
+      )}
+
+      {/* After decision: score + feedback (accordion reveal) */}
+      {hasDecision && (
+        <div className="pt-[var(--space-3)] border-t border-border space-y-[var(--space-3)]">
+          {/* Change decision (unless submitted) */}
+          {!readOnly && (
+            <div className="flex gap-[var(--space-2)]">
+              <button
+                onClick={() => onDecide("approved")}
+                className={`flex-1 flex items-center justify-center gap-[var(--space-1)] font-mono text-[11px] uppercase tracking-wider py-[var(--space-2)] border transition-all duration-200 ${
+                  decision === "approved"
+                    ? "text-green-400 border-green-400/40 bg-green-400/[0.06]"
+                    : "text-muted border-border hover:text-green-400 hover:border-green-400/30"
+                }`}
+              >
+                <Check size={12} weight="bold" />
+                Approved
+              </button>
+              <button
+                onClick={() => onDecide("denied")}
+                className={`flex-1 flex items-center justify-center gap-[var(--space-1)] font-mono text-[11px] uppercase tracking-wider py-[var(--space-2)] border transition-all duration-200 ${
+                  decision === "denied"
+                    ? "text-red-400 border-red-400/40 bg-red-400/[0.06]"
+                    : "text-muted border-border hover:text-red-400 hover:border-red-400/30"
+                }`}
+              >
+                <X size={12} weight="bold" />
+                Denied
+              </button>
+            </div>
+          )}
+
+          {/* Score slider */}
+          <div className="flex items-center gap-[var(--space-3)]">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-muted w-10">
+              Score
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={score}
+              onChange={(e) => onScoreChange(hook.id, parseInt(e.target.value, 10))}
+              disabled={readOnly}
+              className="score-slider flex-1"
+            />
+            <span className="font-mono text-[13px] font-bold tabular-nums w-8 text-right">
+              {score}
+            </span>
+          </div>
+
+          {/* Feedback input */}
+          {!readOnly && (
+            <input
+              type="text"
+              value={feedbackText}
+              onChange={(e) => onFeedbackChange(hook.id, e.target.value)}
+              placeholder="Optional feedback..."
+              className="w-full bg-transparent border-b border-border text-[12px] font-mono text-foreground-secondary py-[var(--space-1)] focus:border-foreground-secondary outline-none transition-colors placeholder:text-muted/50"
+            />
+          )}
+          {readOnly && feedbackText && (
+            <p className="text-[11px] text-muted italic truncate">
+              &ldquo;{feedbackText}&rdquo;
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
