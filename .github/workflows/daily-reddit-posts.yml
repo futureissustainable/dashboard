@@ -226,7 +226,9 @@ jobs:
 
             1. Read claude_automation/CLAUDE.md — project rules and constraints
             2. Read claude_automation/docs/reddit/REDDIT_SOUL.md — complete persona, writing rules,
-               and UNIFIED 9-SUB ROTATION POOL
+               and UNIFIED 9-SUB ROTATION POOL.
+               NOTE: This file begins with "Learned Rules from Feedback." As Reddit posts get
+               reviewed, denied patterns will accumulate here. Always check this section first.
             3. Read claude_automation/docs/reddit/REDDIT_REPORT_SEO.md — SEO strategy data
             4. Read claude_automation/docs/reddit/REDDIT_REPORT_AI.md — AI citation strategy
             5. Read claude_automation/docs/reddit/REDDIT_PLAYBOOK.md — master strategy,

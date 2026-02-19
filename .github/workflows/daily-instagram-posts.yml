@@ -245,15 +245,14 @@ jobs:
 
             1. Read claude_automation/CLAUDE.md — project rules and constraints
             2. Read claude_automation/docs/instagram/INSTAGRAM_SOUL.md — voice, writing rules,
-               visual matching, audience segments, output format
+               visual matching, audience segments, output format.
+               CRITICAL: This file begins with "Learned Rules from Feedback" — hand-curated
+               denied patterns with specific scores. These are NON-NEGOTIABLE. Read them first,
+               internalize them, and never repeat a denied pattern.
             3. Read claude_automation/docs/instagram/INSTAGRAM_PLAYBOOK.md — platform strategy,
                algorithm signals, visual guidelines, posting mechanics
-            4. *** MANDATORY — FOUNDER'S POST ANALYSIS (READ FIRST) ***
-               Read claude_automation/docs/instagram/MY-POST-ANALYSIS.md — the founder's
-               personal analysis of what works and what doesn't. This is your #1 source
-               of truth. Internalize every principle before writing anything.
 
-            5. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
+            4. *** MANDATORY — STUDY TOP 3 BEST AND TOP 3 WORST POSTS ***
                Read claude_automation/docs/instagram/instagram-past-posts.md — full past
                post data. You MUST study at minimum the top 3 best-performing posts AND
                the top 3 worst-performing posts. For each, understand WHY it succeeded
@@ -266,49 +265,49 @@ jobs:
                forward: test new angles, sharpen what worked, evolve the voice.
                The goal is continuous improvement, not repetition.
 
-            6. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
-            7. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
-            8. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
+            5. Read claude_automation/docs/company/biobuilds-company-overview.md — company data
+            6. Read claude_automation/.agents/skills/seo-audit/references/ai-writing-detection.md
+            7. If creatives are available, read claude_automation/Creatives/CATALOG.md first for
                descriptions and metadata about each file, then list folder contents
 
             ===============================================================
             PHASE 2 — CHECK EXISTING POSTS (avoid duplication)
             ===============================================================
 
-            9. List all files in claude_automation/output/instagram/ directory
-            10. Read the last 5 Instagram posts (if they exist) and extract:
+            8. List all files in claude_automation/output/instagram/ directory
+            9. Read the last 5 Instagram posts (if they exist) and extract:
                 - What topics were already covered
                 - What visual styles were used
                 - What segments were targeted
                 - What caption styles performed (short vs long)
-            11. Make sure your post covers NEW ground
+            10. Make sure your post covers NEW ground
 
             ===============================================================
             PHASE 3 — MATCH CREATIVE (if available)
             ===============================================================
 
-            12. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
+            11. If claude_automation/Creatives/ has files, read claude_automation/Creatives/CATALOG.md and use the
                 descriptions and status to pick the best match for this week's
                 pillar and today's topic.
                 ONLY pick creatives that Instagram hasn't already used.
                 OK to pick: [available], [USED ON LINKEDIN], [REQUEST USE LINKEDIN]
                 Skip: [reserved], [USED ON INSTA], [USED ON BOTH], [REQUEST USE INSTA]
                 A creative used on LinkedIn can still be used on Instagram.
-            13. If you pick a creative from the catalog, set the frontmatter
+            12. If you pick a creative from the catalog, set the frontmatter
                 field creative_status to "REQUEST USE INSTA" and explain in
                 the post file why you chose it.
-            14. If no creatives match or none exist, create a detailed
+            13. If no creatives match or none exist, create a detailed
                 creative_brief describing the ideal visual instead.
 
             ===============================================================
             PHASE 4 — WRITE THE CAPTION (English, all markets)
             ===============================================================
 
-            15. Pick ONE primary audience segment but ensure cross-market appeal
-            16. Choose a format: static, carousel, or reel
-            17. Choose caption length: short (<50 words) or long (200-400 words)
+            14. Pick ONE primary audience segment but ensure cross-market appeal
+            15. Choose a format: static, carousel, or reel
+            16. Choose caption length: short (<50 words) or long (200-400 words)
                 NEVER write medium-length product descriptions
-            18. Write the full Instagram caption IN ENGLISH following ALL rules
+            17. Write the full Instagram caption IN ENGLISH following ALL rules
                 in INSTAGRAM_SOUL.md:
                 - First 125 characters must stop the scroll
                 - Lead with contrast, not product
@@ -318,12 +317,12 @@ jobs:
                 - Maximum 3-5 hashtags if using any (test zero)
                 - NO AI writing tells
                 - NO spec dumps as the lead
-            19. Include creative_brief or creative_file match.
+            18. Include creative_brief or creative_file match.
                 If using a catalog creative, set:
                   creative_file: "claude_automation/Creatives/filename.jpg"
                   creative_status: "REQUEST USE INSTA"
                 If no catalog match, provide creative_brief only.
-            20. Save to claude_automation/output/instagram/ as:
+            19. Save to claude_automation/output/instagram/ as:
                 ${{ steps.date.outputs.today }}_[slug].md
 
             ===============================================================

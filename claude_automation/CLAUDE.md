@@ -125,7 +125,15 @@ Before generating a new post, check `feedback/` for past feedback on your platfo
 
 ---
 
-## Strategy Documents
+## Strategy Document Architecture
+
+Each platform's strategy follows a two-layer model:
+
+- **SOUL.md** = Voice + writing rules + curated feedback patterns (denied/approved). The "Learned Rules from Feedback" section at the top contains hand-curated HARD RULEs from the founder's reviews. These override any conflicting guidance.
+- **PLAYBOOK.md** = Platform algorithm data + audience analysis + format guidelines + operational mechanics.
+- **feedback/{platform}/SUMMARY.md** = Auto-generated rolling summary of recent feedback (produced by Haiku each workflow run). Injected into the YAML prompt.
+
+The SOUL.md curated patterns are permanent guardrails (manually maintained, highest authority). The SUMMARY.md captures recent trends automatically. Both are read during generation.
 
 ### Shared (all platforms)
 - `docs/company/biobuilds-company-overview.md` — Company data, products, pricing, certifications

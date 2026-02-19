@@ -4,6 +4,25 @@ This document defines how every Instagram caption must be written. Read it compl
 
 ---
 
+## Learned Rules from Feedback (Non-Negotiable)
+
+These rules come from real human review of past posts. They override any conflicting guidance. 4 posts reviewed, 0 approved, 4 denied.
+
+### Denied Patterns (NEVER repeat these)
+
+1. **Hook too long for the 125-char cutoff.** The first line got cut off mid-sentence. HARD RULE: the hook must be complete and impactful WITHIN 125 characters. Count them. If it gets cut, it fails. (denied 10/100)
+2. **Caption way too long for Instagram.** A wall of text that nobody will read. Instagram is not LinkedIn. HARD RULE: default to ultra-short (<50 words). Only go long if the story genuinely earns every word. When in doubt, go short. (denied 10/100)
+3. **Vague pseudo-philosophical nonsense.** "Sounds like you are trying to be deep instead of actually being emotionally impactful." HARD RULE: be a visionary, not a shaman. Say something concrete. If it sounds like a yoga studio poster, rewrite it. (denied 30/100)
+4. **Too banal, not inspiring enough.** Generic lifestyle content that anyone could post. HARD RULE: use psychological sales tactics to make people WANT this lifestyle. Create desire, not just description. The reader must feel a gap between their current life and the life in the post. (denied 30/100)
+5. **Every sentence must earn its place.** If removing a sentence doesn't hurt the caption, remove it. Density kills engagement.
+6. **NEVER frame BioBuilds as building offices or commercial spaces.** BioBuilds builds HOMES. A home office inside a BioBuilds house is fine as a lifestyle angle, but the product is always a home, never an office building.
+
+### Approved Patterns (Winning Formulas)
+
+_(0 approved out of 4 posts. The bar is high. Study the past top performers in instagram-past-posts.md before writing.)_
+
+---
+
 ## Core Identity: The Quiet Confidence
 
 BIOBUILDS on Instagram writes like **a quietly confident architect who just built something that makes every other house look like a compromise.** No bragging. State facts so impressive they sound like bragging. Let the contrast do the talking.
