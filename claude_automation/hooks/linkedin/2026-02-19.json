@@ -1,0 +1,70 @@
+{
+  "platform": "linkedin",
+  "date": "2026-02-19",
+  "pillar": "Lifestyle & Design",
+  "generated_at": "2026-02-19T14:30:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "My wife picked our 19 m² module over our 200 m² house. She wasn't wrong.",
+      "angle": "Personal founder story about choosing the tiny module over the family home. The post reveals that Alin and his wife sleep in a 19m² Wanderlust instead of RIA (their 200m² Passivhaus). Explores why less space with better air, silence, and materials feels like more. Ties to the 48m² Wanderlust being BioBuilds' fastest-growing product. Ends with the question of what people actually use in their homes.",
+      "psychological_lever": "social comparison",
+      "target_audience": "Romanian IT professionals (30-45) and DACH couples planning their first build, both conditioned to maximize square meters",
+      "differentiation": "This is a personal vulnerability/confession hook. No data in the hook itself. The surprise is that the founder of a home company prefers the smallest product. It inverts the industry norm (bigger = better) through a personal, relatable marital anecdote rather than specs or stats.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Real photo of the 19m² Wanderlust interior at dusk, warm light through the window, bed visible, minimal but inviting. No people needed. The smallness should feel intentional, not cramped."
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "EUR 5,000/m² in Munich. EUR 1,676/m² in Sibiu. Same Passivhaus certificate on the wall.",
+      "angle": "A cost confrontation post built around the absurd price gap between DACH and Romania for an identical certified product. Uses real 2026 Munich new-build pricing (EUR 5,000+/m²) against BioBuilds Romania pricing. The post explores WHY the gap exists (labor, land, overheads) and what it means for German families willing to think differently. Ends with the question: if the certificate is identical, what exactly are you paying EUR 3,324 extra per square meter for?",
+      "psychological_lever": "cost savings",
+      "target_audience": "DACH families actively comparing Fertighaus options, price-sensitive first-time builders in Germany/Austria who are shocked by new-build costs",
+      "differentiation": "This is the only hook leading with a specific EUR amount and a direct DACH-specific data comparison. The tone is confrontational but factual, not philosophical. The hook uses a city name (Munich) to ground it geographically, which none of the other hooks do.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: just the hook text, large. Slides 2-7: side-by-side comparison of what EUR 5,000/m² gets you in Munich vs EUR 1,676/m² in Sibiu (same specs, same cert, different price). Last slide: 'Same certificate. Same comfort. Different price tag.'"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "Our 7-year-old asked why her friend's house smells different. I didn't know how to answer.",
+      "angle": "A parental fear hook told through a child's innocent observation. The post unpacks what 'different smell' actually means in building science: formaldehyde from MDF, VOCs from paint, off-gassing from foam insulation. Connects to Alin's origin story (son's asthma) without retelling it. Cites the WHO stat on indoor air being 2-5x more polluted than outdoor. Contrasts with the 98% organic interior of a BioBuilds home. The child's question becomes the post's thesis: kids notice what adults have normalized.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents aged 30-45 across all markets (DACH and Romania) who are building or recently built homes, especially those with young children",
+      "differentiation": "Only hook using a child's perspective. Emotional entry point, not data. The hook creates curiosity (what did the house smell like? why couldn't he answer?) rather than stating a fact. Completely different tone from the cost/comparison hooks. Ties back to BioBuilds origin story organically.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "No image needed, or a subtle shot of a child's hand touching a natural wood wall inside a BioBuilds home. Real, not staged. The post carries itself through story."
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "A German bank rejected a mortgage because the house arrived too fast.",
+      "angle": "Retells the Daniel story from a humor/absurdity angle. A bank refused to process the loan because a 30-day build timeline 'didn't seem real.' The post uses this as a lens on how the entire financial system is built around the assumption that construction takes 18 months. Ties to the broader truth: modular Passivhaus breaks not just construction norms but financing norms, insurance models, and appraisal frameworks. Includes the punchline data: the house was already occupied, certified, and saving energy while the bank was still on page 2 of its review.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "DACH professionals and investors who understand institutional friction, plus Romanian entrepreneurs familiar with bureaucratic absurdity",
+      "differentiation": "Only hook using humor and institutional absurdity. It's a story hook that creates a 'wait, what?' reaction. No philosophy, no data in the hook, no cost figures. The absurdity IS the argument. Completely different register from every other hook.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Photo of a completed BioBuilds home with a family visible inside, warm lights on. Caption energy: the house is alive and lived-in while bureaucracy catches up."
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "In Baden-Württemberg, 43% of new homes are now prefab. In Romania, it's under 3%.",
+      "angle": "A Romania/Eastern Europe angle that uses DACH as the benchmark to reframe prefab perception. The post shows that Germany's most engineering-proud state has already bet on factory-built homes at massive scale (43.5% market share per Destatis 2024 data). Romania, where BioBuilds manufactures, is still stuck at sub-3% prefab adoption despite producing the homes that Germans buy. The irony: Romania builds the future for Germany but won't build it for itself. Explores why (cultural bias toward brick/concrete, distrust of 'lightweight' construction, lack of awareness of Passivhaus). Ends by asking Romanian readers: if German engineers trust factory-built homes, what are you waiting for?",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "Romanian professionals considering building, who respect German engineering standards and need social proof that prefab is legitimate",
+      "differentiation": "Only hook with a Romania-specific angle and Eastern Europe framing. Uses a percentage stat rather than EUR. The psychological lever (trust/legitimacy via German adoption) is unique. The tone is neither philosophical nor personal but rather journalistic and data-driven, creating a different texture."
+      ,
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook stat. Slides 2-6: map of Germany showing prefab adoption by state (Baden-Württemberg 43.5%, Bavaria 26.4%, NRW 18.9%) vs Romania at <3%. Last slide: 'Romania builds them. Germany lives in them. Time to close the gap.'"
+      }
+    }
+  ]
+}
