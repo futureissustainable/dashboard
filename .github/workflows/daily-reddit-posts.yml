@@ -136,7 +136,7 @@ jobs:
 
           claude_args: |
             --max-turns 15
-            --model claude-haiku-4-5
+            --model claude-sonnet-4-6
             --allowedTools "Read,Write,Edit,Glob,Grep"
 
       - name: Collect feedback summary
