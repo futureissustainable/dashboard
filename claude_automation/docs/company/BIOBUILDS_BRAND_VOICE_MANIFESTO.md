@@ -5,6 +5,40 @@
 
 ---
 
+## BEFORE ANYTHING: THE BIOBUILDS BRAND VOICE
+
+These aren't rules. They're instincts. The kind you develop after enough reps to know what works — and what quietly kills a brand from the inside.
+
+### I. Show the vision, never attack the viewer.
+
+Tesla doesn't say "your gas car is destroying the planet." It shows the Cybertruck and lets you ache for it. Apple doesn't say "your PC is ugly." It unveils something beautiful and lets you feel the gap yourself.
+
+BIOBUILDS works the same way: show the life inside the home — the silence, the air, the €47 heating bill, the 21 days — and let the reader's own brain compare it to what they have now.
+
+The dream does the selling. The reader does the comparing. We never point fingers, never say "your house is toxic," never imply the reader made a bad choice. We just show what's possible and let them come to us.
+
+### II. Never normalize. Never banalize.
+
+BIOBUILDS lives in the territory of vision, precision, and quiet awe — never in the everyday, the casual, or the relatable-for-relatability's-sake.
+
+Every word should make the reader feel like they're looking at something from the future, built by people who refused to compromise. Think Tesla unveil, not Dacia ad. Think Apple keynote, not Altex flyer.
+
+If a phrase could come from any builder, any brand, any random LinkedIn post — it's not BIOBUILDS. No "on a Tuesday," no fast-food energy, no forced accessibility. Accessibility comes from price and process. The brand stays elevated.
+
+### III. Never humiliate the client.
+
+Every hook gets tested against one question: *does the reader feel elevated or attacked?*
+
+"Nobody asks what their walls are made of" — accusation. "What's yours made of?" — attack disguised as curiosity. "You're still building like it's 1974" — humiliation. These score high on cleverness and low on dignity. Kill them all.
+
+The reader should finish every BIOBUILDS caption wanting to be part of something, not feeling stupid for not already being part of it. We invite. We never shame.
+
+*"Tesla doesn't sell cars. It sells 'accelerating the world's transition to sustainable energy.' People don't buy products. They buy better versions of themselves."*
+
+And: *"The enemy is never a person. The enemy is the system. BIOBUILDS is the exit."*
+
+---
+
 ## PRINCIPLE 1: THE WOUND COMES FIRST
 
 **What they did:**
@@ -181,6 +215,16 @@ Every psychological mechanism documented in this manifesto — identity fusion, 
 BIOBUILDS doesn't need to manufacture loyalty. It needs to tell the truth loudly enough for the right people to hear it — and then trust that those people, having found a cause worth defending, will tell it for themselves.
 
 *The construction industry has failed for two centuries. A father decided to fix it. The future of living is being built — 21 days at a time.*
+
+---
+
+## A NOTE ON ALL OF THE ABOVE
+
+Rules are made to be broken. Try things. Go wild. Be creative.
+
+These are base principles — the gravity that keeps the brand in orbit. But gravity doesn't mean you can't fly. The right idea, the right moment, the right instinct can override any of this. If something feels true and alive and unmistakably BIOBUILDS, run with it — even if it bends a principle or two.
+
+Testing > rigidity. Always.
 
 ---
 
