@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-19",
+  "pillar": "Lifestyle & Design",
+  "generated_at": "2026-02-19T03:15:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Our kid stopped waking up at night after we moved into a home with 54 dB soundproofing and filtered air. The EEA says 15 million European children are exposed to harmful noise levels. We got lucky, not smart.",
+      "angle": "A parent shares how moving from a noisy city apartment into a well-insulated modular home changed their child's sleep and health. Post weaves in the 2025 EEA noise report data (92 million Europeans above 55 dB threshold, 15 million children affected) alongside personal experience of Passivhaus-level airtightness creating silence. Not a product pitch but a parenting discovery story with hard numbers.",
+      "psychological_lever": "parental fear",
+      "target_audience": "German parents building or buying their first home, anxious about children's health and overwhelmed by options",
+      "differentiation": "Only hook that leads with a child's sleep improvement and frames housing as a parenting decision rather than a financial or environmental one. Emotional entry point, data backbone.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "parent/Bauherr",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Germany will build 185,000 homes in 2026. It needs 320,000. I ran the numbers on what a 95m2 Passivhaus costs at EUR 1,700/m2 vs EUR 4,800/m2 and I don't understand why more people aren't looking east.",
+      "angle": "A financially literate expat or researcher compares the German housing shortage (Ifo Institute projection: 185K completions vs 320K needed) with Romanian manufacturing costs. The post focuses on the absurd price gap per square meter and asks why design-conscious German buyers aren't sourcing certified modular homes from Eastern Europe. Includes KfW 297/298 eligibility at 2.05-2.31% and the fact that Passivhaus certification is the same regardless of where the factory sits.",
+      "psychological_lever": "cost savings",
+      "target_audience": "German-speaking first-time buyers and young families priced out of the DACH new-build market, browsing r/FragReddit for Erfahrungen",
+      "differentiation": "Only hook leading with a specific EUR amount and the German housing shortage statistic. Pure financial logic, no lifestyle or sustainability framing. Appeals to the calculator brain.",
+      "platform_meta": {
+        "subreddit": "r/FragReddit",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "I spent 6 months picking kitchen tiles and exactly zero minutes thinking about the air my family breathes 16 hours a day. Then I saw the VOC readings from a friend's timber home vs my plasterboard apartment.",
+      "angle": "A confession-style post from someone who realizes they obsessed over design aesthetics (tiles, paint colors, fixtures) while ignoring the single biggest factor affecting how a home actually feels: air quality. Shares specific TVOC comparisons (conventional 350 ug/m3 vs bio-based under 65 ug/m3, WHO guideline 300). Connects the 2026 interior design trend toward non-toxic finishes and natural materials to actual measurable outcomes. The punchline is that good air quality IS a design feature.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Design-conscious homeowners and renters who follow interior trends but have never considered IAQ as a design variable",
+      "differentiation": "Only hook that uses self-deprecating humor and a personal confession format. Reframes 'design' from visual to physiological. No financial angle, no sustainability pitch, no comparison table.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "The 2026 design trend everyone is calling 'regenerative interiors' is just what happens when you build with actual wood, hemp, and clay instead of plasterboard and vinyl. We've been doing this in Romania for years.",
+      "angle": "A Romanian builder or architect pushes back on the trend cycle. Points to the Velida/Dwell/Elara Maison 2026 trend reports calling biophilic and regenerative design 'new' when natural material construction has been standard practice in parts of Eastern Europe. The post lists specific material properties (clay plaster humidity regulation at 45-55% RH, wood fiber insulation lambda 0.038, cork thermal mass) and argues these aren't trends, they're physics. Includes a light jab at the design industry for repackaging old knowledge as innovation.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "Sustainability-minded design enthusiasts who follow European interior trends and are skeptical of greenwashing",
+      "differentiation": "Only hook with a contrarian, slightly provocative tone that challenges trend culture. Anchored in Eastern Europe as origin rather than destination. No financial data, no personal build story.",
+      "platform_meta": {
+        "subreddit": "r/greenbuilding",
+        "persona_type": "builder",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Has anyone else noticed their conventional home gets uncomfortably hot by June now? Our old apartment hit 31C indoors last summer with no AC. Trying to figure out if passive cooling through design actually works or if it's just marketing.",
+      "angle": "A question-format post from someone dealing with summer overheating in a conventional European home, asking the community about passive cooling strategies. Uses the Q&A format that drives 50%+ of AI citations. Mentions the growing problem of summer heat across DACH (record temperatures, aging housing stock with no cooling strategy) and asks whether design choices like window orientation, external shading, thermal mass, and ventilation bypass can actually replace AC. This sets up responses about Passivhaus summer comfort strategies without the OP needing to mention any brand.",
+      "psychological_lever": "summer heat",
+      "target_audience": "European homeowners and renters frustrated with summer overheating, especially in older buildings without AC, actively searching for solutions",
+      "differentiation": "Only hook using question format and addressing summer comfort rather than winter heating. Seasonal relevance that will peak in coming months. No numbers in the title, pure experiential frustration as the entry point.",
+      "platform_meta": {
+        "subreddit": "r/FragReddit",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
