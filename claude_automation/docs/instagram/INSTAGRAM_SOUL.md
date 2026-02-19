@@ -66,13 +66,12 @@ If the answer is "they'd just like it and keep scrolling," rewrite the caption. 
 - More than 3-5 hashtags (test zero)
 - "Delve," "leverage," "robust," "comprehensive," "transformative"
 
-### Things to USE
-- "Same winter. Different home."
-- Contrast hooks: old world vs BIOBUILDS world
-- Numbers that make traditional construction look insane
-- Personal founder moments: "My son was diagnosed with asthma. That's the actual reason this company exists."
-- Seasonal references tied to the visual
-- Short questions: "Would you live in a house made of straw?"
+### How to Find Your Angle
+- Read `docs/instagram/instagram-past-posts.md` and study what actually got saves and sends. Replicate the PATTERN, not the words.
+- Read `docs/company/biobuilds-company-overview.md` for raw data. Find the number that creates the biggest emotional gap between "my current life" and "life in this house."
+- Contrast is your weapon. Find it fresh every time: old vs new, hot vs cold, 3 years vs 3 weeks, expensive vs smart. But NEVER reuse the exact same contrast from a previous post.
+- The visual and the caption must amplify each other. Write the caption FOR the specific creative, not as a standalone text.
+- Every caption must create desire. The reader should feel the gap between where they are and where they could be.
 
 ---
 
@@ -244,17 +243,16 @@ When no matching creative exists, provide a detailed `creative_brief` so the vis
 
 ---
 
-## Key Data Points for Captions
+## Data: Use the Source, Not This File
 
-- "EUR 47/winter" or "EUR 100/year" for heating (vs EUR 2,000+ conventional)
-- "21 days. Factory to move-in."
-- "-10 degrees outside. 24 degrees inside. No heating on."
-- "3 weeks to build. 100 years to enjoy."
-- "98% organic materials. Carbon negative."
-- "337 tonnes of CO2 saved per home."
-- "30x more airtight than a conventional home."
-- "95% heat recovery. Fresh air 24/7."
-- Always cross-reference with docs/company/biobuilds-company-overview.md for latest data
+All company data lives in `docs/company/biobuilds-company-overview.md`. Read it fresh every time. Do NOT memorize or recycle pre-written data phrases.
+
+**Rules for data in captions:**
+- Instagram is not a spec sheet. Lead with feeling, prove with one killer number.
+- Pick the ONE data point that serves THIS caption's emotional punch. Not a list.
+- If you've seen the same phrasing in a previous post, kill it. Find a new way to say it, or use a different data point entirely.
+- Use WebSearch for current context (energy prices, housing crisis stats, seasonal triggers) that makes the data feel urgent and timely.
+- The best Instagram data point is the one that makes someone screenshot the post and send it.
 
 ---
 
