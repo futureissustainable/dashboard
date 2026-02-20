@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-20",
+  "pillar": "Lifestyle & Design",
+  "generated_at": "2026-02-20T03:00:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "We moved from a busy street in Munich to a timber modular home outside Regensburg. My wife measured 23 dB inside with traffic 80 meters away. The EEA says noise costs Europe EUR 95.6 billion a year in health damage and nobody designs for it.",
+      "angle": "A couple shares their accidental discovery that building performance (airtightness, wall mass, triple glazing) solved a problem they didn't know they had: chronic noise exposure. Post uses the 2025 EEA report data (92 million Europeans above 55 dB, 66,000 premature deaths annually, EUR 95.6 billion economic cost) to frame sound insulation as a design feature hiding in plain sight. Not about energy bills or sustainability, just about the relief of hearing nothing. Connects 0.35 ACH50 airtightness and 336mm walls to acoustic performance with measured dB readings. Ends with a practical checklist for what to ask any builder about sound.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Urban and suburban homeowners in DACH who live near roads or in apartment buildings and have normalized background noise without realizing its health impact",
+      "differentiation": "Only hook centered on acoustic comfort and noise health data. No mention of energy, sustainability, or cost. Pure sensory experience as the entry point.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "I asked 6 European modular manufacturers for their Passivhaus certificate number. Three ghosted me. One sent a brochure. Here's the checklist I wish I had before wasting 4 months.",
+      "angle": "A skeptical buyer who went through the painful process of verifying manufacturer claims shares a trust-building post. The hook is the gap between marketing language ('Passivhaus-level performance', 'energy efficient', 'eco-friendly') and actual certification. Post frames PHI Darmstadt certification as binary pass/fail, unmistakable, and the only claim worth trusting. Includes a 7-point verification checklist (certificate number, blower door test report, PHPP modeling, U-value documentation, ventilation specs, EPD, scope transparency). Names no companies but the data points clearly separate certified from uncertified. Written in German for r/FragReddit audience.",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "German-speaking first-time builders who are overwhelmed by manufacturer claims and scared of making an expensive mistake, especially those considering Eastern European or Baltic suppliers",
+      "differentiation": "Only hook built around verification and skepticism rather than advocacy. Positions the reader as detective, not buyer. No lifestyle angle, no design inspiration, pure due diligence.",
+      "platform_meta": {
+        "subreddit": "r/FragReddit",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "EUR 22,000 on interior design for my Airbnb. EUR 0 on interior design for my Passivhaus. Guess which one guests and visitors actually compliment.",
+      "angle": "A semi-retired investor who runs STR properties AND lives in a Passivhaus delivers the punchline: the home where they spent nothing on design gets more compliments because exposed timber, cork floors, and clay plaster walls ARE the design. Post contrasts intentional spending (curated ceramics, custom lighting, feature walls) with accidental beauty (what happens when you build with natural materials and orient toward the sun). Uses the 2026 trend data: European Design Council says 71% of high-end projects now integrate 3+ organic materials as structural cores. Biophilic design listings on Realtor.com up 163% YoY. The joke is that 'regenerative interiors' is just what normal timber homes look like.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "Design-conscious Europeans who follow interior trends on Instagram and Pinterest, possibly considering a new build or major renovation, and assume good design requires big budgets",
+      "differentiation": "Only hook using humor and a direct financial contrast as the entry point. Lightest tone in the batch. Appeals to people who scroll design content, not building forums.",
+      "platform_meta": {
+        "subreddit": "r/PrefabHomes",
+        "persona_type": "investor",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Brasov airport opened, tourist arrivals are up 8%, and I'm watching cabin investors price in EUR 100/night without modeling heating costs. A conventional cabin in a Romanian winter burns through EUR 200/month. Mine costs EUR 19.",
+      "angle": "A small-scale tourism investor in Transylvania shares hard-learned math about operating costs that most glamping and cabin investors ignore. Post anchors on Brasov International Airport opening as the catalyst for a tourism boom, then pivots to the unsexy reality: heating a conventional cabin through a Romanian mountain winter eats your margin. Uses Passivhaus performance data (15 kWh/m2/year vs 350 average, EUR 19/month December heating) to argue that building performance IS the investment thesis for year-round tourism properties. Includes 3 ROI scenarios at different occupancy levels. Written from the perspective of someone who made the mistake first (conventional cabin) and corrected it.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "European STR investors and side-project entrepreneurs looking at Romania's growing tourism market, especially those attracted by low property prices but unfamiliar with operating cost realities",
+      "differentiation": "Only hook with a Romania-specific geographic anchor and the only one framing building performance as an investment variable rather than a lifestyle or design choice. Leads with a specific regional development (airport) and EUR amounts.",
+      "platform_meta": {
+        "subreddit": "r/realestateinvesting",
+        "persona_type": "investor",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "My kid had asthma. I tested the air in our apartment. The VOC readings were 4x the WHO guideline. I tore everything out and rebuilt with timber, hemp, and clay. Three years later his inhaler sits in a drawer.",
+      "angle": "A father shares the story of discovering that his family's conventional apartment had dangerously high VOC levels (380+ ug/m3 vs WHO 300 ug/m3 guideline) and how that discovery led him down a rabbit hole of building material research, culminating in building a home from scratch with bio-based materials. The post is a personal narrative, not a product pitch. It walks through the emotional arc: fear, research, frustration with the construction industry's defaults, and eventually the relief of measured air quality under 50 ug/m3. Connects to the 2026 European Design Council stat that 71% of high-end projects now integrate organic materials structurally. The design of the home is a consequence of the health decision, not a separate choice. Written as a deeply personal story with data supporting every claim.",
+      "psychological_lever": "origin story",
+      "target_audience": "Parents and health-conscious adults who have dealt with respiratory issues, allergies, or unexplained symptoms and never connected them to their home environment",
+      "differentiation": "Only hook built as a personal origin story with emotional narrative arc. The only one where the protagonist undergoes a transformation. Most vulnerable and human tone in the batch. No financial angle, no trend analysis, no comparison.",
+      "platform_meta": {
+        "subreddit": "r/TinyHouses",
+        "persona_type": "parent",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
