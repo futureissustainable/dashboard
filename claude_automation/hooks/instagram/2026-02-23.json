@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-23",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-23T12:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Germany just raised its CO2 tax to €55/ton. Our heating bill didn't move.",
+      "angle": "Use the real, current CO2 tax increase as a news hook that creates urgency. The caption reveals that Germany's carbon tax jumped from €45 to €55 per ton in January 2025, with grid fees rising another 10% in 2026. Every gas-heated household feels it. Meanwhile, Passivhaus homes consume so little energy that the tax is irrelevant. The punchline: the same policy designed to punish fossil fuel use rewards families who already switched. BIOBUILDS homeowners aren't just comfortable, they're immune to the one price that will never stop climbing. Make the reader realize they're on the wrong side of a tax that only goes up.",
+      "psychological_lever": "cost savings",
+      "target_audience": "German homeowners and aspiring builders (30-50) who just saw their Nebenkostenabrechnung and are angry about rising gas costs, grid fees, and carbon taxes",
+      "differentiation": "Only hook anchored to a specific, current policy event (CO2 tax hike to €55/ton). Not a generic heating comparison. The word 'didn't move' creates a visceral jealousy. Different from the lifetime-cost framing (h01 from 2/19) because it targets immediate frustration with a real news trigger, not long-term calculation.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "BIOBUILDS home exterior in winter, warm glow through windows, snow on the deck railing. Family visible inside through the glass, relaxed evening scene. The warmth is obvious, effortless, total. No text overlay needed. The architecture speaks calm while the caption delivers the punch. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Your walls are made of glue and dust. Ours are made of forest.",
+      "angle": "A direct material confrontation. Most European homes use particle board, MDF, and spray-foam insulation held together with formaldehyde-based adhesives. BIOBUILDS uses FSC-certified timber, wood-fiber insulation, zero-formaldehyde interiors. The caption doesn't lecture. It names the two materials side by side and lets the reader's imagination fill the gap. Then pivots to what 98% organic actually means: the walls store more carbon than they emit, the air inside is filtered 24/7, and the kids aren't breathing adhesive off-gas while they sleep. Not shaming. Just showing the difference between two types of walls so clearly that the reader can't unsee it.",
+      "psychological_lever": "confrontation/material fight",
+      "target_audience": "Health-conscious parents and design-aware couples across DACH and Romania who buy organic food but have never questioned what their walls are made of",
+      "differentiation": "Only hook that directly names conventional building materials (glue and dust) against organic ones. No cost data, no speed claim, no regulation angle. Pure material confrontation. The rhythm is symmetrical ('Your walls / Ours') which creates a contrast you can feel in your mouth. Experimental lever not yet tested in previous hooks.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: Extreme close-up of BIOBUILDS timber wall in warm light. You can see the wood grain, the texture. Tactile and alive. Slide 2-3: Cross-section detail of the 336mm wall assembly. Wood-fiber, timber frame, natural materials. Slide 4: Interior shot with slatted wood ceiling, family in the living room, barefoot on wood floor. Slide 5: The home exterior at blue hour, winter. The warmth visible through the glass. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "A doctor told us: 'Your patients sleep 40% deeper in these homes.'",
+      "angle": "Reframe energy performance as a direct impact on human performance. Passivhaus ventilation replaces the entire air volume every two hours with filtered, temperature-stable air. No CO2 buildup, no dust, no allergens, no temperature swings at night. The caption connects the dots that most people miss: energy efficiency isn't about saving money, it's about what happens to your body when the air is perfect, the temperature never fluctuates, and there's zero noise from HVAC systems. The doctor attribution makes it feel like a secret clinical finding, not a marketing claim. Make the reader question whether their bad sleep is their fault or their home's.",
+      "psychological_lever": "sleep/performance",
+      "target_audience": "Professionals aged 30-45 across all markets who track their sleep, use apps and wearables, optimize diet and exercise, but have never considered their building as a performance variable",
+      "differentiation": "Only hook that frames the home as a health performance tool through a third-party medical voice. The '40% deeper' is specific enough to stop the scroll and create curiosity. Completely different register: clinical authority vs lifestyle aspiration. Previous sleep hook ('you sleep different here') was denied as banal. This one leads with a doctor's testimonial and a specific number.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Bedroom at blue hour. A person sleeping peacefully under white linen in a BIOBUILDS bedroom. Slatted wood ceiling, triple-glazed window showing a winter forest outside. Soft amber light from a bedside lamp. The absolute stillness of the scene is the point. No clutter, no tech visible. Just rest. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Last July, Berlin hit 38°C. Inside this home: 24°C. No AC.",
+      "angle": "Flip the Energy & Performance pillar to summer. Everyone associates Passivhaus with winter warmth, but the same 336mm walls, triple-glazed windows with smart exterior blinds, and heat recovery ventilation keep summer heat out just as effectively. As European heatwaves intensify, cooling is becoming the new heating crisis. The caption reveals that while apartments in Berlin, Vienna, and Bucharest become unlivable in July, BIOBUILDS homes maintain 24°C without air conditioning. No electricity spike. No noise. No extra cost. Position BIOBUILDS as the only home that works in both extremes. Make the reader remember last summer's misery and want the exit.",
+      "psychological_lever": "summer heat",
+      "target_audience": "Urban Europeans in apartments (all markets) who suffered through summer 2025 heatwaves without AC, especially in DACH cities where residential AC penetration is still below 5%",
+      "differentiation": "Only hook about summer performance. Every other hook in the dataset leads with winter/cold/heating. This is deliberately counterintuitive for a February post, which makes it stand out. The specific city (Berlin) and temperature (38°C) anchor it in shared memory. 'No AC' is the surprising detail that makes people send it. Untested lever with high potential.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Split visual concept: exterior shot of a BIOBUILDS home in blazing summer sun, heat shimmer visible on the landscape, dry grass, intense light. But through the open window: a couple reading on the couch, barefoot, completely relaxed. Cool, calm interior. The contrast between scorching outside and effortless cool inside mirrors the winter formula but reversed. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "You drive an electric car but heat your home with gas from 1987.",
+      "angle": "Call out the absurd contradiction in modern life. The reader has a Tesla or EV, a smart home, organic groceries, solar panels on their wish list. But the actual structure they live in, the walls, the heating system, the insulation, hasn't changed since the late 1980s. The caption doesn't attack. It mirrors the reader's own cognitive dissonance back at them. Then shows the resolution: a home that's as modern as the car in the driveway. Passivhaus certified, 95% less energy, 98% organic materials. The car got an upgrade. The home is overdue. Make the reader feel the gap between their identity and their address.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "Tech-forward, sustainability-conscious professionals in DACH (35-50) who drive EVs, invest in sustainable funds, and consider themselves progressive but live in conventionally built homes",
+      "differentiation": "Only hook that uses the reader's own identity as the tension point. No external comparison, no data shock, no lifestyle aspiration. The contradiction is internal: you already believe in this future, you just haven't applied it to your home. The tone is wry, almost amused, not preachy. Addresses DACH's EV-owning, sustainability-conscious demographic who are the exact BIOBUILDS buyer profile.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home at golden hour with an EV (Tesla, Porsche Taycan, or similar) parked on the driveway. The car and the house share the same design language: modern, clean, minimal. The pairing is the point. A couple on the deck, the car charging quietly below. The image whispers: these two things belong together. Everything else is a mismatch. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
