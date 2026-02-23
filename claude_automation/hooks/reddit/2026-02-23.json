@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-23",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-23T02:30:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Germany's gas grid fees are rising 10% in 2026. Fraunhofer says a typical household could pay EUR 4,300/year in grid costs alone by 2045. I tracked every kWh in our 95m2 home for 14 months and our total heating cost was EUR 127.",
+      "angle": "A German homeowner shares their obsessive energy tracking data from 14 months in a high-performance home, contrasting it with the Fraunhofer IFAM projection that gas grid costs alone could reach EUR 4,300/year by 2045. The post walks through monthly kWh readings, compares them to co2online's national averages (EUR 1,180/year gas heating for a 70m2 apartment), and frames the decision to build to Passivhaus standard as a hedge against a cost curve that only goes up. Includes the CO2online stat: an unrenovated gas-heated single-family home will cost EUR 120,000 in heating over 20 years. No brand mentions, just data.",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "German Bauherren and young families in the planning stage who are running the numbers on new builds and weighing upfront cost vs 20-year operating cost",
+      "differentiation": "Only hook anchored in a specific 2026 policy change (gas grid fee increase) with a 20-year cost projection. Leads with a frightening future number, then contrasts it with a tiny personal one. Pure financial fear vs financial relief.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "The EU just set a deadline: all new buildings must be zero-emission by 2030. Most builders I've talked to in DACH have no idea what that means for their current designs. Here's what the EPBD actually requires and who already meets it.",
+      "angle": "A building professional or informed buyer breaks down the revised EPBD (EU/2024/1275), which must be transposed into national law by May 2026 and mandates zero-emission new buildings by 2030. The post explains what 'zero-emission' actually means in practice (very high energy performance, zero fossil fuel emissions, near-zero operational GHG), compares it to current building codes, and notes that Passivhaus-certified buildings already exceed these requirements. Includes the stat that 16% of worst-performing non-residential buildings must be renovated by 2030 and residential energy use must drop 16% by 2030. The hook is regulatory urgency: if you're building a house that doesn't meet these standards, you're building a liability.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "European homebuyers and self-builders who are unaware that upcoming EU regulations will make their current building plans non-compliant within 4 years",
+      "differentiation": "Only hook framed around regulatory deadlines and legal compliance. No lifestyle angle, no personal story. Appeals to the risk-averse planner who doesn't want to build something that becomes obsolete. Informational and slightly alarming tone.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "During the 2022 energy crisis my neighbor's heating bill hit EUR 380/month. Mine was EUR 22. We live on the same street, same climate, same family size. The only difference is what's inside our walls.",
+      "angle": "A homeowner tells the story of a neighborhood split during Europe's energy crisis. Same street, same winter, wildly different outcomes. The post doesn't start with specs or certifications but with the social awkwardness of watching your neighbors suffer while you're fine, and feeling weird about mentioning your heating bill at a block party. Then it gets into why: wall U-value of 0.14 W/m2K, triple glazing at Ug 0.5, airtightness at 0.35 ACH50, heat recovery ventilation at 95% efficiency. The contrast makes the technical data emotionally accessible. Includes the Euronews stat that German heating bills have tripled since Russia's invasion of Ukraine, and the co2online finding that heating costs rose 82% cumulatively since 2021.",
+      "psychological_lever": "social comparison",
+      "target_audience": "European homeowners who lived through the 2022 energy crisis and are still paying elevated bills, now considering whether their next home should prioritize energy performance",
+      "differentiation": "Only hook using a direct neighbor-to-neighbor comparison as the narrative device. The social tension (guilt, awkwardness, quiet relief) is the emotional engine, not fear or aspiration. Most human and relatable tone in the batch.",
+      "platform_meta": {
+        "subreddit": "r/FragReddit",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "I run 3 Airbnb cabins in Transylvania. Two are conventional builds. One is Passivhaus-certified. The conventional ones cost me EUR 190/month each to heat in winter. The Passivhaus one costs EUR 21. Guess which one I can keep open year-round without bleeding money.",
+      "angle": "A small-scale STR operator in Romania's Transylvania region shares a direct operational cost comparison between conventional and high-performance cabins. The hook is that most glamping and cabin investors model revenue but ignore that heating costs in a mountain winter can eat 40-60% of off-season margin. Post includes: Romania's gas subsidies ending March 2026 (pushing conventional heating costs higher), the math on winter occupancy viability (at EUR 64 ADR and 52% occupancy, a EUR 190/month heating cost turns December-February into net losses for conventional cabins), and why airtightness and heat recovery make year-round operation possible. Ends with a simple spreadsheet showing break-even occupancy for each cabin type.",
+      "psychological_lever": "industry failure",
+      "target_audience": "European Airbnb hosts and glamping investors who are either losing money in winter or shutting down seasonally, and haven't connected building performance to profitability",
+      "differentiation": "Only hook with a head-to-head operational comparison between two real properties owned by the same person. The 'industry failure' is that hospitality investment advice ignores building performance entirely. Leads with three specific EUR amounts in the title.",
+      "platform_meta": {
+        "subreddit": "r/Airbnb",
+        "persona_type": "investor",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "A UK study measured 97 Passivhaus homes over multiple years. Average actual heating demand: 10.8 kWh/m2/year. Predicted: 11.7. No performance gap. Meanwhile the average UK home sits at 145 kWh/m2/year. Why doesn't anyone talk about this research?",
+      "angle": "A research-oriented post that leads with the University of Bath study of 97 UK Passivhaus dwellings, the largest systematic evaluation of the standard in occupied buildings. The hook is the contrast between Passivhaus (which performs as designed, even slightly better) and conventional construction (which routinely uses up to 250% more energy than predicted). The 'why doesn't anyone talk about this' framing invites community discussion. Post connects this to the EU average of 350 kWh/m2/year, positions the Passivhaus standard as the only building method with statistically verified real-world performance, and asks why building codes still allow such massive performance gaps. Written for a technically curious audience who values peer-reviewed evidence over anecdotes.",
+      "psychological_lever": "confrontation/material fight",
+      "target_audience": "Technically literate sustainability advocates and building professionals who trust data over marketing and are frustrated by the gap between building promises and reality",
+      "differentiation": "Only hook leading with peer-reviewed academic research and statistical evidence. No personal story, no financial angle, no emotional narrative. Pure data confrontation. The most cerebral and evidence-based tone in the batch. Challenges the building industry's performance gap as a systemic failure.",
+      "platform_meta": {
+        "subreddit": "r/TinyHouses",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
