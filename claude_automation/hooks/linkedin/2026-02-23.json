@@ -1,0 +1,70 @@
+{
+  "platform": "linkedin",
+  "date": "2026-02-23",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-23T10:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Berlin pays 38.4 cents per kWh. Our homeowners pay for 15 kWh the entire year.",
+      "angle": "Opens with the January 2026 Euronews data showing Berlin as the second most expensive city for household electricity in Europe (38.4 c/kWh). Then drops the Passivhaus heating demand: 15 kWh/m2/year total. At Berlin's rate, that's EUR 5.76 per square meter per year in heating energy. For a 95 m2 Serenity, that's roughly EUR 547/year. A conventional German home at 350 kWh/m2/year would cost EUR 13,440/year at the same rate. The post doesn't lecture about sustainability. It makes the reader do the math in their head and feel the gap. Includes the Romanian contrast: Romania's electricity jumped 61% after cap removal in July 2025. Both markets are getting squeezed. One building standard solves both. Ends with: what's your cost per square meter per year?",
+      "psychological_lever": "cost savings",
+      "target_audience": "DACH families actively comparing new-build options and feeling the pinch of rising energy costs, plus Romanian IT professionals watching post-cap electricity bills climb",
+      "differentiation": "Only hook anchored in a specific city-level 2026 electricity price. The EUR-per-kWh framing is fresh (not the usual EUR 47 heating bill). Uses Berlin as the geographic anchor, making it immediately DACH-relevant. The juxtaposition of per-kWh price vs per-year demand creates an arithmetic gap the reader solves themselves.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook in large text. Slide 2: map of EU electricity prices by city (Jan 2026). Slide 3: what 350 kWh/m2/year costs at Berlin rates. Slide 4: what 15 kWh/m2/year costs. Slide 5: Romania's 61% price surge after cap removal. Slide 6: Passivhaus envelope specs (336mm, U-value 0.14). Last slide: 'What's your cost per square meter per year?'"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "May 29, 2026. The EU will outlaw the home you're about to build.",
+      "angle": "The EPBD recast transposition deadline is 94 days away. Every EU member state must rewrite national building codes by May 29, 2026. Zero-emission buildings become mandatory for new public buildings by 2028, all new buildings by 2030. 75% of EU buildings are energy inefficient today. The 16% worst performers face forced renovation by 2030. Most people planning to build in 2026-2027 have no idea that minimum standards are about to leap. The post positions BioBuilds as already compliant: Passivhaus certification (15 kWh/m2/year) far exceeds what zero-emission building codes will require. Ends with the provocation: your architect should be reading EU Directive 2024/1275 right now. Are they?",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "Architects, building professionals, and anyone in DACH or Romania about to start a new build who hasn't heard about the EPBD recast implications",
+      "differentiation": "Only hook using a specific future date and regulatory urgency. The tone is warning, not bragging. No mention of BioBuilds in the hook itself. Creates FOMO and urgency through a policy deadline that most of the audience hasn't processed yet. Completely different register: journalistic, almost news-breaking.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "No image, or a screenshot of the EU Directive cover page (2024/1275) with the date circled. Stark, minimal. The text carries the post. Let the regulatory urgency do the work."
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "Our walls hold heat for 12 hours. Your walls gave up at lunch.",
+      "angle": "A confrontation between two insulation materials told through time, not specs. The top-performing post (1,164 reactions) proved this format works: name a specific moment when conventional materials fail. This hook builds on that pattern but finds a new angle: thermal lag as a race. At 35 degrees outside, synthetic insulation surrenders stored heat within 6 hours (by early afternoon). Bio-based wood fiber insulation holds for 12+ hours, releasing heat only when it's already cool outside. The post walks through a summer day hour by hour: 8 AM both homes are 22 degrees. By 1 PM, polystyrene home hits 29. By 6 PM, straw home is still 24. Includes the Austrian context: Austrian grid fees rising sharply in 2026, making AC-dependent homes increasingly expensive to cool. The hook turns thermal mass into a narrative clock.",
+      "psychological_lever": "summer heat",
+      "target_audience": "Homeowners across all markets who suffered through recent European heatwaves and relied on AC, plus Austrian families facing rising electricity costs for cooling",
+      "differentiation": "Only hook personifying the wall as a competitor in a time race. Humor through anthropomorphism ('gave up at lunch'). The tone is playful and competitive, not dark or philosophical. No EUR amounts, no regulations, no personal story. Pure material performance told as a sport.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slides 2-7: hour-by-hour thermal comparison, two side-by-side houses at 8AM, 10AM, 12PM, 2PM, 4PM, 6PM. One slowly turning red (conventional), one staying blue (bio-based). Thermal camera aesthetic. Last slide: 'Your walls have a shift. Ours work overtime.'"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "I measured 28 dB inside RIA during a Carpathian storm. My phone's microphone couldn't register it.",
+      "angle": "A personal founder moment from inside the original RIA house. During a heavy storm, Alin measured the interior noise level: 28 dB. A library is 40. A whisper is 30. The phone's microphone app bottomed out. The post unpacks what creates that silence: 336 mm composite walls, triple glazing at Ug 0.5, 0.24 ACH airtightness (60% better than Passivhaus minimum). But the story isn't about specs. It's about what silence does to your body: cortisol drops, heart rate stabilizes, REM sleep improves. The DACH angle: noise is the #2 environmental health risk in Europe after air pollution (EEA data). 20% of Europeans are exposed to harmful noise levels. A home shouldn't just save energy. It should save your nervous system.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Health-conscious professionals across DACH and Romania who live in noisy urban or suburban environments and have never experienced true acoustic isolation in a home",
+      "differentiation": "Only hook using a personal sensory moment with a precise measurement. The phone detail ('couldn't register it') makes it visceral and relatable. No money, no regulation, no competition. Pure founder experience. The tone is quiet wonder, not confrontation. Completely different emotional register from every other hook.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Real photo from inside RIA during a storm: rain visible through the large windows, warm interior lighting, maybe a decibel meter app on a phone showing 28 dB. The contrast between the storm outside and the calm inside IS the image."
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Romania's electricity jumped 61% overnight. One building standard makes that irrelevant.",
+      "angle": "An Eastern Europe angle built on Romania's July 2025 electricity price shock: when the government removed price caps, household bills surged 61% in a single month. Inflation spiked 2.7% in one month. Families who built conventional homes (350 kWh/m2/year) saw their annual energy costs nearly double. But a Passivhaus-certified home at 15 kWh/m2/year barely noticed. When you use 95% less energy, a 61% price increase adds EUR 3 to your annual bill, not EUR 800. The post positions energy efficiency as the only real hedge against policy risk. Gas caps expire March 2026 in Romania, and the government may or may not extend them. BioBuilds homeowners don't need to follow that news. Includes the DACH mirror: Germany's grid fees are projected to rise as neighbors leave the gas network. Energy independence isn't philosophy. It's math.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "Romanian IT professionals and entrepreneurs who lived through the July 2025 price shock, plus DACH families watching German grid fee projections climb",
+      "differentiation": "Only hook with a Romania-first news event as the anchor. The 61% stat is dramatic, recent, and personally felt by the Romanian audience. The psychological lever (investment/ROI) frames the home as a financial hedge, not a lifestyle choice. Tone is analytical, almost fintech. No personal story, no emotion, pure economic logic."
+      ,
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Split image: left side shows a Romanian electricity bill from June 2025, right side shows one from July 2025. The numbers tell the story. Or a simple chart showing the 61% spike with a flat line underneath labeled 'Passivhaus demand: 15 kWh/m2/year.'"
+      }
+    }
+  ]
+}
