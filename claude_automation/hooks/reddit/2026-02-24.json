@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-24",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-24T02:30:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "A 2026 study tested formaldehyde in schools across 17 EU countries. 14 of them exceeded safe thresholds. Then I tested my own kid's bedroom: 62 ug/m3. WHO says under 100 is fine. The house my parents built for us sits at 8.",
+      "angle": "A parent shares the contrast between reading about the Scientific Reports 2026 study on VOC exposure in European educational buildings (formaldehyde risks documented in 14 of 17 EU countries) and then testing their own home. The post walks through the decision to build with bio-based materials after discovering conventional new builds routinely exceed 300 ug/m3 TVOC. The health angle is tied to energy performance because airtight homes with poor materials trap VOCs, while airtight homes with natural materials (hemp, timber, clay) deliver both energy efficiency and clean air. Includes the German KiGGS study finding that lower-income children face higher benzene exposure. No brands named, just material science and air quality data.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents in DACH and Northern Europe who worry about children's health but have never connected indoor air quality to building materials, especially those planning a new build or renovation",
+      "differentiation": "Only hook anchored in a brand-new 2026 peer-reviewed study across 17 EU countries. Leads with institutional data, then makes it personal through a bedroom air test. The parental fear lever hasn't been used in any Energy & Performance hook batch. Emotional but evidence-based.",
+      "platform_meta": {
+        "subreddit": "r/PassiveHouse",
+        "persona_type": "parent",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "EU heat pump sales dropped 22% in 2024. Everyone's buying the hardware. Almost nobody's fixing the building envelope first. I put EUR 9,000 into airtightness and wall insulation before touching HVAC, and my heat pump runs at 1.2 kW most winter days.",
+      "angle": "A technically minded homeowner pushes back on the 'just install a heat pump' narrative by pointing out the EHPA data showing EU heat pump sales fell 22% in 2024 (down from 2.8M in 2022 to 2M). The post argues the real problem isn't hardware but building fabric: a heat pump in a leaky house is like putting a turbo on a bicycle. Shares their own approach of investing in airtightness (0.4 ACH50), wall U-value (0.14 W/m2K), and triple glazing before sizing the HVAC. Result: a tiny 1.2 kW heat pump load most winter days for 95m2. Includes the stat that 750,000 more heat pump installers are needed in Europe by 2030, and the fact that high electricity prices (Germany EUR 0.38/kWh) make oversized heat pumps expensive to run in poorly insulated homes. The contrarian angle is that the heat pump revolution is stalling because it's solving the wrong problem first.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "Technically curious homeowners and energy nerds in European sustainability subs who follow the heat pump discourse but sense something is off about the 'just electrify everything' narrative",
+      "differentiation": "Only hook that takes a contrarian position against a popular green technology (heat pumps). Uses the modernity contradiction lever by showing that the 'modern' solution everyone is chasing is backwards without the boring fundamentals. No personal story, no financial focus, pure technical argument with fresh 2024 market data.",
+      "platform_meta": {
+        "subreddit": "r/greenbuilding",
+        "persona_type": "builder",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "I tracked my sleep with an Oura ring for 6 months in our old apartment, then 6 months in our new timber home. Deep sleep went from 47 minutes to 1 hour 22 minutes. The only variable that changed was the house.",
+      "angle": "A data-obsessed remote worker shares 12 months of Oura ring sleep tracking data, split perfectly between an old conventional apartment and a new timber Passivhaus. The post doesn't preach about building science. Instead, it leads with the sleep data (REM cycles, deep sleep duration, HRV scores, resting heart rate), then works backwards to figure out what changed: stable 21C overnight temps (no heating cycles kicking on/off), 44% humidity year-round (vs 28% in the old place causing dry throat), CO2 under 600 ppm all night from MVHR (vs 1,100+ ppm by morning with windows closed), and TVOC readings of 40 ug/m3 vs 310. The kicker: the poster calculates that 35 extra minutes of deep sleep per night is 213 hours per year, and links to the Walker/Huberman research on deep sleep and cognitive performance. Written for the quantified-self crowd who track everything except their indoor environment.",
+      "psychological_lever": "sleep/performance",
+      "target_audience": "Health-optimizing professionals and quantified-self enthusiasts who track fitness, sleep, and nutrition but have never considered their building environment as a performance variable",
+      "differentiation": "Only hook using personal biometric data (Oura ring) as the entry point. No financial angle, no environmental pitch, no construction details in the title. The sleep/performance lever is completely fresh for Energy & Performance hooks. Appeals to a different Reddit demographic (biohackers, r/QuantifiedSelf types) who cross-pollinate into sustainability subs.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "I'm pricing cabins for a glamping site near Brasov. One manufacturer quoted EUR 38,000 for a 24m2 unit with EUR 19/month heating. Another quoted EUR 31,000 with EUR 210/month heating. The cheap one costs EUR 14,000 more over 6 years.",
+      "angle": "A Romanian tourism entrepreneur does the math that most cabin investors skip: total cost of ownership over 6 years. The cheap conventional cabin (EUR 31K purchase, EUR 210/month heating in winter, EUR 45/month summer) costs EUR 14K more in operating expenses over 6 years than the certified Passivhaus unit (EUR 38K purchase, EUR 19/month year-round). Post includes three pricing scenarios at different occupancy rates (40%, 55%, 70%), shows how heating costs flip the ROI comparison at every level, and notes that Romania's gas subsidies are scheduled for review in March 2026. Uses the Brasov airport opening (tourist arrivals up 8%) as context for why cabin investment is heating up in the region. The punchline: the 'expensive' option is the cheap one when you model past month three.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "European STR investors, side-project entrepreneurs, and Airbnb hosts who evaluate properties on purchase price without modeling operating costs, especially those eyeing Romania's growing tourism market",
+      "differentiation": "Only hook structured as a direct price comparison between two real quotes with a time-horizon twist. The investment/roi lever is used differently from the Feb 20 batch (which focused on design-to-ADR premiums) by focusing purely on operating cost arbitrage. Leads with four specific EUR amounts in the title. Romania-specific angle fulfills the Eastern Europe requirement.",
+      "platform_meta": {
+        "subreddit": "r/Airbnb",
+        "persona_type": "investor",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Meine Stromrechnung im Januar: EUR 22. Mein Nachbar mit gleicher Wohnflache und Baujahr 2019: EUR 187. Gleiche Strasse, gleicher Versorger, gleiche Familie. Wo ist der Unterschied? Wandaufbau. Das wars.",
+      "angle": "Written in casual German for r/Hausbau. A German homeowner delivers a deadpan, almost absurdly simple post: same street, same utility provider, same family size, same square meters, one house from 2019 (conventional), one from 2025 (Passivhaus standard). January bills: EUR 22 vs EUR 187. The post strips away every variable except the building envelope and walks through exactly what differs: wall U-value (0.14 vs ~0.28), airtightness (0.35 ACH50 vs estimated 3-4 ACH50), triple vs double glazing, MVHR with 95% heat recovery vs window ventilation. Then does the 20-year projection using co2online's data that gas grid fees are rising 10% in 2026 and could add EUR 4,300/year by 2045 for remaining gas customers. Ends with: 'Ich sage nicht, dass jeder ein Passivhaus bauen muss. Ich sage, dass ich nicht wusste, wie gross der Unterschied wirklich ist, bis ich die Rechnung gesehen habe.' No brands, no recommendations, just data and mild disbelief.",
+      "psychological_lever": "cost savings",
+      "target_audience": "German Bauherren actively planning or budgeting a new build in 2026, scrolling r/Hausbau for real Erfahrungsberichte with hard numbers they can plug into their own calculations",
+      "differentiation": "Only hook written entirely in German targeting r/Hausbau. The cost savings lever is applied differently from Feb 19's batch (which was about Romania vs Germany cost per m2) by focusing on monthly bill shock between neighbors. Simplest, most direct tone in the batch. No research angle, no lifestyle pitch. Just two numbers and a wall.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
