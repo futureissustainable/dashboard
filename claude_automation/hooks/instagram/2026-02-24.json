@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-24",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-24T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "2,300 Europeans died in 10 days last summer. From heat. Indoors.",
+      "angle": "Lead with the shocking heatwave mortality stat from June 2025. Most people assume heat deaths happen outdoors. They happen in homes. Conventional buildings without proper insulation trap heat like ovens. Passivhaus walls and triple-glazed windows with exterior blinds kept BIOBUILDS interiors at 24 degrees while apartments hit 38+. The caption doesn't sell a home. It reframes what 'energy performance' actually means: it means your building doesn't kill you. This is Energy & Performance at its most visceral. The data is real, from a peer-reviewed study across 12 European cities. Make the reader reconsider what their walls actually do in July.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Urban Europeans in apartments across all markets, especially DACH renters and Romanian city dwellers who suffered through summer 2025 without AC and remember the news coverage of heat deaths",
+      "differentiation": "Only hook that uses mortality data as the entry point. Not about comfort or bills. About survival. The word 'indoors' is the twist that stops the scroll. Completely different register from every previous hook: this is public health, not lifestyle. Previous health hooks focused on air quality and sleep. This one is about thermal protection as life-or-death infrastructure.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home at golden hour on a scorching summer day. Heat shimmer visible on the dry landscape around it. But through the open panoramic windows: a family at the dinner table, barefoot, clearly cool and comfortable. No AC unit visible anywhere. The contrast between the baking exterior and the calm interior mirrors the winter formula but reversed. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Austria offers €18,000 to fix your heating. We built homes that don't need fixing.",
+      "angle": "Austria's current subsidy program pays homeowners up to €18,000 to replace their heating systems. That's the government admitting conventional homes are broken. The caption contrasts: one option is a €18,000 retrofit that patches a fundamentally flawed building. The other is a home designed from the ground up to need almost zero heating. 15 kWh/m2/year. Passivhaus certified. The subsidy exists because the problem is real. BIOBUILDS exists because the solution should be permanent, not a patch. The Austrian buyer sees the ad for the subsidy and thinks about applying. Then sees this post and realizes: why fix a broken system when you can skip it entirely?",
+      "psychological_lever": "investment/roi",
+      "target_audience": "Austrian and DACH homeowners (35-55) who are actively aware of government energy subsidies and considering whether to retrofit their current home or build new. Engineers and planners who think in long-term cost-benefit.",
+      "differentiation": "Only hook anchored to a specific government subsidy program with a real euro amount. Not a generic savings comparison. The framing is clever: the subsidy proves the problem, BIOBUILDS is the actual solution. Different from all previous investment hooks because it uses a third-party authority (Austrian government) to validate the problem. DACH-specific data as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home exterior in an Austrian Alpine setting. Snow-capped mountains in the background, green valley, the home sitting perfectly in the landscape. Evening light, warm glow from inside. The setting screams Austria. A couple on the deck looking at the mountains. The home looks like it belongs here, like it was always meant to be here. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "His son couldn't breathe. So he built a house that could.",
+      "angle": "The Alin Muste origin story as a pure emotional hook. No specs. No contrast numbers. A father in a doctor's office hearing his child has asthma. Then discovering the materials inside their home were part of the cause. 3.8 million deaths per year from indoor air pollution. He didn't start a company. He started a refusal. 15 years later: 200+ Passivhaus-certified homes delivered across Europe. 98% organic materials. Medical-grade ventilation. The story IS the brand's energy performance credentials, because it explains WHY the obsession with air quality, materials, and building science exists. No competitor has this story. It's the one thing that can't be replicated.",
+      "psychological_lever": "origin story",
+      "target_audience": "Parents and families across all three markets who make decisions emotionally first and verify with data second. The story bridges DACH skepticism and Romanian aspiration through universal parenthood.",
+      "differentiation": "Only hook that tells the founder's personal story. Zero product specs in the hook itself. Pure human narrative. The word 'breathe' connects Energy & Performance to its human consequence without mentioning kWh or euros. Completely different tone: intimate, personal, vulnerable. No other hook in any batch has used the origin story as the opening line. This lever has never been tested.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: A child's hand on a foggy window, winter outside. Intimate, emotional, real. Slide 2: Close-up of natural wood wall texture, warm and tactile. Slide 3: The BIOBUILDS ventilation system breathing silently. Slide 4: A kid running on the deck of a BIOBUILDS home, laughing, healthy. Slide 5: Alin on the factory floor or at a delivery, candid shot. The carousel tells the origin story visually. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Your boiler runs 2,000 hours a year. Ours ran 47.",
+      "angle": "Reframe energy performance through machine hours instead of euros or kWh. Everyone has heard the cost comparisons. Nobody has thought about it in operating hours. A conventional gas boiler runs roughly 2,000 hours per year. A heat pump in a Passivhaus runs a fraction of that because the building barely loses heat. 47 hours is specific enough to feel measured, not invented. The caption makes the reader hear their boiler cycling on and off, burning gas, wearing out parts, counting down to a €3,000 replacement. Then the silence of a home that barely needs heating at all. Energy performance measured in peace and quiet, not just euros.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "Homeowners across DACH and Romania who currently live with boilers they can hear running, who have replaced or repaired heating systems, who understand maintenance costs and the anxiety of mechanical failure in winter",
+      "differentiation": "Only hook that measures energy performance in operating hours instead of euros or kWh. The number 47 is absurdly small compared to 2,000, which creates a comedic contrast. The framing is fresh: nobody talks about boiler runtime. It makes the old system sound like a machine that never stops working, and the new one sound like it barely needs to exist. Different unit of measurement creates a different emotional response.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS living room in winter, completely silent and warm. No radiators visible, no mechanical anything. Just a family on the couch, warm light, wood everywhere. Through the triple-glazed windows: snow falling. The silence in the image IS the point. Maybe a subtle detail: a thermostat on the wall showing 24 degrees. The boiler you can't hear because it barely exists. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "In Bucharest, construction costs rose 14% this year. Our price was fixed before we started.",
+      "angle": "Romania-specific angle that hits the biggest pain point for Romanian IT couples trying to build: cost uncertainty. Romania's construction sector grew 9.2% in 2025 but costs spiraled. Every Romanian who has talked to a builder knows the game: quoted one price, invoiced another. Delays compound the cost. BIOBUILDS fixes the price at contract signing because 99% of the build happens in the factory. No site surprises. No material price fluctuations. No subcontractor renegotiations. The caption turns a national economic statistic into a personal financial relief story. Make the Romanian buyer feel the contrast between the chaos they expected and the certainty they got.",
+      "psychological_lever": "industry failure",
+      "target_audience": "Romanian IT professionals and entrepreneurs (30-42) in Bucharest, Cluj, and Timisoara who are actively saving for or planning a home build and have heard horror stories about cost overruns from friends and family",
+      "differentiation": "Only hook with a Romania-specific economic data point (14% cost increase). Targets the Romanian market's specific frustration: not energy costs (they care less about that) but construction cost chaos. The word 'fixed' is the emotional relief. Different from the permits-drop angle (used 2/19) because this is about money, not bureaucracy. Eastern Europe angle as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home freshly placed on a plot in a Romanian landscape. Rolling green hills, maybe the edge of a village visible. The home looks modern and precise against the pastoral backdrop. A young couple standing in front, keys in hand, smiling. The simplicity of the image is the argument: the house is done, the price was known, the life starts now. 4:5 vertical, golden hour.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
