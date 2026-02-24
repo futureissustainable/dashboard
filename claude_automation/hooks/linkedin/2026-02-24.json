@@ -1,0 +1,70 @@
+{
+  "platform": "linkedin",
+  "date": "2026-02-24",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-24T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Austria has 14,000 passive houses. One in four on the planet. Romania, where we build them, has under 200.",
+      "angle": "Opens with Austria's staggering Passivhaus density: 14,000 certified buildings, roughly 22% of the global total. Vorarlberg has mandated Passivhaus for all public buildings since 2007. Then flips to Romania: the country that manufactures some of Europe's best passive modules has under 200 certified buildings of its own. The irony is structural, not accidental. Austrian subsidy programs (Wohnbaufoerderung) cover up to 35% of additional costs, making certification cost-neutral. Romania has no equivalent program. The post makes the case that policy, not engineering, is the real bottleneck. BioBuilds sits at the intersection: Romanian manufacturing precision at EUR 1,676/m2, Austrian-level certification, shipped anywhere in Europe. Ends with: what would happen if Romania funded passive homes the way Austria does?",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "Romanian IT professionals who respect Austrian/German engineering and need social proof that passive building is mainstream, plus Austrian families who didn't know their country leads the world",
+      "differentiation": "Only hook using a nation-level stat to establish passive building as proven mainstream, not niche. The Romania/Austria mirror creates a tension that's political, not personal. No EUR amounts in the hook, no founder story, no materials. Pure scale and geographic irony. Tone is journalistic and factual.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: map of Austria showing Passivhaus density by region (Vorarlberg darkest). Slide 3: Austria's policy timeline (2007 mandate, subsidy programs, 14,000 certified). Slide 4: Romania's construction sector = 9% of GDP, highest in EU, but <200 passive houses. Slide 5: what policy makes possible (Austria) vs what the market alone produces (Romania). Last slide: 'The engineering exists. The policy doesn't. Yet.'"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Germany spent EUR 56 billion on residential heating last year. We spent EUR 547.",
+      "angle": "Germany's total residential heating bill hit EUR 56 billion in 2025 (Federal Statistical Office, extrapolated from average household energy spend and 19.5M households). BioBuilds' Serenity 95 at 15 kWh/m2/year, at Germany's average electricity rate of 38.4 cents/kWh, costs roughly EUR 547/year to heat. The gap between national waste and individual efficiency is the story. The post doesn't preach energy transition. It frames it as a math problem Germany already solved on paper (Passivhaus standard exists since 1991) but refuses to implement at scale. Only 2% of German homes meet EH40 or better. The EPBD transposition deadline is May 29, 2026: 94 days away. After that, zero-emission new builds become mandatory by 2030. Ends with: every home built to yesterday's code is already a renovation project.",
+      "psychological_lever": "cost savings",
+      "target_audience": "DACH families planning a new build in 2026-2027 who are comparison-shopping Fertighaus options and aware of rising energy costs",
+      "differentiation": "Only hook juxtaposing a national-scale number (EUR 56 billion) against a single-household number (EUR 547). The scale contrast creates a visceral gap that no percentage or per-m2 figure can match. The tone is matter-of-fact, almost dry. No personal story, no confrontation, just two numbers and the silence between them.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Split graphic: left side shows 'EUR 56,000,000,000' in large grey text (Germany's annual residential heating bill). Right side shows 'EUR 547' in white text on dark background (one BioBuilds home). Nothing else. Let the numbers do the work."
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "1,477 Germans died from heat inside their homes last summer. Their insulation worked exactly as designed.",
+      "angle": "The Grantham Institute tracked 1,477 climate-attributed heat deaths in Germany alone during summer 2025. These weren't outdoor laborers. They were people in homes engineered to retain heat, not reject it. German building codes optimized for cold winters created a death trap in 40-degree summers. The post walks through the thermal failure: conventional insulation with 6-hour thermal lag surrenders stored heat by mid-afternoon. Interior temperatures hit 29-32 degrees. People over 64 accounted for 85% of deaths. Only 19% of European homes have AC. The BioBuilds wall assembly with 12+ hours of thermal lag keeps interiors at 24 degrees with no AC at 35 degrees outside. The post isn't selling a home. It's naming a design failure that kills people. Ends with: your building code was written for 1985 winters. We're living in 2025 summers.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Health-conscious families with elderly parents across DACH, plus architects and building professionals who specify insulation systems",
+      "differentiation": "Only hook naming a specific country's death toll and attributing it to building design, not weather. The phrase 'worked exactly as designed' is the twist: it reframes the tragedy as an engineering failure, not a climate one. Tone is grave and precise. No humor, no cost figures, no personal story. The hook demands the reader confront a systemic problem.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Thermal camera image of a conventional German home in summer: walls glowing red/orange, heat clearly trapped inside. No text overlay. The image is the evidence."
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "My son's asthma diagnosis cost me EUR 0 in hospital bills and EUR 2 million in R&D. Best trade I ever made.",
+      "angle": "A founder origin story told through the lens of investment, not emotion. In 2010, Alin's son was diagnosed with asthma. The discovery that indoor building materials were the cause launched 15 years and roughly EUR 2 million in research, prototyping, certification, and factory development. RIA (2 kWh/m2/year), SOL Residence (first passive house street), and Modular (world's first Passivhaus-certified modular system) all trace back to that single diagnosis. The post reframes the origin story as a founder's investment thesis: a problem so personal it justified betting everything on solving it. 200+ homes delivered. 5.0 Google reviews. Carbon-negative EPD certification. The asthma is gone. The company remains. Ends with: the best companies don't start with market research. They start with something you can't live with.",
+      "psychological_lever": "origin story",
+      "target_audience": "Investors, entrepreneurs, and founder-network professionals on LinkedIn who respond to founder journey narratives, plus parents who connect with the health angle",
+      "differentiation": "Only hook using the origin story with a financial framing (EUR 0 vs EUR 2 million). Reframes vulnerability as investment rather than confession. Tone is confident and forward-looking, not sentimental. The 'best trade I ever made' signals pride, not pain. Completely different register from data hooks or regulatory urgency.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Real photo of Alin with his family inside RIA, natural light from the large south-facing windows. Warm, lived-in, not staged. The family IS the R&D outcome."
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "94 days until the EU outlaws the home your architect is drawing right now.",
+      "angle": "The EPBD recast (EU Directive 2024/1275) must be transposed into national law by May 29, 2026. That's 94 days from today. After transposition, zero-emission buildings become mandatory for all new public buildings by 2028, and ALL new buildings by 2030. The 16% worst-performing existing buildings face forced renovation by 2030. Implementation guidance was only released June 30, 2025, leaving member states scrambling. Most architects designing homes today haven't adjusted their specifications. Most clients signing contracts this month don't know their building will be below minimum standards within 4 years. BioBuilds Passivhaus certification at 15 kWh/m2/year already exceeds what zero-emission codes will require. The post positions this as a ticking clock: build to the future standard now or pay to retrofit later. Ends with: ask your architect if they've read EU Directive 2024/1275. Their answer is your answer.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "Architects, building professionals, and anyone in DACH or Romania about to sign a construction contract in 2026 who hasn't processed the EPBD timeline",
+      "differentiation": "Only hook using a countdown and regulatory urgency aimed at the architect, not the homeowner. The word 'outlaws' is deliberately provocative. No cost figures, no materials, no personal story. Pure policy pressure with a ticking clock. Tone is urgent, almost news-breaking. The 94-day specificity makes it time-sensitive and shareable."
+      ,
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Clean dark background with '94 DAYS' in massive white text. Below in smaller text: 'EU Directive 2024/1275 transposition deadline: May 29, 2026.' Stark, minimal, almost a warning label."
+      }
+    }
+  ]
+}
