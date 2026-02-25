@@ -1,0 +1,69 @@
+{
+  "platform": "linkedin",
+  "date": "2026-02-25",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-25T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Norway has 632 heat pumps per 1,000 homes. Germany has 47. Both pay 39 cents per kWh.",
+      "angle": "A confrontation framed through adoption asymmetry, not technology. Norway (632 heat pumps per 1,000 households) and Germany (47 per 1,000) face comparable energy costs, but Norway solved the equation decades ago while Germany is still debating it. The post walks through WHY: Norway's electricity is 98% hydro (cheap to run a heat pump), Germany's grid is coal-heavy and expensive, making each kWh feel like a gamble. But Passivhaus changes the math entirely. When your home needs 15 kWh/m2/year instead of 350, the source barely matters. The real bottleneck isn't the heat pump. It's the envelope. A BioBuilds home at 15 kWh/m2/year makes even Germany's expensive grid tolerable. Norway didn't just install pumps. It built efficient homes first. Germany is doing it backwards. Ends with: you don't need cheaper energy. You need walls that don't waste it.",
+      "psychological_lever": "social comparison",
+      "target_audience": "DACH engineers and professionals evaluating heat pump installations for new builds, who are debating whether the investment makes sense at German energy prices",
+      "differentiation": "Only hook using a cross-country adoption stat to reframe the heat pump debate. The tension is between two wealthy European nations, not between old and new construction. The tone is analytical and slightly competitive (national pride as a lever). No EUR amounts in the hook, no personal story, no Romanian angle. Pure systems-level thinking that positions the building envelope as the real variable.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: map showing heat pump density per 1,000 households across Europe (Norway dark green, Germany pale). Slide 3: why the gap exists (grid composition, envelope quality). Slide 4: what happens when you pair a heat pump with a Passivhaus envelope (15 kWh/m2 demand). Slide 5: the math at German rates vs Norwegian rates (converges when demand is low enough). Last slide: 'The pump isn't the problem. The walls are.'"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "A UK study tested 97 passive homes. They used 10.8 kWh/m2. The prediction was 11.7. Nobody could find the gap.",
+      "angle": "Every other building type in Europe uses 50-250% MORE energy than predicted. Passivhaus is the only standard where actual performance matches the model. A peer-reviewed UK study across 97 dwellings and 13 sites found no statistically significant difference between predicted and measured energy use (p = 0.43). This is unprecedented in construction. The post contrasts this with the 'performance gap' that plagues conventional buildings: a German home rated at 100 kWh/m2/year often burns 180-250. The implications are financial: when a bank or insurance company underwrites a conventional home's energy costs, they're guessing. When they underwrite a Passivhaus, the math holds. BioBuilds' own 3-year customer data confirms: 60 kWh/m2/year total consumption vs the Romanian average of 308. Ends with: most homes promise a number. Passivhaus delivers it.",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "Architects, engineers, and building professionals across Europe who understand the performance gap problem, plus data-driven DACH buyers who want proof before committing",
+      "differentiation": "Only hook leading with a peer-reviewed study result and a p-value. The surprise is the ABSENCE of a gap, which is counterintuitive in an industry defined by overpromise. The tone is scientific and understated. No founder story, no cost figures in the hook, no emotional language. The 'nobody could find the gap' phrasing creates curiosity through a missing problem rather than a present one.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Simple chart showing predicted vs actual energy use for conventional buildings (huge gap) next to Passivhaus (overlapping lines). The visual simplicity IS the argument. Clean, engineering-aesthetic, dark background."
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "July 1, 2026. Germany bans gas-only heating in every city over 100,000 people.",
+      "angle": "Germany's Building Modernisation Act (tabled February 2026) mandates 65% renewable energy for heating systems in large cities starting July 1, 2026. That's 126 days away. Every gas boiler installed in Hamburg, Munich, Berlin, Stuttgart, Cologne, and Frankfurt after that date must be paired with a renewable source or replaced entirely. Most families planning new builds haven't processed this. Most contractors haven't adjusted their specifications. And the 2028 escalation extends it to ALL municipalities. Then: 15% renewable by 2029, 30% by 2035, 60% by 2040, 100% by 2045. A BioBuilds Passivhaus needs so little energy (15 kWh/m2/year) that the heating source becomes almost irrelevant. When your home barely needs heat, the ban doesn't touch you. Ends with: the homes being designed this month for German cities will be illegal to heat by Christmas.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "German families in major cities who are in the planning or early construction phase, plus Bauherren and architects specifying heating systems for 2026 projects",
+      "differentiation": "Only hook using a hard regulatory date specific to German cities with a tangible consequence (gas boiler ban). Unlike the EPBD hook from Feb 23-24 (which was EU-wide and abstract), this one names a specific national law, a specific city-size threshold, and a specific system (gas-only heating). The word 'bans' is more visceral than 'outlaws.' The 126-day countdown is fresh. Tone is news-bulletin urgent.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Dark background with 'JULY 1, 2026' in large white text. Below: a simple list of German cities over 100,000 population. Below that: '65% renewable heating mandatory.' Stark, informational, feels like a public notice."
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Three years in a BioBuilds home. EUR 100/year heating. The electricity price went up twice. The bill didn't.",
+      "angle": "A real customer case study, not a spec sheet. One BioBuilds homeowner's 3-year energy data: 95 m2 Passivhaus consuming 5,720-5,730 kWh/year total (heating, hot water, ventilation, appliances combined). EUR 100/year for heating alone. EUR 1,250/year total energy. During those 3 years, Romania's electricity price rose from EUR 0.21 to EUR 0.25/kWh. The bill barely moved because when you use 60 kWh/m2/year instead of the Romanian average of 308, a 20% price increase adds pocket change. EUR 2,800 saved vs a conventional home over just 3 years. The post makes the point that energy independence isn't about going off-grid. It's about making price volatility irrelevant. The family didn't install solar. They didn't change behavior. The walls did the work. Ends with: when your neighbor panics about the next price cap removal, you pour another coffee.",
+      "psychological_lever": "time value",
+      "target_audience": "Romanian IT professionals and entrepreneurs who lived through the 61% price shock, plus DACH families tired of tracking energy markets and adjusting thermostats",
+      "differentiation": "Only hook built on a verified 3-year customer dataset with a before/during/after energy price narrative. The 'bill didn't change' despite price increases is the surprise. No speculation, no projections, just measured consumption from a real family. The tone is calm, almost boring on purpose, because the point IS that nothing happened. Quietest hook in the set, maximum credibility.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: 3-year energy bill breakdown (simple bar chart, nearly identical bars). Slide 3: Romania electricity price over same period (rising line). Slide 4: why the bill stayed flat (60 kWh/m2 vs 308 Romanian average). Slide 5: what EUR 2,800 saved in 3 years buys (a family holiday, a year of school fees). Last slide: 'Energy independence isn't solar panels. It's walls that work.'"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "My son's lungs built this company. His first full night of sleep without wheezing paid for every late night in the factory.",
+      "angle": "An origin story retold through a moment nobody has heard before. Not the diagnosis (which has been told). Not the EUR 2M investment framing (used Feb 24). The specific night when Alin's son slept through without wheezing for the first time in a BioBuilds home. The 98% organic materials, zero-formaldehyde interiors, and Zehnder MVHR with 99% filtration aren't specs in this post. They're the reason a child breathed freely. The post traces the line from that single night to 200+ homes delivered, each with the same air quality standard. Every home BioBuilds ships carries the same promise Alin made to his family. The energy performance (15 kWh/m2/year, Passivhaus certified) isn't separate from the health story. It's what makes the health story possible: a sealed envelope with controlled ventilation means the air inside is designed, not accidental. Ends with: I didn't start a company. I fixed a bedroom.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents aged 30-45 across all markets, especially those with children who have respiratory issues, allergies, or sleep problems, who haven't connected indoor air quality to building materials",
+      "differentiation": "Only hook leading with a child's health recovery moment rather than a diagnosis or a cost. The 'first full night of sleep' is sensory and specific in a way the asthma diagnosis alone isn't. The tone is intimate and warm, almost a whisper. No numbers in the hook, no confrontation, no regulation. Pure founder vulnerability anchored in a single night. The energy pillar connection comes through the sealed envelope being the mechanism for clean air.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "No image, or a real photo of RIA at night with one window lit warmly. The vulnerability of the post is the visual. Anything staged or polished would undermine it."
+      }
+    }
+  ]
+}
