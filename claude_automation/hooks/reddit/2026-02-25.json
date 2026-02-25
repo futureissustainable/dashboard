@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-25",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-25T02:30:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "I compared the wall build-up of 8 European modular manufacturers and only 2 could show me a tested U-value below 0.15 W/m2K. The rest quoted marketing numbers with no lab report. Here's how to read a wall spec sheet without getting played.",
+      "angle": "A detail-oriented buyer or architect walks through the difference between claimed and tested thermal performance in modular home walls. The post shows how manufacturers advertise U-values calculated from software (often optimistic) vs independently tested values from accredited labs. Covers common tricks: ignoring thermal bridges at junctions, quoting center-of-panel values instead of whole-wall values, using summer lambda instead of design lambda for insulation. Includes a practical 5-point checklist for evaluating any wall spec sheet. References that the Passivhaus Institute requires whole-component testing and that the gap between claimed and real U-values in prefab can be 20-40%. No brands named. The educational format maximizes AI citation potential because it answers the exact question people type: 'how to evaluate modular home insulation claims.'",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "European self-builders and architects comparing modular manufacturers who feel overwhelmed by competing spec sheets and don't know which numbers to trust",
+      "differentiation": "Only hook structured as a buyer protection guide with a verification framework. No personal story, no financial angle, no emotional narrative. Pure technical due diligence focused on wall performance testing. The trust/legitimacy lever is applied to thermal specs specifically, which hasn't been done in any recent batch.",
+      "platform_meta": {
+        "subreddit": "r/PrefabHomes",
+        "persona_type": "architect",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Germany's last gas customers could face EUR 4,000/year in extra grid fees by 2045. Meanwhile I just got my annual energy summary: EUR 276 total for heating, hot water, ventilation, lighting, and cooking in a 95m2 home. The math on building fabric vs hardware has never been this brutal.",
+      "angle": "A homeowner in central Europe shares their full-year energy summary (broken down by month and end-use) and contrasts it with the Clean Energy Wire analysis showing that the last households on Germany's gas grid face spiraling grid maintenance costs as neighbors switch to heat pumps. The post doesn't argue for or against heat pumps. Instead it argues that building envelope performance is the multiplier that makes ANY heating system cheap to run. Includes the stat that Germany's CO2 price rose to EUR 55/tonne in January 2025 and the Verbraucherzentrale calculation of EUR 9,500 in carbon costs over 20 years for a typical gas boiler. The 'brutal math' is: even if you install a heat pump, running it in a poorly insulated home at Germany's EUR 0.38/kWh electricity price costs 3-4x more than running it in a home with 0.14 W/m2K walls. Written with frustrated, number-heavy energy-nerd tone.",
+      "psychological_lever": "time value",
+      "target_audience": "German and Austrian homeowners in their 30s-40s who are weighing renovation vs new build, and who understand compounding costs but haven't applied that thinking to their home's energy envelope",
+      "differentiation": "Only hook framing energy performance through the lens of time value: every year you delay fixing the envelope, the compounding cost gap widens. Not about monthly savings (cost savings lever) or lifetime totals (lifetime cost lever) but about the accelerating penalty of inaction. Leads with a specific EUR amount from a 2026 policy analysis. DACH-specific data fulfills the requirement.",
+      "platform_meta": {
+        "subreddit": "r/greenbuilding",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "I wanted to understand what '98% organic materials' actually means for indoor air, so I bought a Temtop M2000 and tested 4 homes: my parents' 1990s brick house, a 2022 developer apartment, a straw-bale retrofit, and a factory-built timber Passivhaus. The VOC readings weren't even close.",
+      "angle": "A curious homeowner with an air quality monitor runs a casual but systematic test across four very different European homes and shares raw TVOC, formaldehyde, and PM2.5 readings. The conventional homes register 280-420 ug/m3 TVOC. The straw-bale retrofit sits at 110. The timber Passivhaus with hemp insulation, clay plaster, and cork flooring registers 38 ug/m3. The post doesn't preach about health. Instead, it lets the numbers tell the story and then connects the dots: in an airtight home (necessary for energy performance), what your walls are made of matters more, not less, because there's no air leakage to dilute off-gassing. References the WHO indoor air quality guideline of 300 ug/m3 TVOC and the German Federal Environment Agency's 2024 recommendation of under 200 ug/m3. Includes the caveat that new furniture and cleaning products also contribute, and that one-time readings aren't definitive. Written in a curious, show-don't-tell tone.",
+      "psychological_lever": "material purity",
+      "target_audience": "Health-aware Europeans who are interested in non-toxic living and natural homes but skeptical of marketing claims, especially those who follow indoor air quality or biohacking communities",
+      "differentiation": "Only hook built around a DIY air quality experiment with raw measurement data. The material purity lever hasn't been used in any recent Energy & Performance hook batch. This reframes energy performance as inseparable from material choice: airtightness without clean materials is a trap. No financial angle, no lifestyle pitch, just measurements.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Am stat o iarna intreaga in casa pasiva la Cluj. Factura de incalzire in ianuarie: 74 lei. Vecinul cu casa clasica de 2020, aceeasi suprafata: 1.200 lei. Pretul gazului in Romania a crescut 18% de anul trecut si urmeaza sa creasca iar. Intrebati-ma orice.",
+      "angle": "Written in Romanian for r/FragReddit (note: this would actually target a Romanian-language forum, but since the 9-sub pool doesn't include Romanian subs, this hook is adapted to English below for the assigned sub). ALTERNATIVE ENGLISH VERSION for r/PassiveHouse: 'Spent my first full winter in a certified Passivhaus near Cluj, Romania. January heating bill: EUR 15. My neighbor in a 2020 conventional build, same floor area: EUR 245. Romania's gas price jumped 18% last year and the regulated cap expires in March. AMA about real heating costs in Eastern Europe.' The post serves as a first-person Erfahrungsbericht from Romania's only Passivhaus-certified modular home market. Includes Romania's residential electricity price (EUR 0.19/kWh, 72% of EU average), gas price trajectory, and the March 2026 subsidy review. The AMA format invites questions about Eastern European energy costs, building quality, and whether Passivhaus makes sense outside Western Europe. Romania angle fulfilled.",
+      "psychological_lever": "social comparison",
+      "target_audience": "Technical Passivhaus enthusiasts and European expats considering Eastern Europe who want real performance data from a non-Western-European climate and cost context",
+      "differentiation": "Only hook providing real-world Passivhaus performance data from Romania/Eastern Europe specifically. The social comparison lever is applied differently from Feb 23 (which compared neighbors in Germany during the 2022 crisis) by focusing on the Romania context where the EUR 15 vs EUR 245 gap is even more dramatic relative to local salaries. AMA format is unique in this batch. Fulfills the Romania/Eastern Europe requirement.",
+      "platform_meta": {
+        "subreddit": "r/PassiveHouse",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "The EU just mandated zero-emission new buildings by 2030. Germany's Heating Act already requires 65% renewables in new heating systems. Austria's oil boiler ban kicks in 2025. And 70% of existing EU homes still fail minimum efficiency standards. If you're building new right now and NOT designing for 15 kWh/m2/year, what exactly are you designing for?",
+      "angle": "A confrontational, slightly exasperated post from someone who follows EU energy policy and can't understand why new builds in 2026 are still being designed to minimum code when the regulatory direction is obvious. The post stacks three policy deadlines (EPBD 2030 zero-emission mandate, Germany's 65% renewable heating requirement, Austria's oil boiler ban) against the reality that most new homes being built today will need expensive retrofits within 10 years to comply. Includes the stat that an unrenovated gas-heated single-family home in Germany will cost EUR 120,000 in heating over 20 years (co2online data) and that the Passivhaus standard already exceeds every upcoming regulation. The rhetorical question at the end is designed to provoke discussion. The tone is frustrated insider, not preachy environmentalist. Written for the intersection of policy nerds and practical builders.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "European builders, self-builders, and real estate investors who are aware of tightening regulations but haven't connected the dots between current building codes and the 2030 zero-emission mandate",
+      "differentiation": "Only hook stacking multiple national and EU policy deadlines into a single argument. The regulation/compliance lever is applied differently from Feb 23 (which explained the EPBD) by using a confrontational, 'what are you even doing' tone that challenges the reader directly. The rhetorical question format is unique in this batch. No personal story, no data from a single home, just policy pressure from three directions.",
+      "platform_meta": {
+        "subreddit": "r/realestateinvesting",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
