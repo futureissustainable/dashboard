@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-25",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-25T09:30:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Romania cuts gas subsidies next month. Your heating bill won't be the same.",
+      "angle": "Romania's government ends residential gas subsidies in March 2026. Conventional heating costs are projected to jump 50-100% overnight. Romanian families who heat with gas (the majority) will feel it immediately. The caption positions BIOBUILDS as the only way to sidestep this entirely: 15 kWh/m²/year means you barely use gas at all. While everyone else braces for the price shock, Passivhaus homeowners won't notice. The timing is perfect: this is breaking news that every Romanian IT professional is already talking about. Make it feel like insider knowledge, not a sales pitch. End with the contrast: your neighbor's March bill vs yours.",
+      "psychological_lever": "cost savings",
+      "target_audience": "Romanian IT professionals and young families (28-42) in Bucharest, Cluj, Timisoara who currently heat with gas and are aware of the subsidy phase-out but haven't yet connected it to their housing decision",
+      "differentiation": "Only hook tied to a specific, imminent policy change with a hard deadline (March 2026). Not a generic cost comparison. The urgency is real and ticking. Every other cost hook in previous batches used historical or annual data. This one is forward-looking: the bill you haven't received yet. Romania-specific as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home in a Romanian landscape at golden hour. Rolling green hills, the edge of a village visible in soft focus. A young couple on the deck, relaxed, barefoot despite late winter chill visible around them. The home radiates warmth and calm. The surrounding traditional houses in the background create the subtle contrast. 4:5 vertical, 1080x1350px.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "February in Germany. Minus 8 outside. Barefoot inside. No heating on.",
+      "angle": "Right now, this week, central Europe is in a cold wave. Germans are cranking radiators. BIOBUILDS homeowners are walking barefoot on wood floors without turning on the heating. The 336mm walls, triple-glazed windows, and 95% heat recovery ventilation hold interior temperature at 22-24 degrees using body heat, appliances, and passive solar gain alone. The caption doesn't explain the physics. It paints the scene: frozen trees through the panoramic glass, bare feet on warm oak, silence. The reader is currently cold. Make them feel the warmth through their screen. This is the proven 'Brutal Contrast Pair' formula (post #5: 236 saves) applied to today's weather.",
+      "psychological_lever": "social comparison",
+      "target_audience": "DACH homeowners and renters (30-50) who are right now, today, sitting in homes with the heating on full blast, checking their thermostat, feeling the cold draft from their windows",
+      "differentiation": "Only hook that references the current weather event happening RIGHT NOW (February 2026 cold wave). Every other temperature contrast hook used past tense or generic seasons. This one is present tense, this week, making it feel like a live broadcast from a parallel reality. The 'barefoot' detail is sensory and specific. DACH-specific as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home in a German winter landscape. Heavy snow, frozen trees, grey February sky. But through the floor-to-ceiling windows: warm amber light, a person walking barefoot across the oak floor, coffee in hand. The temperature gap is visible. The snow on the deck railing, the bare feet inside. This is the proven visual formula at its most immediate. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "Touch the wall. That's spruce, not plaster. You can smell it.",
+      "angle": "Skip the numbers entirely. This hook is pure sensory experience. Most people have never touched the wall of their home and felt something alive. Conventional walls are plasterboard, paint, chemical adhesive. BIOBUILDS walls are solid spruce timber, wood-fiber insulation, natural finishes. The smell of a new BIOBUILDS home is forest, not formaldehyde. The caption invites the reader into a physical moment: running their hand along the wall, feeling the grain, breathing in wood instead of paint fumes. No kWh, no euros, no certifications. Just the raw material experience that makes people fall in love with these homes on their first visit. This is the lever that converts skeptics in person. Now bring it to Instagram.",
+      "psychological_lever": "material purity",
+      "target_audience": "Design-conscious couples across all markets (30-45) who care about tactile quality, who buy solid wood furniture, who notice the difference between real and synthetic materials in clothing, food, and objects",
+      "differentiation": "Only hook that uses sensory language (touch, smell) instead of data or contrast. Zero numbers. Zero comparisons. Pure material experience. No previous hook in any batch has targeted the physical, tactile encounter with the building itself. This is an untested lever with high potential for carousel format where the viewer can almost feel the textures.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: Extreme close-up of a hand touching a BIOBUILDS interior wall. Spruce grain visible, warm light. Tactile and intimate. Slide 2: Cross-section of the 336mm wall assembly, each layer labeled simply: spruce, wood-fiber, timber frame. All natural. Slide 3: Wide interior shot, slatted wood ceiling, panoramic glass, family reading on the couch. Everything is wood and light. Slide 4: Material detail: the grain of the ceiling, the warmth of the flooring. Slide 5: Exterior at blue hour, the home glowing from within. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Your Nebenkostenabrechnung just arrived. Ours is a rounding error.",
+      "angle": "Every German household dreads the annual Nebenkostenabrechnung (utility bill settlement). It arrives in Q1 and often includes a Nachzahlung (additional payment) of hundreds or thousands of euros. The caption hijacks this shared cultural moment of financial anxiety. For BIOBUILDS homeowners, the Nebenkosten are so low they're practically irrelevant: under €100/year heating, minimal water heating, no boiler maintenance. The word 'rounding error' is the punchline that makes it shareable. The reader opens their Abrechnung, sees the number, then sees this post and feels the gap. Make them send it to their partner with one word: 'Look.'",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "German homeowners and renters (30-55) who literally just received or are about to receive their annual Nebenkostenabrechnung and are dreading the Nachzahlung, especially those heating with gas in older buildings",
+      "differentiation": "Only hook that uses a culturally specific German financial moment (the Nebenkostenabrechnung) as the trigger. Not a generic euro comparison. The timing is seasonal: Q1 is when these arrive. The German word itself creates in-group recognition for DACH audiences while being curiosity-inducing for others. No previous hook has used this specific cultural touchpoint.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS living room in winter, wide shot. A couple on the couch, laptop open, clearly doing finances or admin. But they're relaxed, smiling. Through the triple-glazed windows behind them: a snowy German suburb. The image tells the story: utility bill day, and they're fine. Maybe a subtle detail: a paper on the coffee table. The calm is the contrast to every other household's Q1 anxiety. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "16,500 Europeans died from heat last summer. All of them indoors.",
+      "angle": "The most confrontational hook in the batch. 16,500 heat-related deaths across Europe from April to September 2025 is a peer-reviewed statistic. The majority occurred indoors, in homes without adequate thermal protection. Conventional buildings with poor insulation trap heat in summer just as they leak it in winter. The same Passivhaus engineering that keeps a BIOBUILDS home warm in February keeps it cool in July: 336mm insulated walls, triple-glazed windows with smart exterior blinds, heat recovery ventilation. 24 degrees year-round. No AC needed. The caption doesn't sell comfort. It reframes energy performance as survival infrastructure. Make the reader reconsider what 'well-insulated' actually protects against. This is a February post about summer because the decision to build happens now, not in July.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Urban Europeans across all markets, especially elderly parents of the target demographic, apartment dwellers in cities that hit 38+ degrees last summer (Berlin, Vienna, Bucharest, Milan), and parents worried about their aging parents in conventional homes",
+      "differentiation": "Only hook that uses mortality data as the opening. Not comfort, not cost, not lifestyle. Life and death. The reversal of expectations (heat deaths in a February post) creates cognitive disruption. While a similar angle appeared in 2/24 batch, that hook led with '2,300 Europeans died in 10 days.' This one uses the full summer 2025 statistic (16,500) which is larger and more current. The words 'all of them indoors' is the scroll-stopping twist.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home in blazing summer. Heat shimmer visible on dry grass and the surrounding landscape. Harsh midday light. But through the open panoramic window: a family at the dinner table, cool and comfortable, barefoot, clearly not sweating. No AC unit visible. The architecture is doing the work. The contrast between the baking exterior and serene interior is the same formula as the winter posts, reversed. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
