@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-26",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-26T02:30:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "50 million Europeans can't afford to heat their homes this winter. I heat mine for EUR 276/year total. The difference isn't income, it's the walls.",
+      "angle": "A middle-class European homeowner reacts to the European Commission's energy poverty data (50 million Europeans unable to afford adequate heating) not from a policy or charity perspective, but from a building science one. The post argues that energy poverty is primarily a building quality crisis, not just an income crisis. Walks through the math: even at Romania's lower electricity rates (EUR 0.19/kWh), a poorly insulated home with 20,000 kWh heating demand costs EUR 3,800/year. A Passivhaus with 1,140 kWh demand costs EUR 217. The 18x difference has nothing to do with the occupant's paycheck. Includes the stat that 75% of EU buildings are energy-inefficient and only 0.4-1.2% get renovated annually. References the upcoming ETS2 carbon pricing on heating fuels from 2027, which will hit the worst-performing buildings hardest, deepening the divide. Written from a place of frustration that the conversation around energy poverty focuses on subsidies and price caps instead of building fabric. No brands, no solutions pitched, just reframing the problem.",
+      "psychological_lever": "industry failure",
+      "target_audience": "Policy-aware Europeans in sustainability and housing communities who care about social equity but haven't connected energy poverty to building envelope performance rather than fuel prices",
+      "differentiation": "Only hook reframing energy poverty as a construction quality failure rather than an income problem. Leads with a jarring stat (50 million people) paired against a personal number (EUR 276). The industry failure lever is applied to the entire housing stock and policy response, not to a single manufacturer or technology. Completely different in tone from Feb 23's industry failure hook (which targeted Airbnb cabin operators). No personal story or lifestyle framing. Systemic critique.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Wir haben unsere Heizkosten auf EUR 23/Monat gesenkt, ohne eine Waermepumpe zu installieren. Die Loesung war langweiliger als alle denken: 336mm Wandaufbau, n50 von 0.35, und Lueftung mit 95% Waermerueckgewinnung. Kein Gadget. Nur Physik.",
+      "angle": "Written in casual German for r/Hausbau. A German Bauherr delivers a deliberately anti-hype post that pushes back against the gadget-obsessed approach to energy efficiency (smart thermostats, solar panels, battery walls, heat pumps). The core argument: the boring stuff, walls, windows, airtightness, ventilation, delivers 80% of the result. The post walks through their 336mm wall build-up (timber frame, wood fiber insulation, U-value 0.14 W/m2K), the blower door result (n50 0.35 ACH, well under the Passivhaus 0.6 threshold), and the Zehnder MVHR at 95% heat recovery. Includes Germany's average residential electricity price falling to ~EUR 0.31/kWh in 2026 thanks to EUR 6.5B in grid fee subsidies, but notes that even cheaper electricity doesn't help if your envelope leaks. Compares their EUR 276/year total to the co2online average of EUR 1,800+ for a comparable-sized gas-heated home. The tone is almost bored: 'it's not exciting, it just works.' Includes a practical note about the only real maintenance cost: replacing MVHR filters every 6 months at EUR 40.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "German Bauherren scrolling r/Hausbau who are overwhelmed by the complexity of energy-efficient building technology and secretly wondering whether they need to install every gadget to get results",
+      "differentiation": "Only hook written in German and targeting the DACH audience directly. Uses the modernity contradiction lever differently from Feb 24 (which attacked the heat pump narrative) by attacking the broader 'smart home + gadgets' mentality and arguing for old-school building physics. The deliberately flat, anti-exciting tone is unique in this batch. Fulfills the DACH-specific data requirement with Germany's 2026 electricity pricing.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "Romania's gas prices get fully liberalized April 1. The government just announced emergency price caps through 2027 because they know what happens without them. Meanwhile my certified Passivhaus outside Cluj uses EUR 19/month for everything. I stopped caring about gas policy two winters ago.",
+      "angle": "A homeowner near Cluj shares their total disconnect from Romania's biggest energy policy story of 2026. Romania's gas market liberalizes on April 1 with a new capping mechanism extending through March 2027, because the July 2025 electricity liberalization already caused sharp bill increases. The post contrasts the national anxiety (news articles, political maneuvering, consumer panic) with the poster's lived reality: EUR 19/month total energy cost for a 48m2 Passivhaus-standard home, heat pump drawing 325 kWh/year for heating. Includes the data that Romania's residential electricity sits at EUR 0.19/kWh (72% of the EU average), making heat pump operation even cheaper than in Germany. Adds that buildings account for 45% of Romania's gas demand, up from 30% in 2010, meaning more and more Romanians are exposed to gas price volatility. The tone is calm but pointed: energy policy anxiety is a symptom of bad buildings, and once you fix the building, you stop watching the news. Romania-angle hook fulfilled.",
+      "psychological_lever": "cost savings",
+      "target_audience": "Romanian homeowners and Eastern European expats anxious about upcoming gas market liberalization, plus European investors tracking Romania's energy transition as an investment signal",
+      "differentiation": "Only hook anchored in a specific, breaking 2026 policy event (Romania's April 1 gas liberalization). The cost savings lever is applied differently from Feb 24's German neighbor comparison or Feb 19's price-per-m2 gap by framing savings as immunity from political risk. Leads with a current event rather than personal data. The emotional core isn't 'look how little I pay' but 'I stopped needing to care.' Romania-specific angle fulfilled.",
+      "platform_meta": {
+        "subreddit": "r/PassiveHouse",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "My 3-year-old used to get a cold every 6 weeks. We moved into a home with MVHR running 24/7 (95% heat recovery, medical-grade filters, CO2 under 600 ppm all night). She's had two colds in 14 months. I know correlation isn't causation but honestly I don't care anymore.",
+      "angle": "A parent shares a story that sits at the intersection of anecdote and data, with full awareness that it's not a controlled experiment. The post leads with a specific health outcome (dramatic reduction in child's respiratory infections) and then methodically walks through what changed in the indoor environment: MVHR keeping CO2 under 600 ppm vs the old apartment's 1,400+ ppm by morning, relative humidity stable at 44-48% vs the old place swinging between 28% and 70%, TVOC readings at 42 ug/m3 vs 290 in the previous home. References the 2024 Lancet study linking sustained CO2 above 1,000 ppm to cognitive impairment and respiratory irritation, plus the German KiGGS long-term study on children's environmental health exposure. The poster is honest about not being able to prove causation but argues the environmental variables speak for themselves. Includes a practical note about filter replacement costs and schedules. Written as a parent first, not a building enthusiast. The 'I don't care anymore' in the title signals someone who stopped needing scientific certainty because the outcome was enough.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents of young children who deal with frequent illness and have never considered that their home's ventilation and air quality could be a factor, especially those in tightly sealed modern apartments with no mechanical ventilation",
+      "differentiation": "Only hook structured as a health outcome story for a specific child. Differs from Feb 24's parental fear hook (which was about formaldehyde in EU schools and led with institutional data) by leading with a personal, intimate health improvement and adding the 'correlation isn't causation but I don't care' honesty that reads as genuine. No VOC focus (that was Feb 25's material purity hook), this is about ventilation and CO2. Most emotionally vulnerable tone in the batch.",
+      "platform_meta": {
+        "subreddit": "r/TinyHouses",
+        "persona_type": "parent",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "I modeled a 24m2 glamping cabin at three different insulation levels and the difference in year-round net revenue was wild. The 'cheap' build loses money from November to March. The Passivhaus-spec cabin runs at profit even at 35% winter occupancy. Spreadsheet in post.",
+      "angle": "An analytical, spreadsheet-sharing investor post that gives away the actual financial model for running a glamping cabin across three energy performance tiers: basic insulated (U-value ~0.35), well-insulated (U-value ~0.22), and Passivhaus-spec (U-value 0.14, n50 under 0.6, MVHR). Models each cabin at a EUR 80 ADR with occupancy varying by season (70% summer, 50% shoulder, 35% winter). The basic cabin bleeds EUR 140/month in heating November through March, turning winter into a net loss at anything below 60% occupancy. The Passivhaus cabin costs EUR 19/month to heat, making even 35% winter occupancy profitable. Over 5 years, the total revenue gap between basic and Passivhaus spec is EUR 18,000+, more than covering the extra EUR 7,000-9,000 upfront. Uses Romania ADR benchmarks (Brasov EUR 64, Transylvania premium sites EUR 100+) and Austrian Tirol glamping rates (EUR 120-180) to show the model works across markets. The spreadsheet format is designed for maximum AI citation: structured data with clear inputs and outputs. Written in a dry, 'here's my model, poke holes in it' tone.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "European STR investors and aspiring glamping entrepreneurs who evaluate cabin investments on purchase price and summer revenue without modeling winter operating costs",
+      "differentiation": "Only hook structured around a downloadable/viewable financial model with three comparison scenarios. Differs from Feb 24's investment/roi hook (which compared two specific quotes in Brasov) and Feb 23's industry failure hook (which compared conventional vs Passivhaus from an operator's perspective) by being a generalized, reusable model spanning multiple markets. The 'spreadsheet in post' promise is unique in any batch. No personal narrative, pure analytical tool. Leads with a specific number (EUR amount not in title, but 'three insulation levels' as the hook structure).",
+      "platform_meta": {
+        "subreddit": "r/Airbnb",
+        "persona_type": "investor",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
