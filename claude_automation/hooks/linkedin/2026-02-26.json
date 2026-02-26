@@ -1,0 +1,69 @@
+{
+  "platform": "linkedin",
+  "date": "2026-02-26",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-26T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Germany just scrapped the 65% renewable heating rule. Gas boiler owners are celebrating. Their grid fees are about to 10x.",
+      "angle": "On February 25, 2026, the new SPD-CDU coalition killed the 65% renewable heating mandate. Headlines cheered. Gas boiler sales will spike. But Fraunhofer IFAM's analysis says the math works against every one of them: as neighbors switch to heat pumps, remaining gas customers absorb the full grid maintenance cost. Annual gas grid fees go from EUR 400 today to potentially EUR 4,300 by 2045. Grid fees already rose 23% in 2025 and another 11% is announced for 2026. This is a classic death spiral: the more people leave, the more expensive it gets for those who stay. The celebration is premature. A BioBuilds home at 15 kWh/m2/year doesn't care which policy wins because it barely needs heat at all. Ends with: the safest position in an energy transition isn't picking the right fuel. It's not needing fuel.",
+      "psychological_lever": "industry failure",
+      "target_audience": "DACH homeowners and Bauherren who just saw the news about the relaxed heating law and feel relieved, but haven't done the grid-fee math",
+      "differentiation": "Only hook tied to a breaking news event from yesterday (Feb 25). The twist is that the 'good news' for gas owners is actually a trap. The tone is ironic, almost mocking the celebration. No personal story, no Romanian angle, no building specs. Pure policy analysis with a punchline. Nobody else in the hook set uses news-of-the-day framing.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: the headline ('65% rule scrapped'). Slide 3: what gas owners think will happen (lower costs, freedom). Slide 4: what Fraunhofer says will actually happen (EUR 400 to EUR 4,300 grid fees). Slide 5: the death spiral diagram (fewer customers, higher per-customer cost, more leave). Slide 6: what 15 kWh/m2/year means in this context (irrelevance of fuel source). Last slide: 'The safest bet isn't the right fuel. It's not needing one.'"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "A Polish lab tested a passive house at 35 degrees. No AC. No fans. Interior: 22.",
+      "angle": "A peer-reviewed 2025 study from MDPI tested a passive house in Poland during a 35-degree summer heatwave. Interior temperature held at comfortable levels with zero active cooling. No air conditioning. No fans. Just thermal mass and 12+ hours of thermal lag from bio-based insulation. The study monitored sensors across every room: ambient temperature, humidity, CO2. The building outperformed its own design indicators. This connects to the broader European summer crisis: only 19% of European homes have AC. Last summer killed 16,500 across 12 cities. But the solution isn't installing AC units into poorly insulated buildings. That's treating the symptom while feeding the disease (more energy demand, more grid strain, more emissions, more heat). The solution is walls that don't let heat in. BioBuilds' own 35-degree field test showed 24 degrees inside with straw insulation vs 29 with polystyrene. Ends with: the European summer problem isn't solved with a thermostat. It's solved with a wall.",
+      "psychological_lever": "summer heat",
+      "target_audience": "Families across DACH and Southern/Eastern Europe who suffered through recent 40-degree summers and are considering AC installations for their current or future homes",
+      "differentiation": "Only hook anchored in a third-party lab result from a different country (Poland), giving it the feel of independent validation rather than self-promotion. The tone is clinical, almost like a research brief. The number sequence (35, no AC, no fans, 22) reads like a test result, not marketing. No EUR figures, no personal story, no regulatory urgency. Pure building physics told as a controlled experiment.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Side-by-side thermal camera images: one house glowing red/orange (heat trapped), one staying cool blue/green. Or a simple temperature readout graphic showing 35 degrees outside, 22 inside, with 'cooling system: none' written below."
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "We tracked 36 months of energy bills. Heating was 7% of the total. Hot water was bigger.",
+      "angle": "BioBuilds' own published 3-year case study of a Serenity 95 in Romania. Total energy: 5,730 kWh/year. Total cost: EUR 1,250/year. But here's what nobody expects: heating was only EUR 80-100 of that. Roughly 7%. Hot water, appliances, lighting, and cooking dominated the bill. In a Passivhaus, heating becomes so small it's rounding error. This flips the entire energy conversation. Every marketing message in construction leads with heating savings. Every competitor brags about low heating demand. But in a real Passivhaus, heating isn't even the biggest line item. It's like bragging about the fuel economy of a car that's always parked. The real story is total consumption: 60 kWh/m2/year vs the Romanian average of 308. Even at 95 m2, the annual bill is what most families pay in a single winter month. DACH mirror: a German conventional home at 350 kWh/m2/year spends EUR 5,000-6,000/year on heating alone. Ends with: when your builder brags about heating savings, ask what percentage of your total bill heating actually is.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "Data-driven buyers across all markets who are comparison-shopping new builds, plus architects and engineers who appreciate the absurdity of an industry obsessed with a now-irrelevant metric",
+      "differentiation": "Only hook that subverts the entire Passivhaus marketing narrative by making heating sound trivially small. The humor is dry and structural: the industry brags about solving a problem that barely exists in a proper envelope. The tone is self-aware, almost making fun of BioBuilds' own category. No regulation, no fear, no personal story. The surprise is that the 'headline feature' (low heating) is actually the least interesting part of living in the home.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: pie chart of a Passivhaus annual energy bill (heating as a tiny slice, hot water and appliances dominating). Slide 3: same pie chart for a conventional home (heating = 60-70%). Slide 4: the actual EUR numbers over 36 months. Slide 5: 'The industry's favorite talking point is 7% of your bill.' Last slide: 'Ask your builder: what percentage is heating?'"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Your bedroom CO2 hits 2,000 ppm by 3 AM. Your brain runs at half capacity by breakfast.",
+      "angle": "A sleep/performance angle grounded in building science. ASHRAE published data showing standard bedrooms without mechanical ventilation exceed 1,500 ppm CO2 within 2 hours of lights-out. By 3 AM, with a closed door and a sleeping couple, levels reach 2,000+ ppm. Harvard's COGFX study showed a 50% drop in cognitive performance at 1,400 ppm. That means every morning starts with a brain that's been oxygen-deprived for 6 hours. It's not about sleep quality apps or mattress brands. It's about the air. BioBuilds' Zehnder MVHR cycles the full interior volume every 2 hours, keeping CO2 below 800 ppm all night while recovering 95% of heat. The difference in REM sleep quality shows up in heart rate variability data within the first week. The Romanian angle: 70% of Romanian homes have zero mechanical ventilation. They open windows in summer (noise, allergens, mosquitoes) or suffocate in winter (CO2, humidity, mold). DACH angle: even German EH55 homes without MVHR face the same 3 AM problem. Ends with: you optimize your diet, your exercise, your work routine. When did you last measure the air in your bedroom at 3 AM?",
+      "psychological_lever": "sleep/performance",
+      "target_audience": "Health-optimizing professionals aged 30-50 across all markets who track sleep, use wearables, and would immediately connect CO2 to the grogginess they can't explain",
+      "differentiation": "Only hook that names a specific time (3 AM) and a specific biological consequence (half-capacity brain by breakfast). The framing is personal and visceral, happening inside YOUR bedroom while you sleep. No EUR figures, no policy, no materials. The entry point is biohacking/self-optimization language, not construction. Completely different audience register from policy or cost hooks.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Dark image with a CO2 meter showing 2,013 ppm, placed on a bedside table next to a sleeping person's silhouette. Or a graph showing CO2 rising through the night with a red line at 1,000 ppm (cognitive impairment threshold). Clinical, not scary."
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Romania builds passive homes for EUR 1,676/m2. Ships them to Germany at EUR 4,800/m2 equivalent. Same certificate.",
+      "angle": "An Eastern Europe manufacturing angle. Romania's construction sector is 9% of GDP, highest in the EU. BioBuilds manufactures in Sibiu at EUR 1,676/m2. The same Passivhaus-certified product, shipped to Germany, competes against German Fertighaus options at EUR 4,800-5,200/m2. The cost gap isn't about lower standards. It's about labor economics, factory efficiency, and vertical integration. The certification is identical: PHI Darmstadt doesn't give discounts for geography. The EPD is the same. The Zehnder ventilation is the same. The post walks through what the price difference actually buys you in Germany (higher land cost, more intermediaries, lower factory utilization) vs what it doesn't buy you (better performance, better materials, better certification). This is the inverse of the usual outsourcing narrative: Romania isn't the cheap option. It's the factory-optimized option. Tesla doesn't apologize for building in Shanghai. BioBuilds shouldn't apologize for building in Sibiu. Ends with: the certificate doesn't know which country it came from. Neither should you.",
+      "psychological_lever": "cost savings",
+      "target_audience": "DACH families in the Fertighaus comparison phase who are evaluating 3-5 manufacturers and shocked by German new-build pricing, especially first-time builders in Bavaria, Baden-Württemberg, and Austria",
+      "differentiation": "Only hook that frames Romania as a manufacturing advantage rather than a budget compromise. The 'same certificate' punchline eliminates the quality objection before it forms. The tone is confident and slightly provocative toward the German construction establishment. Unlike previous cost hooks that used city comparisons (Munich vs Sibiu), this one frames the entire country dynamic and includes the shipping/delivery reality. No personal story, no regulation, no health angle.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: the hook. Slide 2: BioBuilds factory floor in Sibiu, clean and precise. Slide 3: what EUR 1,676/m2 includes (full spec list). Slide 4: what EUR 4,800/m2 includes in Germany (identical specs). Slide 5: the Passivhaus certificate side by side (same document, same standard). Slide 6: 'The certificate doesn't know which country it came from.' Aerial shot of a BioBuilds home in Germany."
+      }
+    }
+  ]
+}
