@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-26",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-26T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Your boiler ran 6 hours last night. Ours ran zero.",
+      "angle": "Make the reader hear their own home failing them. Right now, in late February, gas boilers across Germany and Austria are running through the night to keep homes above 20 degrees. BIOBUILDS homes don't need them to. The 336mm walls, triple glazing, and 95% heat recovery ventilation hold temperature using body heat, appliances, and passive solar gain alone. The caption doesn't explain the physics. It paints the 3AM difference: one home has a machine burning gas in the dark, the other has silence and warmth. The word 'zero' is the punchline. Make the reader feel the absurdity of paying a machine to do what good walls do for free. End with the heating bill comparison: €1,180/year for a German gas home vs under €100 for the whole year in a Passivhaus.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "German and Austrian homeowners (35-55) who can literally hear their boiler cycling on and off at night, who dread the Heizkostenabrechnung, and who have replaced or repaired their heating system at least once",
+      "differentiation": "Only hook that personifies the heating system as a worker doing overtime. The humor isn't a joke. It's the absurdity of a machine running 6 hours nightly when the alternative is zero. Previous humor hook (2/24 h04) used annual boiler hours (2,000 vs 47). This one zooms into a single night, making it immediate and visceral. The 'last night' framing ties it to the reader's own experience from hours ago. DACH-specific data: €1,180 from co2online 2025 Heizspiegel.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS bedroom at 3AM. Blue winter moonlight through triple-glazed windows, snow visible outside. A person sleeping peacefully under white linen, bare shoulders, warm wood ceiling overhead. Total stillness. No radiator, no boiler room glow, no mechanical hum. The image should feel like silence itself. Through the glass: a faint glow from a neighbor's house where something is clearly running. 4:5 vertical, 1080x1350px.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "May 2026. The EU changes building law forever. We passed it in 2020.",
+      "angle": "The EU Energy Performance of Buildings Directive must be transposed into national law by May 29, 2026. That's three months from now. All new public buildings must be zero-emission by 2028, all new buildings by 2030. The construction industry is scrambling. Architects are rewriting specs. Developers are panicking about compliance. BIOBUILDS Passivhaus certification already exceeds every requirement in the directive. Has since 2020. The caption positions BIOBUILDS buyers not as early adopters but as the only people who won't need to worry when the law changes. Everyone else is building homes that will need retrofitting before the mortgage is paid. The smugness is earned: while the industry catches up, BIOBUILDS owners are already living in the future standard.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "Analytical DACH buyers (35-50), engineers, architects, and urban planners who follow EU policy, read building codes, and make decisions based on regulatory risk and long-term asset value",
+      "differentiation": "Only hook with a specific regulatory deadline 3 months away (May 2026 EPBD transposition). Previous regulation hook (2/20 h02) used the 2030 ZEB deadline. This one is more immediate and urgent: the law changes THIS spring. The framing 'we passed it in 2020' turns compliance into a competitive advantage. Different tone: matter-of-fact confidence, almost bored with being ahead. No lifestyle imagery, no emotion. Pure logic-brain appeal.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home exterior, clean and modern, shot straight-on in winter morning light. Frost on the surrounding trees. The house looks timeless, calm, inevitable. No people needed. The architecture IS the statement. Perhaps a subtle detail: the Passivhaus certification plaque visible near the entrance. The simplicity of the image mirrors the simplicity of the message: already compliant, already built, already living in it. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "950 people died in one week last July. In Romania. From heat. Indoors.",
+      "angle": "During July 21-27, 2025, approximately 950 people died from heat across Romania, Bulgaria, Greece, and Cyprus. The majority died indoors, in buildings with poor thermal protection. Romania alone had 360 excess heat deaths in Bucharest that summer. The same Passivhaus walls that keep a BIOBUILDS home warm in February keep it at 24 degrees in a 40-degree July without air conditioning. No electricity spike. No noise. No extra cost. The caption doesn't sell comfort. It reframes energy performance as infrastructure that saves lives. This is a February post about summer because the decision to build happens now, months before the heat returns. Make the Romanian reader remember last July's misery and realize their building is the problem, not the weather.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Romanian families (30-45) in Bucharest, Cluj, and other cities who suffered through July 2025 heatwaves in poorly insulated apartments, especially parents with young children or those caring for elderly parents",
+      "differentiation": "Only hook using Romania-specific mortality data from 2025 (950 deaths in one week across the region, 360 in Bucharest alone). Previous heat-death hooks (2/24 h01, 2/25 h05) used pan-European statistics. This one names Romania directly, making it personal for the Romanian audience. The parental fear lever is different from health/indoor environment because it targets protective instinct, not wellness optimization. The 'one week' timeframe is more shocking than seasonal totals. Romania/Eastern Europe angle as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home in a Romanian landscape during summer. Intense midday sun, dry golden grass, heat visible in the air. But through the open panoramic window: a family with a toddler playing on the cool wood floor, barefoot, relaxed. No AC unit anywhere. The exterior blazes. The interior breathes. The child is safe and comfortable. The surrounding traditional houses in soft background look like ovens. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Gas grid fees rise 10% in 2026. Then again. Then again. Then you're the last one paying.",
+      "angle": "Germany's gas grid operators announced a 10% increase in distribution fees for 2026. But the real story is structural: as more households switch to heat pumps and electric heating, fewer customers remain to fund the gas grid's maintenance. The math is brutal and accelerating. By 2045, the last gas-heated homes could face €4,000/year in extra grid costs alone, on top of the gas itself. The caption reveals the death spiral that nobody is talking about: every neighbor who switches makes YOUR gas bill higher. BIOBUILDS homes sidestep the entire trap. 15 kWh/m²/year. No gas connection needed. No grid dependency. The reader realizes this isn't about saving money today. It's about not being the last person holding a bill that only gets bigger.",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "Forward-thinking German and Austrian homeowners (35-55) who are currently on gas heating and haven't yet connected the dots between declining gas customer numbers and their own rising costs. The kind who reads their utility bill carefully.",
+      "differentiation": "Only hook that explains the gas grid death spiral mechanism. Previous cost hooks compared annual bills (€1,180 vs €100) or lifetime totals (€120,000). This one reveals WHY costs will keep accelerating: structural grid economics, not just energy prices. The phrase 'the last one paying' creates visceral loss aversion. The repetition 'then again, then again' builds dread. DACH-specific data: 10% grid fee increase confirmed by German grid operators for 2026, €4,000/year projection from Clean Energy Wire analysis.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: A gas meter close-up, numbers spinning. Stark, slightly ominous. Clean typography overlay with the hook text. Slide 2: Infographic showing the shrinking number of gas customers over time, simple bar chart. Slide 3: The math: fewer customers = higher fees per household. Clean design. Slide 4: A BIOBUILDS home in winter, warm and independent. No gas meter. No grid connection. Family inside, visible through glass. Slide 5: The contrast: €4,000/year vs near-zero. The exit is clear. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "She said: 'I haven't used my inhaler since we moved in.'",
+      "angle": "A quiet, human moment that traces directly back to why BIOBUILDS exists. Alin Muste started this company because his son had asthma from conventional building materials. This hook uses a different voice: not the founder's, but a homeowner's. A mother, a child, a partner. Someone who noticed their breathing changed. 98% organic materials. Zero formaldehyde. Medical-grade ventilation replacing the entire air volume every two hours. 99% dust and allergen filtration. The caption doesn't explain the science first. It lets the human observation land. Then reveals what changed: the walls, the air, the home itself. Make the reader with allergies, with a child who wheezes, with a partner who snores, realize the building might be the variable they never tested.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Parents of children with respiratory issues (asthma, allergies) and adults with their own breathing/sleep problems across all markets, who have tried every medication and supplement but never questioned their building",
+      "differentiation": "Only hook that uses a first-person testimonial voice as the opening. Not data, not contrast, not provocation. A quiet human observation. The inhaler detail is specific, medical, and instantly recognizable to anyone who lives with asthma. Previous health hooks led with statistics (300+ chemicals, 3.8M deaths) or accusations (off-gassing). This one leads with relief. The emotional register is entirely different: gratitude and surprise, not fear. Connects to the origin story without telling it. Experimental angle: testimonial-as-hook has never been tested in any batch.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A child running across a BIOBUILDS deck in winter, laughing, breath visible in the cold air but clearly healthy and energetic. Behind them: the warm interior visible through floor-to-ceiling glass, slatted wood ceiling, golden light. The child's movement and joy is the proof. No posed shot. Phone-quality feel. Maybe slightly motion-blurred. Real life, not a catalog. The surrounding forest or hillside grounds the scene in nature. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
