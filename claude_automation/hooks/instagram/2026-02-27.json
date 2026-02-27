@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-02-27",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-27T09:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "April 1. Romania liberalizes gas. Your bill won't have a ceiling anymore.",
+      "angle": "Romania's government just announced a special gas pricing regime because the current price caps expire April 1, 2026. The energy minister is scrambling to keep tariffs stable, which tells you everything about what happens without intervention. Romanian families heating with gas have been shielded. That shield is cracking. The caption positions this as a countdown: 33 days until the rules change. BIOBUILDS homeowners consume so little energy that gas price liberalization is irrelevant to them. 15 kWh/m2/year. The caption doesn't lecture about Passivhaus. It names the date, names the risk, and lets the Romanian reader do the math. End with the contrast: when your neighbor's bill doubles, yours stays under €100 for the entire year. The urgency is real, the policy is confirmed, and every Romanian IT couple planning to build is already anxious about this.",
+      "psychological_lever": "cost savings",
+      "target_audience": "Romanian IT professionals and young families (28-42) in Bucharest, Cluj, Timisoara who heat with gas and are aware of the upcoming April 1 liberalization but haven't connected it to their housing decision",
+      "differentiation": "Only hook tied to a specific Romanian policy deadline 33 days away (April 1 gas liberalization). Previous Romania cost hooks used construction cost inflation (14%) or permit drops (45%). This one targets the recurring monthly cost that every Romanian household feels. The date creates urgency that no previous hook has matched. The word 'ceiling' is literal (price cap) and metaphorical (no limit). Romania-specific angle as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home at golden hour in a Romanian countryside landscape. Rolling hills, maybe the edge of a village visible in soft focus. A young couple on the deck, barefoot, completely relaxed. The home radiates warmth. No gas meter, no utility infrastructure visible. The calm is the contrast to every other household's April anxiety. 4:5 vertical, 1080x1350px.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Spain lost power for 16 hours. This home never would.",
+      "angle": "The April 2025 Iberian blackout cut electricity to 60 million people across Spain and Portugal for up to 16 hours. It exposed a reality most Europeans ignore: grid infrastructure is fragile. 55% of Europe's power system risks blackouts without improved interconnection. The caption connects the dots for the reader: your home's comfort depends on a grid you don't control. A BIOBUILDS Passivhaus home with its 336mm insulated walls holds temperature for days without any power input. No heating system running. No electricity needed to stay warm. The thermal mass and airtight envelope act as a battery for warmth. Add solar panels and a home battery (optional), and you're fully independent. The hook reframes energy performance not as saving money but as sovereignty. Your home works when the grid doesn't. Make the reader remember the blackout news and realize their apartment would have been freezing in 6 hours.",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "Security-minded Europeans across all markets (35-55) who watched the Iberian blackout coverage, who worry about grid reliability during extreme weather, and who value independence and self-sufficiency in their major life purchases",
+      "differentiation": "Only hook that uses a real infrastructure failure event (2025 Iberian blackout) as the entry point. No previous hook in any batch has framed energy performance as grid independence. The lever is trust/legitimacy because the argument is about the reliability of the building itself, not its cost or comfort. The tone is calm and factual, not fearful. The word 'never' is earned by the physics. Completely different register from cost, health, or lifestyle hooks.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: News-style image of the Iberian blackout (city in darkness, dramatic). Text overlay with the hook. Slide 2: Infographic showing 55% of Europe's grid at risk. Clean, minimal design. Slide 3: Cross-section of BIOBUILDS 336mm wall showing thermal retention. Simple, educational. Slide 4: A BIOBUILDS home at night in winter, warm glow from inside, while surrounding houses are dark. The visual tells the independence story. Slide 5: Family inside, evening, candles lit for ambiance not necessity, warm and comfortable. 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "25 million heat pumps installed in Europe. Ours barely turns on.",
+      "angle": "Europe just hit 25.5 million heat pump installations, saving 21 billion cubic meters of gas. The entire continent is scrambling to install heat pumps to fix broken buildings. BIOBUILDS homes don't need a heat pump to work hard because the building itself does the work. When your walls hold U-value 0.14 W/m2K and your airtightness is 0.24 ACH, the heat pump is almost decorative. It runs for maybe 47 hours a year. The continent is celebrating installing the fix. BIOBUILDS owners are living in homes that barely need the fix. The caption flips the heat pump narrative: everyone else is buying a machine to compensate for bad walls. You bought walls that don't need compensating. The humor is subtle: 25 million machines working overtime, and yours is practically retired.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "Tech-forward sustainability-conscious professionals in DACH (35-50) who are researching heat pumps, comparing quotes, reading about subsidies, and haven't yet considered that the real solution is the building envelope, not the HVAC system",
+      "differentiation": "Only hook that uses the heat pump mega-trend as a foil. No previous hook has addressed the heat pump conversation, which is the dominant energy topic in DACH right now. The contradiction is clever: the thing everyone is rushing to install, your home barely needs. The number (25 million) is impressive and current. The tone is wry amusement, not superiority. Different from the boiler-hours hooks (2/24, 2/26) because this isn't about boilers being old, it's about heat pumps being necessary only because buildings are bad. DACH-specific data as required.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A BIOBUILDS home exterior in late winter, clear day. No visible HVAC equipment, no outdoor heat pump unit dominating the garden. Just clean architecture, wood, glass, and nature. The absence of mechanical infrastructure IS the visual point. A person on the deck with coffee, unbothered. Compare mentally to every other modern home with a bulky heat pump unit bolted to the side. 4:5 vertical, 1080x1350px.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Your kid sleeps 8 hours in air you've never tested.",
+      "angle": "This hook doesn't accuse. It creates a quiet gap. Most parents obsess over what their children eat and drink but have never once tested the air inside their bedroom. The average European home has CO2 levels above 1,500 ppm by morning in a closed bedroom. Formaldehyde, VOCs from paint and flooring, dust mites, particulates. None of it visible. None of it tested. A BIOBUILDS home replaces the entire air volume every two hours through medical-grade filtered ventilation. 99% dust and allergen filtration. Zero formaldehyde materials. The CO2 never rises above 800 ppm. The caption doesn't say 'your home is toxic.' It says 'you've never tested.' The parent's own imagination does the rest. Then it shows what tested, certified, filtered air looks like: a child sleeping deeper, breathing easier, waking up without congestion. Connect to the origin story without telling it: this company exists because a father measured the air.",
+      "psychological_lever": "parental fear",
+      "target_audience": "Parents of children under 10 across all markets, especially health-conscious parents who buy organic food, filter their water, and track their kids' sleep but have never thought about indoor air quality in the bedroom",
+      "differentiation": "Only hook that frames indoor air as an untested variable rather than a known danger. Previous parental fear hooks (2/19 h02: 'Your walls are off-gassing right now') were accusatory and direct. This one invites the reader to question, not feel attacked. The word 'tested' is key: it positions BIOBUILDS as the brand that actually measured and certified the air, while implying everyone else is guessing. Follows brand voice rule III (never humiliate the client). The tone is curious, not confrontational. Experimental approach to the parental fear lever.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A child sleeping peacefully in a BIOBUILDS bedroom. Warm wood ceiling, soft morning light through triple-glazed window, white linen. The child looks deeply rested. The room feels alive with natural materials. No tech visible, no air purifier, no humidifier. The architecture IS the air system. Shot feels intimate, phone-quality, real. Maybe a stuffed animal beside the pillow. 4:5 vertical, 1080x1350px.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "We built 200 homes. Not one owner went back to traditional.",
+      "angle": "Pure social proof through an absence. 200+ Passivhaus-certified homes delivered across Europe. 5.0 Google Reviews. Zero clients who experienced this and then chose to build traditionally again. The caption lets that fact breathe. It doesn't explain why. It lets the reader's curiosity fill the gap. Then briefly: once you've lived in 24 degrees year-round without touching a thermostat, once you've seen a heating bill under €100 for the whole year, once your kid stops needing an inhaler, you don't go back. The construction industry loses customers to BIOBUILDS permanently. Not because of marketing. Because of physics. The hook works because '200 homes' is a large enough sample to be credible but small enough to feel human-scale and real. And 'not one went back' is a claim so bold the reader needs to know if it's true.",
+      "psychological_lever": "social comparison",
+      "target_audience": "Skeptical analytical buyers across DACH and Romania (35-50) who are in the comparison phase, reading reviews, visiting forums, and need peer validation before making the biggest purchase of their lives",
+      "differentiation": "Only hook that uses retention/loyalty as the proof of product quality. No technical specs, no cost data, no lifestyle imagery in the hook itself. The argument is epidemiological: 200 cases, zero reversions. No previous hook has used this framing. The tone is matter-of-fact confidence, almost understated. The lever is social comparison because it makes the reader think: 'If 200 families who tried this never went back, what do they know that I don't?' Different from testimonial hooks (2/26 h05: inhaler quote) because this is aggregate proof, not individual story.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A wide shot of a BIOBUILDS home in a beautiful European landscape. The home looks lived-in, established, not freshly delivered. A family on the deck, settled, comfortable. Maybe a garden started, a bike leaning against the railing, signs of life accumulated over time. This isn't a new purchase. This is a life that worked out. The image says: they stayed. 4:5 vertical, golden hour, 1080x1350px.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
