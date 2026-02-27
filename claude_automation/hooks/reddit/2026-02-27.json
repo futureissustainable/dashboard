@@ -1,0 +1,75 @@
+{
+  "platform": "reddit",
+  "date": "2026-02-27",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-02-27T02:30:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Europe's gas storage is at its second-lowest level in a decade. Mid-November demand spiked 70% in one week during a cold snap. My heating bill that week: EUR 4.10. I genuinely forgot it was cold outside until I went to buy groceries.",
+      "angle": "A European homeowner shares the surreal disconnect between living inside a high-performance envelope and the energy anxiety gripping the continent. The post opens with the ENTSO-E and IEA data: EU gas storage ended 2025 at a 14% deficit vs prior year, the second-lowest in over a decade, and a November cold snap drove daily gas demand up 70% in a single week. The poster contrasts this with their own reality: stable 21C indoors, heat pump drawing under 2 kW, total heating cost for that brutal week at EUR 4.10. The post walks through the math: their home's heating demand of ~15 kWh/m2/year means a 95m2 house needs roughly 1,425 kWh for an entire year of heating, while a conventional German home of the same size needs 13,000-15,000 kWh. During a cold snap, the conventional home's gas demand spikes. Theirs barely registers. Includes the stat that a 1C thermostat reduction across all European buildings would save 240 TWh/year, roughly one-sixth of what Europe used to import from Russia. The tone is bemused rather than preachy: 'I'm not trying to be smug, I'm trying to explain that it felt like living in a different timeline.' No brands, no solutions pitched, just the lived experience of being insulated from an energy system in crisis.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "European renters and homeowners who experienced anxiety during recent cold snaps and energy price spikes, especially those who have normalized the stress of watching energy markets as a homeowner",
+      "differentiation": "Only hook that anchors on a specific week of real-time crisis (November 2025 cold snap) with live market data. The silence/privacy lever is used in an unusual way: not acoustic silence, but the silence of not having to worry, the psychological privacy from market volatility. This reframes energy performance as emotional insulation, not just thermal insulation. Completely different from Feb 20's silence hook (which was about noise). No regulatory angle, no comparison table, no financial projection.",
+      "platform_meta": {
+        "subreddit": "r/PrefabHomes",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Ich habe mein Haus mit einem Infrarot-Thermometer durchgemessen. Aussenwand: 21.3C. Fensterrahmen: 20.8C. Fensterflaeche: 20.1C. Fussboden Ecke: 20.9C. Zum Vergleich: Im Haus meiner Eltern (Baujahr 1998) schwankt das zwischen 14 und 22 Grad im selben Raum. Komfort ist messbar, man merkt es nur erst wenn man es hat.",
+      "angle": "A German Bauherr takes an infrared thermometer through their Passivhaus-standard home and documents the thing nobody talks about: surface temperature uniformity. The post is written in casual German for r/FragReddit. The core insight is that most people think comfort means 'warm enough' but Passivhaus comfort means every surface in the room is within 1-2C of every other surface. No cold window zones, no freezing floors, no radiator-hot walls with cold-draft doorways. The post includes their measured readings (all between 20.1 and 21.3C) and then walks through why: triple glazing with Ug 0.5 W/m2K keeps internal glass surface above 17C even at -10C outside, wall U-value of 0.14 W/m2K means the inner wall surface barely deviates from room temperature, and airtightness at 0.35 ACH50 eliminates drafts. Contrasts with their parents' 1998 Massivhaus where measurements swing from 14C (window zone) to 22C (near radiator). Mentions the PHI research that thermal asymmetry above 3C causes detectable discomfort, even when average room temperature is fine. The last line hits home: 'Komfort ist messbar, man merkt es nur erst wenn man es hat.' (Comfort is measurable, you just don't notice it until you have it.) No brands. Just a thermometer and curiosity.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "German Bauherren and renovators on r/FragReddit who argue about Passivhaus vs conventional builds but have never measured the actual comfort difference, plus curious renters wondering what all the fuss is about",
+      "differentiation": "Only hook built around a DIY measurement experiment with an infrared thermometer. The health/indoor environment lever is applied to thermal comfort uniformity, not air quality or VOCs (which was Feb 19's approach). Written in German, fulfilling the DACH requirement. No financial data, no energy bills, no regulations. Just a thermometer and a comparison with parents' house. The physicality of pointing a tool at surfaces gives it a tangible, hands-on feel unlike any other hook in recent batches.",
+      "platform_meta": {
+        "subreddit": "r/FragReddit",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "The EPBD transposition deadline is May 29, 2026. Three months from now, every EU country must define what 'zero-emission building' means in national law. I asked 4 builders in Austria what this changes for their current designs. Two had never heard of it. One said 'that's for commercial buildings.' One laughed.",
+      "angle": "A self-builder or architectural consultant shares the results of asking real builders about the revised Energy Performance of Buildings Directive (EU/2024/1275), which must be transposed into every EU member state's national law by May 29, 2026, just three months away. The post isn't about explaining the regulation (Feb 23 and Feb 25 already covered that ground). Instead, it's a boots-on-the-ground reality check: the industry hasn't caught up. The post covers: zero-emission buildings mandatory for all new builds by 2030, new public buildings by 2028, the new A-to-G energy certificate scale where A = zero-emission, building renovation passports required by May 2026, and the requirement for residential primary energy use to drop 16% by 2030 and 20-22% by 2035. Then contrasts this with the fact that only 0.4-1.2% of EU buildings get renovated annually. The punchline: if you're building a house today and your builder can't explain how it meets the 2030 standard, you're building a liability. Austrian Wohnbaufoerderung angle: provinces already subsidize up to 35% of Passivhaus costs because they know what's coming. Written with a mix of disbelief and practical urgency. Mentions no brands, but clearly positions Passivhaus standard as already exceeding every upcoming requirement.",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "European self-builders, architects, and real estate investors in the planning phase who are unaware that a major regulatory deadline lands in 3 months and their builder probably hasn't prepared for it",
+      "differentiation": "Only hook using dark humor as the entry point: the absurdity of an industry that hasn't noticed a continental regulatory shift happening in 90 days. The humor/absurdity lever hasn't been used since Feb 20, and this applies it to regulation rather than design aesthetics. Different from Feb 23 and Feb 25's regulation hooks (which were informational) by being anecdotal and comedic. The specificity of '4 builders in Austria' makes it feel reported, not researched. Austrian data fulfills the DACH requirement in a fresh way (Austria, not Germany).",
+      "platform_meta": {
+        "subreddit": "r/realestateinvesting",
+        "persona_type": "builder",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "I tracked every kWh in my house for 24 months. Heating: 1,380 kWh/year. Hot water: 2,100 kWh. Cooking: 680 kWh. Lighting and electronics: 1,400 kWh. My dishwasher uses more energy than my heating system. That sentence still feels wrong to type.",
+      "angle": "A data-obsessed homeowner shares a full energy audit of their 95m2 Passivhaus-standard home across 24 months, broken down by end use. The revelation that disrupts expectations: heating is no longer the dominant energy draw. In a Passivhaus, hot water (2,100 kWh) and electronics/lighting (1,400 kWh) dwarf heating (1,380 kWh). The post includes month-by-month heating demand showing how even in January, the heat pump draws only 4-5 kWh/day, roughly the same as running a gaming PC. Compares this to the EU average where heating represents 64% of household energy. In this house, it's 25%. The dishwasher comparison is the hook: a standard dishwasher running daily uses ~300-400 kWh/year, and heating a well-built 95m2 home uses roughly 3.5x that. The post connects this to the broader shift: when you solve the envelope, the optimization conversation changes entirely. Suddenly you're thinking about LED efficiency, appliance ratings, and standby power rather than boiler settings and thermostat wars. Includes the co2online stat that German households average EUR 1,180/year for gas heating alone, while the poster's TOTAL energy cost (heating + DHW + cooking + everything) comes to roughly EUR 530/year at Germany's average 0.38/kWh. The tone is genuinely surprised and a bit nerdy: someone who expected the building to be the story but discovered the story is actually about everything else.",
+      "psychological_lever": "confrontation/material fight",
+      "target_audience": "Energy-aware Europeans who track consumption, participate in Energiewende discussions, and think about building performance in terms of heating demand without realizing that in a truly efficient home, heating becomes the smallest line item",
+      "differentiation": "Only hook reframing energy performance by inverting the expected hierarchy: in a Passivhaus, your dishwasher rivals your heating system. The confrontation lever is applied to the reader's assumptions about what matters in home energy, not to an industry or technology. Leads with specific kWh breakdowns across 5 categories. No emotional narrative, no health angle, no financial fear. Pure data surprise. The '24 months tracked' gives it longitudinal credibility that single-month snapshots lack.",
+      "platform_meta": {
+        "subreddit": "r/greenbuilding",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Romania's buildings now consume 45% of the country's gas, up from 30% in 2010. Average apartment heating in Bucharest costs RON 600-800/month in winter. I built a 48m2 home near Brasov, elevation 640m, colder climate, worse conditions. My January total: RON 94. Here's what I did differently.",
+      "angle": "A Romanian homeowner shares a detailed breakdown targeting the growing vulnerability of Romania's building stock to gas price exposure. The post opens with the structural shift: buildings went from 30% of Romania's gas demand in 2010 to 45% now, meaning more Romanians are exposed to gas volatility every year. Then shares their personal data: a 48m2 home near Brasov at 640m elevation (genuinely cold winter conditions, regularly hitting -15C) with a January total energy bill of RON 94 (roughly EUR 19). Walks through the specifics: wall U-value 0.14, airtightness at 0.4 ACH50, heat pump COP averaging 3.2 in January at those temperatures, MVHR running 24/7 recovering 95% of heat. Contrasts with the average Bucharest apartment at RON 600-800/month despite milder temperatures, because the building fabric is the bottleneck. Includes Romania's electricity price at EUR 0.19/kWh (72% of EU average), making heat pump operation even cheaper here than in Germany. Notes that the gas subsidy scheme is under review for March 2026 and many households will see unshielded prices for the first time. Written from a practical, 'I solved this problem for myself and here's how' perspective. No brands. Just building science applied in a Romanian context where almost nobody is talking about it yet.",
+      "psychological_lever": "time value",
+      "target_audience": "Romanian homeowners and Eastern European investors who see energy costs rising year over year but think of it as a gas price problem rather than a building quality problem, plus expats considering building in Romania",
+      "differentiation": "Only hook with Romanian-specific data anchored in a structural shift (buildings' share of gas demand nearly doubling in 15 years). The time value lever is applied differently from Feb 25 (which focused on German gas grid costs compounding over time): here it's about Romania's accelerating exposure curve, where every year more of the economy depends on gas for buildings while the poster has already opted out. The elevation detail (640m, colder than Bucharest) preemptively answers the 'yeah but you're in a mild area' objection. Romania angle fulfilled with fresh macro data, not just a personal bill."
+    ,
+      "platform_meta": {
+        "subreddit": "r/PassiveHouse",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    }
+  ]
+}
