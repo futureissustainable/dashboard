@@ -27,9 +27,9 @@
 name: Daily Reddit Posts
 
 on:
-  schedule:
-    # Every weekday (Mon-Fri) at 01:00 UTC (runs first)
-    - cron: '0 1 * * 1-5'
+  # schedule:
+  #   # Every weekday (Mon-Fri) at 01:00 UTC (runs first)
+  #   - cron: '0 1 * * 1-5'
   workflow_dispatch:                # manual trigger from Actions tab
 
 permissions:

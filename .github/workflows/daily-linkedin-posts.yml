@@ -27,9 +27,9 @@
 name: Daily LinkedIn Posts
 
 on:
-  schedule:
-    # Every weekday (Mon-Fri) at 01:30 UTC (staggered to avoid push conflicts)
-    - cron: '30 1 * * 1-5'
+  # schedule:
+  #   # Every weekday (Mon-Fri) at 01:30 UTC (staggered to avoid push conflicts)
+  #   - cron: '30 1 * * 1-5'
   workflow_dispatch:                # manual trigger from Actions tab
 
 permissions:
