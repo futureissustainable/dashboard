@@ -1,0 +1,74 @@
+{
+  "platform": "instagram",
+  "date": "2026-09-16",
+  "pillar": "Living Experience",
+  "generated_at": "2026-09-16T06:30:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "German families spent EUR 2,100 on electricity last year. Ours forgot to check the bill.",
+      "angle": "Updated 2026 German electricity price data against Passivhaus near-zero bills. The 'forgot to check' framing shifts from savings math to lifestyle freedom. The body would explore what you do with the mental space when bills stop being a source of stress. Living Experience through financial peace.",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "DACH families actively comparing build options, spreadsheet-oriented planners who track every euro",
+      "differentiation": "Only hook using a specific 2026 DACH euro figure. Focuses on the psychological relief of not thinking about bills, not just the savings number. Different from Sept 14 h02 which used winter-specific framing; this is year-round and lifestyle-focused.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "95m2 Serenity kitchen scene, golden hour light through triple-glazed windows, family cooking dinner together, no visible tech or screens. Warm, lived-in, relaxed.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Germany approved 185,000 homes this year. Most families are still waiting.",
+      "angle": "ifo Institute data showing Germany's housing completions dropped 30% to 185,000 in 2026, the worst in Europe. Contrast with BIOBUILDS 21-day timeline. The body would tell a micro-story: one family that stopped waiting and moved in before their neighbors' foundations were poured. Living Experience through time reclaimed.",
+      "psychological_lever": "industry failure",
+      "target_audience": "German and Austrian families stuck in the permit/build/wait cycle, frustrated by the broken traditional construction system",
+      "differentiation": "Only hook attacking the system with current macro data. Not about BioBuilds speed directly, but about an industry failing at scale. The 185,000 number is concrete, verifiable, and feels like a news headline. Different tone: journalistic, not aspirational.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: empty plot of land, grey sky, no activity. Slide 2-3: construction site with scaffolding, stalled. Slide 4-6: BIOBUILDS home fully installed, family on deck, autumn light. Slide 7-8: kids playing in garden, couple on deck with wine.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "Your body can survive 3 minutes without air. Your walls decide the quality.",
+      "angle": "Reframe the home as a biological environment. 2026 EU study found formaldehyde in conventional building materials causes respiratory and neurological effects across 14 countries. The body would contrast conventional wall composition with 98% organic materials, ending on the idea that the air your family sleeps in is shaped by decisions you made once. Living Experience through invisible health.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "Health-conscious parents across Europe, especially those who already filter water and buy organic food but never questioned what their walls emit",
+      "differentiation": "Only hook using the biological survival fact as entry point. Targets the contradiction of people who optimize diet but ignore the air they breathe 90% of their lives. Not about fear (different from parental fear lever used Sept 14), but about a blind spot in modern wellness culture.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Close-up of a child sleeping peacefully in a BIOBUILDS bedroom, soft morning light, natural wood ceiling visible above. Calm, quiet, intimate. No text overlay needed.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "We moved in on a Friday. By Sunday, the kids had a favorite corner.",
+      "angle": "Pure micro-narrative from a family's first weekend. No data, no specs, no contrast. Just the feeling of a home becoming home in 48 hours. The body would stay in that moment: bare feet on oak, morning light through panoramic glass, the dog finding its spot. Tests whether pure experiential storytelling outperforms data hooks on Instagram. Living Experience at its most literal.",
+      "psychological_lever": "trust/legitimacy",
+      "target_audience": "Young families in Romania and across Europe who dream about the moment of moving in, not the process of building",
+      "differentiation": "Only hook that reads like a real homeowner wrote it, not a brand. Zero product language. Zero numbers. The legitimacy comes from the specificity of 'Friday to Sunday' and 'favorite corner.' Most different in tone from all other hooks. Experimental lever for this batch.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "95m2 interior, kids playing on the floor in a sunlit corner, toys scattered, natural wood everywhere. Phone-shot aesthetic. Real, imperfect, lived-in. A dog or blanket adds warmth.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "Your home cost you twice. Once at purchase. Every month after, in energy.",
+      "angle": "The 'pay for your house twice' insight from company overview, reframed as a direct address. EU electricity prices are up 38% since 2021. The body would walk through the math: average European home heating + cooling over 30 years vs. Passivhaus. End on the idea that real home ownership means owning your energy future, not renting it from the grid. Living Experience through true independence.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "Financially literate couples across DACH and Romania comparing total cost of ownership, not just purchase price",
+      "differentiation": "Only hook framing the home as a financial instrument. Not about monthly savings (cost savings lever), but about the total asset equation over decades. The 38% EU energy price increase since 2021 adds urgency. Different from cost savings because it reframes the home itself as either an asset or a liability.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: Text overlay 'You pay for your home twice' on warm exterior shot. Slide 2-3: Simple visual math, heating costs year 1 vs year 10 vs year 30 for traditional vs Passivhaus. Slide 4-6: Interior life scenes, family relaxed, no stress. Slide 7: 'Own your energy. Own your life.' on deck sunset shot.",
+        "caption_length": "short"
+      }
+    }
+  ]
+}
