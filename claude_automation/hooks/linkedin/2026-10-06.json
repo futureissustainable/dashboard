@@ -1,0 +1,69 @@
+{
+  "platform": "linkedin",
+  "date": "2026-10-06",
+  "pillar": "Energy & Performance",
+  "generated_at": "2026-10-06T01:30:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "73% of new German homes installed a heat pump this year. The other 27% will spend EUR 1,180 every winter pretending the decision can wait.",
+      "angle": "Use the dramatic shift in German new-build heating adoption (73.6% heat pumps, gas down to 10.5%) to frame inaction as financial self-harm. The post walks through the compound cost of delay: every winter on gas is EUR 1,180 lost, while Passivhaus homes eliminate the dependency entirely. Positions BioBuilds as the logical endpoint of a trend 73% of builders already accepted.",
+      "psychological_lever": "social comparison",
+      "target_audience": "DACH homebuyers and renovators still considering gas, comparing themselves to peers who already switched",
+      "differentiation": "Uses real 2026 Destatis adoption data as social proof pressure. Not about BioBuilds specs or price. About being left behind by your own country's building industry.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Split image: modern heat pump installation on one side, old gas boiler with cobwebs on the other. Real photos, not renders."
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "EU gas storage hit 22% in Germany this spring. The continent is running on fumes. My house runs on geometry.",
+      "angle": "Open with the alarming EU gas storage crisis data (Germany/France at 22%, Netherlands at 9%), then pivot to how Passivhaus design replaces fuel dependency with physics: solar orientation, thermal mass, envelope tightness. The post reframes energy security from a geopolitical anxiety into a personal architectural choice. Uses BioBuilds RIA house (2 kWh/m2/yr) as proof that building geometry eliminates fuel exposure entirely.",
+      "psychological_lever": "confrontation/material fight",
+      "target_audience": "Architects, engineers, and energy-conscious professionals across Europe who follow geopolitics and infrastructure risk",
+      "differentiation": "Geopolitical energy security angle. No other hook in recent batches ties EU infrastructure vulnerability to building physics. Confrontational tone directed at the fossil-dependent building system, not at readers.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: hook text in bold. Slides 2-4: EU gas storage map with declining percentages. Slide 5-7: BioBuilds wall section diagram showing how solar gain + insulation replaces gas. Final slide: 'What does your house run on?'"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "From May 2026, Germany requires an energy certificate for every lease renewal. Half the country's landlords just discovered their buildings are liabilities.",
+      "angle": "Lead with the new EPBD-driven regulation: Germany's expanded energy certificate requirement now covers lease renewals and major renovations (not just sales). Connect this to the fact that 50%+ of existing German homes still run on fossil gas with poor EPC ratings. Frame BioBuilds homes as arriving with A+ certification on delivery day, turning a regulatory burden into a competitive advantage. Include Romania angle: same Passivhaus standard, EUR 1,676/m2, no renovation required.",
+      "psychological_lever": "regulation/compliance",
+      "target_audience": "German landlords, property investors, and anyone planning to build rental properties who just learned about the expanded EPC requirement",
+      "differentiation": "Only hook using fresh May 2026 regulatory change. Regulation as urgency driver rather than abstract policy. Practical, not philosophical. Targets property investors, not families.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Screenshot-style image of a real German Energieausweis (energy certificate) showing an F or G rating with a red highlight, next to a BioBuilds certificate showing A+."
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "A family in Sibiu heats their home for EUR 8 per month. A family in Stuttgart heats theirs for EUR 98. Both houses are 95 m2. One was built with straw. The other with the system Stuttgart trusts.",
+      "angle": "Parallel lives comparison: two families, same square meters, same winter, wildly different heating bills. The Romania family's low cost isn't because Romania has cheap energy (it does, EUR 9.69/100 kWh), but because the building envelope does the work. The Stuttgart family pays more despite higher income because their home was built with conventional materials. The kicker: BioBuilds builds in Romania and ships to Germany. The Sibiu family and the Stuttgart family could have the same house. One already does.",
+      "psychological_lever": "cost savings",
+      "target_audience": "Romanian IT professionals considering building locally AND DACH families comparing cross-border options",
+      "differentiation": "East-West twin comparison with named cities. No other recent hook frames Romania as the proof-of-concept for what DACH should demand. Warm tone, not confrontational. Story-driven, not data-dumped.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Side-by-side carousel: Slide 1 hook. Slides 2-5 show parallel monthly costs, materials, build time for each family. Final slide: 'Same factory. Same standard. Same address if you want it.'"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "I recorded the sound inside our home at 3 AM last Tuesday. 26 dB. A recording studio averages 30. I am sleeping inside a building that is quieter than silence.",
+      "angle": "Experiential, sensory hook about acoustic performance as an undervalued energy metric. The post connects sound insulation to sleep quality, cortisol reduction, and cognitive function. Uses the fact that BioBuilds 54 dB wall reduction + Passivhaus envelope creates conditions quieter than professional recording environments. Links acoustic comfort to energy performance: the same envelope that blocks sound also blocks heat loss. An experimental hook that leads with sensation, not specs.",
+      "psychological_lever": "sleep/performance",
+      "target_audience": "Urban professionals, parents with young children, remote workers who struggle with noise and sleep quality",
+      "differentiation": "Only hook leading with sound/sleep rather than thermal performance or cost. Sensory and personal rather than data-heavy. Tests whether experiential, founder-moment hooks can work for the Energy & Performance pillar. No EUR figures in the hook itself.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Phone screenshot of a decibel meter app reading 26 dB inside the home at night. Dark room, soft ambient light through window. Real, not staged."
+      }
+    }
+  ]
+}
