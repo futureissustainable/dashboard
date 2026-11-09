@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-11-09",
+  "pillar": "Living Experience",
+  "generated_at": "2026-11-09T03:15:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Our December heating bill was EUR 19. Our neighbor in the same village pays EUR 247. We live in the same climate, same elevation, same wind exposure.",
+      "angle": "A Romanian family living in a certified Passivhaus shares their first real winter energy data side-by-side with their neighbor's conventional home. Post walks through daily routines (no radiator management, no cold floors, no fighting over thermostat) and how the absence of energy anxiety changes the way you actually experience winter at home. Includes real monthly bill comparisons Oct through Feb, plus indoor comfort metrics like stable 21C across all rooms.",
+      "psychological_lever": "cost savings",
+      "target_audience": "Cost-conscious European families considering building or buying, especially those in Romania and Eastern Europe who associate 'passive house' with expensive Western imports",
+      "differentiation": "This is the only hook that leads with a direct EUR comparison between two real households in identical conditions. Pure numbers, no philosophy. The neighbor contrast makes it visceral rather than abstract.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Seit wir eingezogen sind, hat unser Sohn keinen Inhalator mehr gebraucht. Das war nicht der Plan. Wir wollten einfach ein Haus mit niedrigen Heizkosten.",
+      "angle": "German-language post from a father in Bavaria whose 6-year-old had persistent asthma attacks in their rented apartment. They built a timber-frame modular home targeting KfW 40 primarily for financial reasons (energy savings, KfW 297 loan at 2.3%). The surprise was the health transformation. Post details the indoor air quality differences: MVHR delivering 95% filtered air, formaldehyde readings below detection limit, stable 45-50% humidity year-round. Written as an emotional Erfahrungsbericht with hard data woven in. No marketing. Just a dad sharing an unexpected outcome.",
+      "psychological_lever": "parental fear",
+      "target_audience": "German-speaking parents of children with respiratory issues (asthma, allergies) who are already planning to build and looking at Erfahrungsberichte",
+      "differentiation": "Only hook written in German, only hook centered on a child's health transformation, and only hook where the living experience improvement was accidental (they built for energy savings, got health benefits). Emotional tone completely different from the data-heavy English hooks.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "builder",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "I tracked my sleep with an Oura Ring for 6 months in our old apartment and 6 months in our new timber passive house. The deep sleep data is not even close.",
+      "angle": "A tech-savvy remote worker (34, Dutch, lives in Austria) compares biometric sleep data across two living environments using the same wearable. Presents actual Oura Ring screenshots and averages: deep sleep minutes per night, HRV scores, resting heart rate trends. Connects the dots to bedroom CO2 (1,850 ppm conventional vs 650 ppm MVHR homes per University of Zurich research), stable temperature (21C +/-1 vs 18-23C swings), and 54 dB sound insulation eliminating traffic noise. No brand names. Just data from a self-quantifier who happened to change his living environment. Fits r/PassiveHouse technical culture.",
+      "psychological_lever": "sleep/performance",
+      "target_audience": "Biohackers, self-quantifiers, tech workers, and health-optimizers who already track sleep metrics and would find the environmental variable compelling",
+      "differentiation": "Only hook that uses personal biometric data as the narrative device. Appeals to the quantified-self community rather than traditional homebuilders. Completely different audience segment and tone (data-nerd, not family-oriented).",
+      "platform_meta": {
+        "subreddit": "r/PassiveHouse",
+        "persona_type": "researcher",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "110 million Europeans live with health-damaging noise levels. I used to be one of them. Then I moved into a house with 54 dB walls and triple-glazed windows. The silence broke me for a week.",
+      "angle": "Personal essay from a writer who relocated from a noisy Berlin Altbau to a timber modular home in Brandenburg. Opens with the EEA statistic (110M affected, 66,000 early deaths/year from noise). Describes the psychological adjustment to silence: the first week felt eerie, then the nervous system unwound. Now normal city noise feels assaulting when visiting friends. Covers the technical specs (54 dB wall assembly, triple glazing, no mechanical noise from MVHR) but frames everything through the sensory experience of what deep quiet does to your daily life, focus, and relationships. Mentions that 17 million Europeans suffer 'severe' sleep disturbance from noise. Asks the community: has anyone else experienced this adjustment period?",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Urban Europeans suffering noise pollution who haven't connected their housing to their stress levels, especially renters in dense cities considering alternatives",
+      "differentiation": "Only hook that centers on sound and silence as the defining living experience. No mention of energy bills or costs. Pure sensory and psychological framing. Also the only hook that uses a question to the community as part of the hook, encouraging engagement.",
+      "platform_meta": {
+        "subreddit": "r/TinyHouses",
+        "persona_type": "expat",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "My Airbnb guests keep leaving the same review: 'we slept better here than at home.' I think it's the air, not the mattress. Here's what a EUR 40K certified cabin actually feels like to live in year-round.",
+      "angle": "An Airbnb host in Transylvania runs two Passivhaus-certified micro-cabins as glamping units. The post isn't about ROI (though numbers appear: EUR 19,500/year revenue, 71% occupancy). Instead, it's about what guests consistently report in reviews: unusually good sleep, no stuffiness despite tiny 24m2 space, comfortable in both -15C January and 35C August. The host started sleeping in their own cabin one night per week because the main house (conventional build from 2009) feels noticeably worse. Explores why: MVHR, stable humidity, no VOCs from timber and cork interior, triple glazing killing road noise from the nearby county road. Written casually, with real guest review quotes. Mentions BioBuilds as the cabin manufacturer in passing when describing the setup.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Airbnb hosts and hospitality entrepreneurs interested in guest experience differentiation, plus anyone curious about tiny/modular living comfort",
+      "differentiation": "Only hook told from a host's perspective using guest feedback as the evidence. Only hook that mentions BioBuilds (naturally, as manufacturer context). Only hook that addresses both winter AND summer comfort. Combines hospitality angle with living experience in a way none of the other hooks touch.",
+      "platform_meta": {
+        "subreddit": "r/Airbnb",
+        "persona_type": "investor",
+        "mentions_biobuilds": "true"
+      }
+    }
+  ]
+}
