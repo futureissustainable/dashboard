@@ -1,0 +1,74 @@
+{
+  "platform": "reddit",
+  "date": "2026-11-10",
+  "pillar": "Living Experience",
+  "generated_at": "2026-11-10T02:00:00Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "My wife and I haven't argued about the thermostat in 14 months. Before that, it was every single day from October to March. We didn't go to couples therapy. We moved into a house where every room is 21 degrees all the time without touching a dial.",
+      "angle": "A couple in their late 30s, both working from home in Nuremberg, used to fight about the thermostat constantly. She wanted 23, he wanted 19, the kids' room needed something different. The gas boiler meant every degree cost money, and the guilt of heating was always present. Since moving into a Passivhaus-standard home with MVHR, the house holds 21C in every room within plus or minus 1 degree, year-round, without radiators or manual adjustment. The thermostat argument vanished because the thermostat became irrelevant. Post walks through the daily experience: no cold spots by windows, no fighting over which rooms get heated, no guilt-driven mental load about the meter ticking. Weaves in the Uswitch 2026 survey data showing 1 million couples argue daily about thermostats and 23% of European households have routine temperature fights. Links the emotional relief to the mechanical reality: triple glazing, continuous insulation, 95% heat recovery ventilation means the house self-regulates. The post ends with the real punchline: their December gas bill was EUR 19, their old apartment was EUR 227. The relationship improvement was worth more than the money.",
+      "psychological_lever": "time value",
+      "target_audience": "Couples aged 28-45 who work from home and argue about heating costs and thermostat settings every winter, especially dual-income families where the mental load of energy management creates friction",
+      "differentiation": "Only hook that frames the living experience through RELATIONSHIP DYNAMICS rather than individual comfort or health. No other hook has used thermostat arguments as the entry point. The tone is warm and self-deprecating, completely different from the technical or investigative tone of recent hooks. Leads with an emotional domestic truth that 23% of European households share, not with building science.",
+      "platform_meta": {
+        "subreddit": "r/PrefabHomes",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "Wir haben unser Haus letztes Jahr 340 km versetzt. Vom Grundstueck meiner Schwiegereltern in der Steiermark auf unser eigenes Grundstueck in Oberoesterreich. Das Haus stand auf Schraubfundamenten. Die wurden rausgedreht, das Haus per Tieflader transportiert, und an einem Tag auf neue Schraubfundamente gesetzt. Umzugskosten gesamt: EUR 18.500. Ein normales Massivhaus kann das nicht.",
+      "angle": "A German-language Erfahrungsbericht from an Austrian couple who built a modular timber-frame home on ground screws on their in-laws' property in Styria while they waited for their own building permit in Upper Austria. When the permit came through 11 months later, they relocated the entire house 340 km by flatbed truck. Ground screws unscrewed in one morning, house lifted by crane, transported overnight, set on new ground screws by afternoon. Total relocation cost: EUR 18,500. A Massivhaus would require demolition and rebuild at EUR 200,000+. Post details the daily-life angle: they didn't pack boxes for walls or floors. Just personal belongings. The kitchen, bathroom, MVHR system, electrical, plumbing all traveled intact. They had hot water the evening they arrived. Describes the psychological freedom of knowing your home isn't permanently anchored to one piece of land. Mentions the growing relevance of France's ZAN (zero net artificialization) policy and similar EU land-use trends making relocatable structures increasingly valuable. Includes the ground screw reversal: the Styrian site was returned to grass within 2 weeks, no concrete to demolish.",
+      "psychological_lever": "modernity contradiction",
+      "target_audience": "German-speaking families aged 25-45 who assume a house is permanently fixed to one location and that modular means flimsy, especially those uncertain about committing to land in one place due to career mobility, family changes, or pending permits",
+      "differentiation": "Only hook about PHYSICAL RELOCATION of a completed home. No previous hook has covered the relocatability angle or ground screw reversal. Completely different from every other hook by treating the house as a movable asset rather than a fixed structure. German-language for authentic Austrian voice. The 340 km distance and EUR 18,500 cost make the abstract concept concrete.",
+      "platform_meta": {
+        "subreddit": "r/Hausbau",
+        "persona_type": "builder",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "50 million Europeans can't afford to heat their homes this winter. I heat mine for EUR 22 a month. Not because I'm rich. Because my walls are 336 mm thick and my windows have three layers of glass. This isn't a flex. It's a question about why the standard way of building makes heating a luxury.",
+      "angle": "Written from the perspective of a sustainability-focused remote worker living in a certified Passivhaus in rural Portugal (Alentejo region), originally from the Netherlands. Opens with the Euronews/EU Commission November 2026 data point: 50 million Europeans struggling to heat their homes, heating bills averaging EUR 180-240/month across France, Germany, and Belgium, 86% of households reporting energy bills weigh heavily on budgets. Contrasts this with their own reality: EUR 22/month heating from a small heat pump, stable 20-21C year-round, no supplemental heaters, no blanket-on-the-couch lifestyle. The post doesn't preach. It genuinely asks: if a house that costs EUR 1,100-1,400/m2 can achieve this, why is the EU building code minimum still allowing homes that cost EUR 200/month to heat? Walks through the daily experience of not thinking about energy: no meter-checking anxiety, no zone-by-zone heating decisions, no arguments about which rooms to close off. Cites that 72% of French households intentionally limited heating last winter. The post positions energy poverty not as an income problem but as a building problem. Every home that passes minimum code and costs EUR 200/month to heat is a home that traps its occupants in energy poverty by design.",
+      "psychological_lever": "social comparison",
+      "target_audience": "Environmentally aware Europeans aged 25-50 who follow the energy poverty conversation and feel the tension between their own heating bills and the idea that housing should be a basic right, especially renters and first-time buyers who assume efficient housing is only for the wealthy",
+      "differentiation": "Only hook that frames the living experience through the ENERGY POVERTY lens at a continental scale, contrasting 50 million struggling households with one household that solved the problem through building design. No previous hook has used the EU Commission's November 2026 energy poverty warning as the opening frame. The tone is reflective and political, not personal-finance or technical. Different from Nov 9 h01 (neighbor heating bill comparison) by scaling the comparison from 2 households to 50 million versus 1.",
+      "platform_meta": {
+        "subreddit": "r/sustainability",
+        "persona_type": "expat",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "Am locuit 3 ani intr-un bloc nou din Cluj si inca un an intr-o casa modulara din lemn. In bloc, aerul din dormitor la 6 dimineata mirosea a plastic si transpiratie. In casa, aerul de dimineata are acelasi miros ca cel de seara. Diferenta nu e pretul. E ventilatia.",
+      "angle": "A Romanian-language post (for r/FragReddit, but adapted in English for the subreddit) from a 31-year-old software developer in Cluj who lived in a newly built apartment block (2021, BCA masonry, EPS exterior, PVC everything) for 3 years before moving to a timber-frame modular home with MVHR. Written as a sensory comparison of daily life in both spaces. Morning air in the apartment: stale, plastic smell, condensation on windows, mold forming in bathroom corners by the second winter. Morning air in the modular home: identical to evening air because the MVHR exchanges it 0.3 times per hour continuously. Cooking smells gone in 20 minutes instead of lingering for hours. No condensation anywhere, ever. Bathroom mirror doesn't fog. The poster tracks indoor humidity with a cheap sensor: apartment swung between 28% (January, heating full blast) and 78% (after shower, no ventilation), timber home steady at 42-48% year-round. The post explains that Romanian new-build apartments meet CATUC nZEB on paper but have no mandatory mechanical ventilation, no airtightness testing, and the actual indoor environment depends entirely on whether you open windows, which nobody does at -10C in a Cluj January. Positions the comparison not as rich-vs-poor housing but as ventilated-vs-unventilated. The modular home cost EUR 1,050/m2 turnkey. The apartment cost EUR 1,800/m2. The cheaper home has better air.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Young Romanian professionals aged 25-40 in Cluj, Timisoara, or Bucharest who live in post-2018 apartment blocks and experience morning stuffiness, window condensation, bathroom mold, or lingering cooking smells without connecting these to the absence of mechanical ventilation in Romanian new construction",
+      "differentiation": "Only hook centered on SENSORY COMPARISON of daily indoor air between two Romanian dwellings. Romania angle is CENTRAL. No previous hook has directly compared the smell and feel of morning air in a bloc nou vs a timber modular home. The humidity sensor data (28-78% apartment vs 42-48% MVHR home) provides a simple, relatable measurement anyone can replicate with a EUR 15 device. Different from Nov 6 h05 (formaldehyde measurement) which required lab equipment and targeted chemical exposure. This targets the EVERYDAY SENSORY EXPERIENCE that every Romanian apartment dweller recognizes. The EUR 1,050/m2 vs EUR 1,800/m2 price flip undermines the assumption that better = more expensive.",
+      "platform_meta": {
+        "subreddit": "r/greenbuilding",
+        "persona_type": "homeowner",
+        "mentions_biobuilds": "false"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "I run 3 Airbnb cabins in Transylvania. Two are conventional timber builds from 2019. One is a Passivhaus-certified modular cabin I added last year. The Passivhaus cabin has a 4.94 star rating from 187 reviews. The other two average 4.71 from 300+ reviews combined. Nobody mentions 'Passivhaus' in the reviews. They just keep writing 'the air feels different' and 'we actually slept through the night for once.'",
+      "angle": "An Airbnb host near Brasov compares guest experience data across three cabins on the same property. The two conventional cabins (40m2 each, double glazing, wood stove heating, no mechanical ventilation) have solid ratings but consistent complaints: cold floors in winter, stuffy air in summer, wood stove either too hot or not warm enough, guests waking up with headaches. The Passivhaus cabin (24m2, BioBuilds Nest, MVHR, triple glazing, heat pump) costs guests EUR 15/night more but has higher occupancy (74% vs 61%), higher review scores, and dramatically different review language. Host analyzed review text: conventional cabins get 'cozy' and 'rustic charm.' Passivhaus cabin gets 'the air,' 'silence,' 'slept amazingly,' 'didn't want to leave.' The host's theory: guests can't articulate building science, but their bodies register the difference. The MVHR-filtered air, stable temperature, 54 dB sound insulation, and absence of combustion particles from wood stoves creates a physiological comfort that shows up in sleep quality and next-morning reviews. Posts the revenue comparison: Passivhaus cabin at EUR 79 ADR, 74% occupancy = EUR 21,300/year. Conventional cabins at EUR 64 ADR, 61% occupancy = EUR 14,250/year each. The Passivhaus cabin cost EUR 48,000 all-in. Payback: 2.3 years. The conventional cabins cost EUR 32,000 each. Payback was 2.2 years, but the Passivhaus cabin generates EUR 7,050 more per year going forward. Mentions BioBuilds as the manufacturer when describing the cabin specs.",
+      "psychological_lever": "investment/roi",
+      "target_audience": "Airbnb hosts and hospitality entrepreneurs in Eastern Europe and the Balkans who operate or plan short-term rental cabins and optimize for guest experience scores, occupancy, and ADR without having considered that building performance directly affects review quality and pricing power",
+      "differentiation": "Only hook that uses GUEST REVIEW LANGUAGE as evidence of living experience quality. No previous hook has analyzed Airbnb review text patterns across different building types on the same property. The insight that guests can't name 'Passivhaus' but consistently describe the effects ('the air feels different,' 'slept through the night') is novel and compelling. Different from Nov 9 h05 (Airbnb host, single cabin perspective) by comparing THREE cabins on the SAME property with quantified rating, occupancy, and revenue differences. The 4.94 vs 4.71 rating gap and EUR 7,050/year revenue gap are specific and verifiable. Romania/Transylvania angle is central. Mentions BioBuilds naturally as manufacturer context.",
+      "platform_meta": {
+        "subreddit": "r/Airbnb",
+        "persona_type": "investor",
+        "mentions_biobuilds": "true"
+      }
+    }
+  ]
+}
