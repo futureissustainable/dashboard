@@ -1,0 +1,69 @@
+{
+  "platform": "instagram",
+  "date": "2026-11-10",
+  "pillar": "Living Experience",
+  "generated_at": "2026-11-10T03:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Gas prices just tripled. Our heating bill didn't move.",
+      "angle": "Winter 2026-27 energy crisis as emotional backdrop. EU gas benchmarks hit ~€97/MWh (nearly 3x last winter). Average families face €600+ extra this winter. Caption contrasts the anxiety of price-checking your energy provider against the calm of a BIOBUILDS family who forgot they have a heating bill. Ultra-short. The hook IS the caption. Let the image carry the rest.",
+      "psychological_lever": "cost savings",
+      "target_audience": "DACH families actively comparing build options, already aware of the energy crisis, scrolling while their current heating bill sits open in another tab",
+      "differentiation": "Anchored to a breaking news cycle (Oct 2026 gas price surge). Not a generic 'save money' pitch. The word 'tripled' does the emotional work. Present tense, happening now, not hypothetical.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "Split composition: left half shows a phone screen with a gas price alert notification or energy bill. Right half shows a BIOBUILDS living room, warm light, someone reading on the couch in a t-shirt. Winter visible through windows. The phone screen is the tension. The living room is the resolution.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "110 million Europeans can't sleep because of noise. We built walls that hear nothing.",
+      "angle": "EEA 2026 data: 110 million Europeans exposed to harmful noise pollution, 4.6 million highly sleep-disturbed. Caption reveals the invisible crisis of urban noise, then positions the 54 dB sound insulation and triple-glazed windows as the fix nobody knew existed. The Living Experience here is silence itself. The luxury of hearing your own thoughts.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Urban couples in Munich, Vienna, Bucharest who fall asleep to traffic noise and have normalized it. They don't know what silence sounds like anymore.",
+      "differentiation": "Only hook using noise/silence as the entry point. No other hook in recent batches has used the EEA noise data. Completely different sensory register from temperature or air quality hooks.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: Text overlay '110 million Europeans can't sleep because of noise' on a dark blue/night image of a city street with cars. Slide 2-3: Transition to a BIOBUILDS bedroom at night, total darkness, someone sleeping peacefully. Slide 4: Close-up of triple-glazed window with rain visible outside but silence implied inside. Slide 5: Morning light, the same person waking up naturally. No alarm. No traffic sound.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "She works from the kitchen table. The ceiling is solid oak. The air is filtered. The commute is 12 steps.",
+      "angle": "Remote work reality for the 13% of German workers and 70% of Romanian BioBuilds target audience (IT workers) who work from home. 72 minutes saved daily on commuting. But the twist: most people work from home in homes that weren't designed for living in full-time. VOC concentrations 2-5x higher indoors than outdoors. Caption reframes 'working from home' as 'your office is also your hospital if the air is bad.' Living Experience = the home that performs as well as you need to.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "Romanian IT professionals and DACH remote/hybrid workers, 30-40, who spend 8+ hours daily in a home that was designed for sleeping, not living",
+      "differentiation": "Only hook addressing remote work. Different from air quality hooks (Nov 9 h03) because it's framed through work productivity and daily routine, not parental fear. The specificity of 'kitchen table, oak ceiling, 12 steps' makes it feel like a scene, not a stat.",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A woman at a kitchen/dining table with a laptop, natural light flooding through floor-to-ceiling windows. Slatted wood ceiling visible. A coffee cup. A plant. Winter landscape outside. The mood is productive and calm, not corporate. Phone-quality preferred. Slightly messy table (real life). 4:5 vertical.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "47 million Europeans chose between heating and food last winter. That sentence should not exist in 2026.",
+      "angle": "European Commission warning (Oct 2026): 47 million Europeans face fuel poverty. This hook channels quiet outrage at a systemic failure. The Living Experience angle is inverted: instead of showing the dream, it names the nightmare that 47 million people live. Then the caption pivots to what 15 kWh/m2/year actually means for a family. Not a spec. A moral position. Caption stays short, punchy, and ends on the BIOBUILDS reality without preaching.",
+      "psychological_lever": "industry failure",
+      "target_audience": "Socially conscious couples across Europe, particularly those in the 'research phase' who respond to systemic criticism and want their purchase to mean something beyond personal comfort",
+      "differentiation": "The only hook rooted in moral outrage rather than personal benefit. No product in the hook at all. Pure emotional confrontation with a broken system. Completely different tone from all other hooks (which lead with contrast or personal benefit).",
+      "platform_meta": {
+        "format": "static",
+        "creative_suggestion": "A warm BIOBUILDS interior at dusk. A family eating dinner together, lit by warm light. Through the windows: a cold, dark winter evening. The image is peaceful, warm, abundant. The contrast between the caption's harsh reality and the image's warmth does the emotional work. No text overlay needed. Let the gap speak.",
+        "caption_length": "short"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "The first thing guests notice is the air. Nobody can explain it. Everyone feels it.",
+      "angle": "EXPERIMENTAL LEVER: material purity. Most indoor environments contain VOC concentrations 2-5x higher than outdoors (EU research 2026). But instead of leading with a scary stat, this hook leads with a lived sensory experience. The 'thing you can't name but your body recognizes.' Caption describes the 98% organic materials, zero-formaldehyde interiors, and 99% allergen filtration not as specs but as why your friends go quiet for a second when they walk in. Living Experience at its most primal: the air itself.",
+      "psychological_lever": "material purity",
+      "target_audience": "Health-conscious families who've already done some research on building materials, sensitive to wellness trends, the type who checks ingredients on food labels and would extend that logic to their home",
+      "differentiation": "The only hook that leads with a sensory mystery rather than a number or contrast. No stats in the hook itself. No confrontation. Pure curiosity and lived experience. The tone is almost whispered, intimate. Experimental because material purity hasn't been tested as a standalone lever in recent batches."
+    }
+  ]
+}
