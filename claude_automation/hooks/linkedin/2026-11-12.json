@@ -1,0 +1,66 @@
+{
+  "platform": "linkedin",
+  "date": "2026-11-12",
+  "pillar": "Living Experience",
+  "generated_at": "2026-11-12T03:00:00.000Z",
+  "status": "pending",
+  "hooks": [
+    {
+      "id": "h01",
+      "hook_text": "Every fifth German home has mold. Not because of bad luck. Because the walls can't breathe.",
+      "angle": "Post reveals how conventional construction traps moisture inside walls, creating mold in 1 in 5 German homes (German Environment Agency data). Contrasts with BioBuilds vapor-open wall assembly (sd 0.05 m membranes, ventilated rainscreen) that lets moisture pass through while maintaining 0.14 W/m2K performance. Includes a real anecdote from a DACH family who moved from a moldy rental to a BioBuilds module. Ends with: the wall that keeps you warm should also keep you dry.",
+      "psychological_lever": "health/indoor environment",
+      "target_audience": "DACH families currently renting or living in older homes with winter condensation and mold problems, 30-45, considering building",
+      "differentiation": "Mold angle is untouched in recent hooks. Nov 10 did PM2.5/sleep, Nov 9 did CO2 ppm. This targets a VISIBLE, emotionally charged housing problem (mold) that people in Germany deal with every winter, not an invisible metric. The lever is health but through a tactile, seasonal problem (damp walls in November) rather than abstract air quality data.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: hook text in bold white on dark background. Slides 2-5: thermal camera image of conventional wall showing moisture pockets vs BioBuilds vapor-open wall cross-section diagram. Slide 6: Pro Clima membrane detail. Slide 7-8: real photo of BioBuilds interior in winter, clean walls, no condensation. Final slide: provocative close."
+      }
+    },
+    {
+      "id": "h02",
+      "hook_text": "EUR 180 per month. That's what the average German family pays just to heat a house that makes them cold anyway.",
+      "angle": "Post opens with Euronews Oct 2026 data: average German household heating bill is EUR 180-240/month this winter, gas prices tripled, EU storage at record lows. But the real cost isn't the bill. It's the cold spots, the drafts at 3 AM, the thermostat war between partners. Contrasts with Passivhaus thermal envelope: no radiators, no cold walls, consistent 20-22C everywhere, EUR 12/month. The post isn't about saving money. It's about what thermal comfort actually feels like when you stop fighting your own house.",
+      "psychological_lever": "lifetime cost",
+      "target_audience": "German and Austrian homeowners on gas heating facing the third expensive winter in a row, frustrated by bills AND still feeling cold",
+      "differentiation": "Nov 11 h01 compared annual gas vs heat pump totals (EUR 1,180 vs 715). This hook flips it: the money is secondary to the EXPERIENCE of still being cold despite paying EUR 180/month. It's lifetime cost through the lens of thermal comfort betrayal, not a simple cost comparison. The emotional core is 'you're paying AND suffering' rather than just 'you're overpaying.'",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Real photo of a thermostat showing 18C in a conventional German Altbau living room with visible radiator. Contrast shot of BioBuilds interior in winter, no radiator visible, warm light, comfortable."
+      }
+    },
+    {
+      "id": "h03",
+      "hook_text": "112 million Europeans are exposed to noise levels that damage their health. Your home was supposed to be the escape.",
+      "angle": "Post uses EEA 2025 data: 112 million Europeans live with unhealthy noise, 66,000 premature deaths from chronic noise exposure. WHO says adverse effects start at 40 dB at night. Then pivots to the lie of the 'quiet home': most new builds in Romania and DACH achieve 30-35 dB reduction. A BioBuilds module measures 54 dB sound reduction, bringing interiors to 28 dB. The post tells the story of a Romanian IT couple who both work from home and couldn't take a call without closing three doors. Now they work in adjacent rooms with no noise bleed. The home isn't just shelter from weather. It should be shelter from the world.",
+      "psychological_lever": "silence/privacy",
+      "target_audience": "Remote workers and dual-income couples across Europe (Romania IT workers + DACH professionals) who work from home and experience noise as daily friction",
+      "differentiation": "Nov 10 h01 used silence through a decibel meter reading (28 dB vs library at 40). This hook starts OUTSIDE the home, with a continental health crisis (112M people, 66K deaths), then pulls inward to the personal scale. It's silence framed as a public health escape rather than a luxury feature. The protagonist is a working couple, not a general homeowner. Different emotional register: urgency vs calm.",
+      "platform_meta": {
+        "format": "text",
+        "creative_suggestion": "Split image: left side shows a busy Romanian or German street with traffic/noise indicators, right side shows the interior of a BioBuilds home, person on a video call, serene. No stock imagery."
+      }
+    },
+    {
+      "id": "h04",
+      "hook_text": "In Romania, 1 in 10 people live in homes with leaking roofs, damp walls, or rotting floors. In the EU's second-largest country by area.",
+      "angle": "Post uses European Commission 2026 Romania Housing Annex data: severe housing deprivation rate among highest in EU, with nearly 10% living in structurally compromised homes. Quality control in rural construction is 'almost absent.' Enforcement of accessibility and quality standards remains uneven. This isn't about poverty. Many of these are newly built homes by families who spent their savings on traditional construction with no oversight. Contrasts with factory-controlled BioBuilds process: every wall assembly tested, Passivhaus certified, no subcontractor roulette. The post is an honest look at why Romanian families are turning to modular. Not because it's trendy. Because traditional construction failed them.",
+      "psychological_lever": "industry failure",
+      "target_audience": "Romanian families 30-45 who have either experienced or witnessed traditional construction failures (delays, damp, cracks), especially IT professionals with savings to invest in a home",
+      "differentiation": "Nov 11 h03 used industry failure through construction stress statistics (85% stressed, 57% fatigue). This hook uses STRUCTURAL failure specific to Romania (leaking roofs, rotting floors, absent quality control) backed by EU Commission data. It's not about emotional stress but physical danger. The Romania angle is the primary frame, not secondary. No other recent hook has led with Romania-specific housing deprivation data.",
+      "platform_meta": {
+        "format": "carousel",
+        "creative_suggestion": "Slide 1: hook in bold. Slides 2-4: EU Commission data visualized (housing deprivation map, Romania highlighted). Slides 5-7: BioBuilds factory quality control process, airtightness testing, membrane installation. Final slide: 'Your home should outlast your mortgage. Does it?'"
+      }
+    },
+    {
+      "id": "h05",
+      "hook_text": "My neighbor asked me last week why I never open my windows. I told him I haven't needed to in four years.",
+      "angle": "Post is a quiet, personal founder story about the strangest part of living in a Passivhaus: you stop doing the things everyone considers normal. You don't open windows to 'air out.' You don't adjust the thermostat. You don't check the weather before deciding what to wear inside. The Zehnder MVHR cycles the entire air volume every two hours. CO2 stays below 800 ppm. Humidity sits at 45-55% year-round without a single humidifier or dehumidifier. The neighbor's confusion is the hook. The punchline is that the most advanced home in the neighborhood looks boring from the outside. It just works. Ends with: 'The best technology disappears. You only notice what it replaced.'",
+      "psychological_lever": "humor/absurdity",
+      "target_audience": "Architects, building professionals, and technically curious homeowners across all markets who appreciate the counterintuitive elegance of passive design",
+      "differentiation": "Nov 10 h03 used humor through a wife-not-dusting-windowsills anecdote. This uses a NEIGHBOR interaction, which is social and relatable in a different way. The absurdity is in the outsider's confusion, not a domestic detail. It's lighter, more conversational, and positions Passivhaus as so good it's invisible. No data in the hook itself. Pure story. The data serves the narrative in the body. Experimental: testing whether a no-number, pure-story hook outperforms data-led hooks for this pillar."
+      }
+    }
+  ]
+}
